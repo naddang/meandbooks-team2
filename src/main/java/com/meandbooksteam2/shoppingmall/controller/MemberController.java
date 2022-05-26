@@ -18,7 +18,7 @@ public class MemberController {
         return "/member/cart";
     }
 
-    @PostMapping("/member/login")
+    @GetMapping("/member/login")
     public String login(){
         return "/member/login";
     }
@@ -28,7 +28,7 @@ public class MemberController {
         return "/member/myOrders";
     }
 
-    @PostMapping("/member/register")
+    @GetMapping("/member/register")
     public String register(){
         return "/member/register";
     }
