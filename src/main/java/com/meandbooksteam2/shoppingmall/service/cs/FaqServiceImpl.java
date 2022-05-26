@@ -1,6 +1,6 @@
 package com.meandbooksteam2.shoppingmall.service.cs;
 
-import com.meandbooksteam2.shoppingmall.service.main.MainService;
+import com.meandbooksteam2.shoppingmall.service.member.main.MainService;
 
 import java.util.HashMap;
 import java.util.List;

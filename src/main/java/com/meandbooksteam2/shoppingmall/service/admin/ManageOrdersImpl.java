@@ -1,11 +1,12 @@
 package com.meandbooksteam2.shoppingmall.service.admin;
 
-import com.meandbooksteam2.shoppingmall.service.main.MainService;
+import com.meandbooksteam2.shoppingmall.service.member.main.MainService;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class ManageOrdersImpl implements MainService {
+
     @Override
     public int insert(HashMap param) {
         return 0;
