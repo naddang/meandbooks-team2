@@ -1,10 +1,12 @@
 package com.meandbooksteam2.shoppingmall.service.admin;
 
 import com.meandbooksteam2.shoppingmall.service.main.MainService;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 
+@Service
 public class ManageBookServiceImpl implements MainService {
     @Override
     public int insert(HashMap param) {

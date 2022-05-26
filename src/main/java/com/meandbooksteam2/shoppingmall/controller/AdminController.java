@@ -1,11 +1,13 @@
 package com.meandbooksteam2.shoppingmall.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /*관리자 페이지들의 요청을 처리하는 Controller 클래스입니다*/
 @Controller
 public class AdminController {
+
 
     @GetMapping("/admin")
     public String menu(){
