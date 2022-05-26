@@ -1,17 +1,15 @@
 package com.meandbooksteam2.shoppingmall.dao.admin;
 
+import com.meandbooksteam2.shoppingmall.dto.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Mapper
-public interface ManageMemberDao<E> {
-    int insert(HashMap<String,String> param);
-
-    List<E> read(HashMap<String,String> param);
-
-    int update(HashMap<String,String> param);
-
-    int delete(HashMap<String,String> param);
+public interface ManageMemberDao {
+    public List<MemberDto> listMember();
+    public void updateMember();
+    public MemberDto viewMember();
+    public List<MemberDto> searchMember();
 }
