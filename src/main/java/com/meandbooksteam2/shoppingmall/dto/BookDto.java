@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Setter
 public class BookDto {
     private String book_no;
-    private String book_title;
+    private String book_nm;
     private String book_desc;
     private String book_img;
     private String book_pub;

@@ -14,4 +14,6 @@ public class OrdersDto {
     private String orders_addr;
     private int orders_qty;
     private int orders_status;
+    private MemberDto member;
+    private BookDto book;
 }
