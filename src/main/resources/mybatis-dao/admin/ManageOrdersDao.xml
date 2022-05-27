@@ -3,6 +3,51 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.meandbooksteam2.shoppingmall.dao.admin.ManageOrdersDaoDao">
-
+<mapper namespace="com.meandbooksteam2.shoppingmall.dao.admin.ManageOrdersDao">
+    <!--주문 목록을 가져오는 쿼리-->
+    <select id="listOrders" parameterType="hashmap" resultType="map">
+        SELECT O.ORDERS_DATE
+             , O.ORDERS_NO
+             , M.MEM_UID
+             , B.BOOK_NO
+             , B.BOOK_NM
+             , O.ORDERS_QTY
+        FROM ORDERS "O" JOIN BOOK "B"
+                         ON O.BOOK_NO = B.BOOK_NO
+                       JOIN MEMBER "M"
+                         ON O.MEM_NO = M.MEM_NO
+    </select>
+    <!--회원 밴을 염두에 둔 쿼리-->
+    <update id="updateOrdersStatus" parameterType="hashmap">
+        UPDATE ORDERS SET ORDERS_STATUS = #{orders_status} WHERE ORDERS_NO=#{orders_no}
+    </update>
+    <!--keyword를 바인딩변수로 받아 검색하는 쿼리-->
+    <select id="searchOrders" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
+        SELECT O.ORDERS_DATE
+             , O.ORDERS_NO
+             , M.MEM_UID
+             , B.BOOK_NO
+             , B.BOOK_NM
+             , O.ORDERS_QTY
+        FROM ORDERS "O" JOIN BOOK "B"
+                            ON O.BOOK_NO = B.BOOK_NO
+                       JOIN MEMBER "M"
+                            ON O.MEM_NO = M.MEM_NO
+        WHERE M.MEM_UID LIKE CONCAT('%', #{keyword}, '%')
+           OR B.BOOK_NM LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+    <!--keyword를 바인딩변수로 받아 회원테이블에서 검색하는 쿼리-->
+    <select id="viewOrders" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
+        SELECT O.ORDERS_DATE
+             , O.ORDERS_NO
+             , M.MEM_UID
+             , B.BOOK_NO
+             , B.BOOK_NM
+             , O.ORDERS_QTY
+        FROM ORDERS "O" JOIN BOOK "B"
+                             ON O.BOOK_NO = B.BOOK_NO
+                        JOIN MEMBER "M"
+                             ON O.MEM_NO = M.MEM_NO
+        WHERE O.ORDERS_NO = #{order_no}
+    </select>
 </mapper>

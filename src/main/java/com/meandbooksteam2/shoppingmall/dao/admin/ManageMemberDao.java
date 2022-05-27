@@ -8,8 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface ManageMemberDao {
-    public List<MemberDto> listMember();
-    public void updateMember();
-    public MemberDto viewMember();
-    public List<MemberDto> searchMember();
+    public List<MemberDto> listMember(HashMap<String, String> param);
+    public void updateMember(HashMap<String, String> param);
+    public MemberDto viewMember(HashMap<String, String> param);
+    public List<MemberDto> searchMember(HashMap<String, String> param);
 }
