@@ -5,4 +5,92 @@
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.cs.NoticeServiceDao">
 
+    <!--문의 목록 - QnaQDto의 정보를 사용해서 목록으로 나타냄(답변은 개별 문의에 있으니까)-->
+    <select id="listQna" resultType="QnaQDto" parameterType="hashmap">
+        select q_no,
+               q_title,
+               q_content,
+               q_date,
+               q_cate
+        from qna_q
+        order by q_no desc
+    </select>
+
+    <!--문의 작성(회원이 작성) - 수정, 삭제에 필요한 비밀번호-->
+    <insert id="insertQnaQ" parameterType="hashmap">
+        insert into qna_q (q_title
+                         , q_content
+                         , q_pwd
+                         , q_date
+                         , q_cate)
+        values (#{q_title}
+              , #{q_content}
+              , #{q_pwd}
+              , sysdate()
+              , #{q_cate})
+    </insert>
+
+    <!--개별 문의 조회-->
+    <select id="viewQnaQ" parameterType="hashmap" resultType="QnaQDto">
+        select q_no,
+               q_title,
+               q_content,
+               q_date,
+               q_cate
+        from qna_q
+        where q_no = #{q_no}
+    </select>
+
+    <!--회원이 자기 문의 수정-->
+    <update id="updateQnaQStatus" parameterType="hashmap">
+        update qna_a set q_title = #{q_title}
+                        , q_content = #{q_content}
+                        , q_date = sysdate()
+                        , q_cate = #{q_cate}
+        where q_no = #{q_no}
+    </update>
+
+    <!--문의 작성시 입력한 비밀번호와 비교-->
+    <select id="checkQnaPW" parameterType="hashmap" resultType="_int">
+        select count(*) from qna_q where q_no=#{q_no} and q_pwd=#{q_pwd}
+    </select>
+
+    <!--관리자가 답변 작성-->
+    <insert id="insertQnaA" parameterType="hashmap">
+        insert into qna_a (q_no
+                         , a_content
+                         , a_date)
+        values (#{q_no}, #{a_content}, sysdate())
+    </insert>
+
+    <!--관리자가 답변 수정-->
+    <update id="updateQnaAStatus" parameterType="hashmap">
+        update qna_a set a_content = #{a_content}
+                       , a_date = sysdate()
+        where q_no = #{q_no} and a_no = #{a_no}
+    </update>
+
+    <!--개별 문의에 대한 관리자의 답변 조회-->
+    <select id="viewQnaA" parameterType="hashmap" resultType="QnaADto">
+        select a_content, a_date
+        from qna_a
+        where q_no = #{q_no} and a_no = #{a_no}
+    </select>
 </mapper>
+
+<!--
+QnaQ
+        private int q_no;
+        private int mem_no;
+        private String q_title;
+        private String q_content;
+        private String q_pwd;
+        private Timestamp q_date;
+        private int q_cate;
+
+QnaA
+        private int a_no;
+        private int q_no;
+        private int mem_no;
+        private String a_content;
+        private Timestamp a_date;-->

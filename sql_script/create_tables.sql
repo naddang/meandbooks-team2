@@ -1,4 +1,4 @@
-﻿CREATE TABLE `book` (
+CREATE TABLE `book` (
    `BOOK_NO` varchar(8) NOT NULL,
    `BOOK_NM` varchar(100) NOT NULL,
    `BOOK_DESC` varchar(3000) NOT NULL,

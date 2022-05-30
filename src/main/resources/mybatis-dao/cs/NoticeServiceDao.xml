@@ -5,4 +5,58 @@
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.cs.NoticeServiceDao">
 
+    <!--공지 작성 - 날짜 정보는 DateTime으로 테이블에 선언되어 있던데 디폴트 값으로 넣는지 여부에 따라 추가 예정-->
+    <insert id="insertNotice" parameterType="hashmap">
+        insert into notice
+            (noti_title
+            ,noti_content
+            ,noti_date)
+        value
+            (#{noti_title}
+            ,#{noti_content}
+            ,sysdate())
+    </insert>
+
+    <!--공지 삭제-->
+    <delete id="deleteNotice" parameterType="hashmap">
+        delete from notice where noti_no = #{noti_no}
+    </delete>
+
+    <!--공지 수정-->
+    <update id="updateNoticeStatus" parameterType="hashmap">
+        update notice set noti_title = #{noti_title}
+                        , noti_content = #{noti_content}
+                        , noti_date = sysdate()
+        where noti_no = #{noti_no}
+    </update>
+
+    <!--공지 목록 - 최신순으로 정렬-->
+    <select id="listNotice" parameterType="hashmap" resultType="NoticeDto">
+        select noti_no
+             , noti_title
+             , noti_content
+             , noti_date
+        from notice
+        order by noti_no desc
+    </select>
+
+    <!--개별 공지 조회-->
+    <select id="viewNotice" parameterType="hashmap" resultType="NoticeDto">
+        select noti_no
+             , noti_title
+             , noti_content
+             , noti_date
+        from notice
+        where noti_no = #{noti_no}
+    </select>
+
+    <!--검색으로 공지 조회-->
+    <select id="searchNotice" parameterType="hashmap" resultType="NoticeDto">
+        select noti_no
+             , noti_title
+             , noti_content
+             , noti_date
+        from notice
+        where noti_title like CONCAT('%',#{noti_title},'%')
+    </select>
 </mapper>
