@@ -19,4 +19,5 @@ public class BookDto {
     private int book_price;
     private int book_stock;
     private Timestamp book_pub_date;
+    private OrdersDto ordersDto;
 }

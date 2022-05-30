@@ -13,4 +13,5 @@ public class MeandbooksTeam2Application {
 		SpringApplication.run(MeandbooksTeam2Application.class, args);
 	}
 
+
 }

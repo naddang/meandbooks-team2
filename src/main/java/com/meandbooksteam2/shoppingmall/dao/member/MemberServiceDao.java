@@ -26,19 +26,19 @@ public interface MemberServiceDao {
     MemberDto viewMyInfo(HashMap<String,String> param);
 
     //내 정보 수정
-    int updateMyInfoStatus(HashMap<String,String> param);
+    int updateMyInfo(String mem_uid);
 
-    //탈퇴 눌렀을 때 액세서블 컬럼 변경하는 메소드가 따로 필요할까요?
-    int byebye(); //얘는 일단 보류
+    //Accessible 컬럼을 0으로 변경하여 접근하지 못하게함
+    int withdraw(HashMap<String,String> param);
 
     //내 주문목록 조회
-    List<OrdersDto> listMyOrders(HashMap<String,String> param);
+    List<OrdersDto> listMyOrders(String mem_uid);
 
     //나의 개별 주문 조회
     OrdersDto viewMyOrder(HashMap<String,String> param);
 
     //주문취소(관리자가 상태변경 전에 주문취소 가능하도록 할 거여서)
-    int cancleOrder(HashMap<String,String> param);
+    int cancelOrder(HashMap<String,String> param);
 
     //환불신청
     int refund(HashMap<String,String> param);
@@ -50,5 +50,9 @@ public interface MemberServiceDao {
     int refundNoMem(HashMap<String,String> param);
 
     //비회원 주문취소
-    int deleteNoMemOrder(HashMap<String,String> param);
+    int cancelNoMemOrder(HashMap<String,String> param);
+
+    public int getTodayRefund();
+    public int getTodayNoMemberRefund();
+    public int isAdmin(String mem_uid);
 }

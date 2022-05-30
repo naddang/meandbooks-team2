@@ -5,7 +5,7 @@
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.admin.ManageBookDao">
     <!--책 관리를 위해 리스트를 가져오는 쿼리-->
-    <select id="listBook" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.BookDto">
+    <select id="listBook" parameterType="hashmap" resultType="BookDto">
         SELECT BOOK_NO
              , BOOK_NM
              , BOOK_PRICE
@@ -18,7 +18,7 @@
         ORDER BY BOOK_NO DESC
     </select>
     <!--책 검색 쿼리-->
-    <select id="searchBook" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.BookDto">
+    <select id="searchBook" parameterType="hashmap" resultType="BookDto">
         SELECT BOOK_NO
              , BOOK_NM
              , BOOK_PRICE
@@ -32,7 +32,7 @@
         ORDER BY BOOK_NO DESC
     </select>
     <!--책 하나에대한 정보를 가져오는 쿼리-->
-    <select id="viewBook" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.BookDto">
+    <select id="viewBook" parameterType="hashmap" resultType="BookDto">
         SELECT BOOK_NO
              , BOOK_NM
              , BOOK_PRICE

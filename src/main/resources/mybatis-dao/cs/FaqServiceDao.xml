@@ -23,7 +23,7 @@
     </delete>
 
     <!--수정 - 카테고리 말고 제목이랑 내용만 수정하도록 했음-->
-    <update id="updateFaqStatus" parameterType="hasmap">
+    <update id="updateFaqStatus" parameterType="hashmap">
         update faq set faq_title = #{faq_title}
                      , faq_content = #{faq_content}
         where faq_no = #{faq_no}
