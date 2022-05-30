@@ -1,17 +1,22 @@
 package com.meandbooksteam2.shoppingmall.dao.cs;
 
+import com.meandbooksteam2.shoppingmall.dto.FaqDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Mapper
-public interface FaqServiceDao<E> {
-    int insert(HashMap<String,String> param);
+public interface FaqServiceDao {
+    //FAQ 작성
+    int insertFaq(HashMap<String,String> param);
 
-    List<E> read(HashMap<String,String> param);
+    //삭제
+    int deleteFaq(HashMap<String,String> param);
 
-    int update(HashMap<String,String> param);
+    //수정
+    int updateFaqStatus(HashMap<String,String> param);
 
-    int delete(HashMap<String,String> param);
+    //목록 조회
+    List<FaqDto> listFaq(HashMap<String,String> param);
 }
