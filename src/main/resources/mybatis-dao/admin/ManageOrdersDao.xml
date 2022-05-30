@@ -3,7 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.admin.ManageOrdersDao">
+    <resultMap id="Member" type="com.meandbooksteam2.shoppingmall.dto.MemberDto">
+        <result column="mem_uid" property="mem_uid"></result>
+    </resultMap>
+    <resultMap id="Book" type="com.meandbooksteam2.shoppingmall.dto.BookDto">
+        <result column="book_no" property="book_no"></result>
+        <result column="book_nm" property="book_nm"></result>
+    </resultMap>
     <!--주문 목록을 가져오는 쿼리-->
     <select id="listOrders" parameterType="hashmap" resultType="map">
         SELECT O.ORDERS_DATE
@@ -17,10 +25,12 @@
                        JOIN MEMBER "M"
                          ON O.MEM_NO = M.MEM_NO
     </select>
+
     <!--회원 밴을 염두에 둔 쿼리-->
     <update id="updateOrdersStatus" parameterType="hashmap">
         UPDATE ORDERS SET ORDERS_STATUS = #{orders_status} WHERE ORDERS_NO=#{orders_no}
     </update>
+
     <!--keyword를 바인딩변수로 받아 검색하는 쿼리-->
     <select id="searchOrders" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
         SELECT O.ORDERS_DATE
@@ -36,6 +46,7 @@
         WHERE M.MEM_UID LIKE CONCAT('%', #{keyword}, '%')
            OR B.BOOK_NM LIKE CONCAT('%', #{keyword}, '%')
     </select>
+
     <!--keyword를 바인딩변수로 받아 회원테이블에서 검색하는 쿼리-->
     <select id="viewOrders" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
         SELECT O.ORDERS_DATE

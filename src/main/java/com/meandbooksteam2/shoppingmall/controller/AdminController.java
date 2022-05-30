@@ -1,17 +1,17 @@
 package com.meandbooksteam2.shoppingmall.controller;
 
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
+import com.meandbooksteam2.shoppingmall.dto.MemberDto;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageBookServiceImpl;
+import com.meandbooksteam2.shoppingmall.service.admin.ManageMemberServiceImpl;
+import com.meandbooksteam2.shoppingmall.service.admin.ManageOrdersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +21,10 @@ public class AdminController {
 
     @Autowired
     ManageBookServiceImpl bookService;
+    @Autowired
+    ManageOrdersServiceImpl ordersService;
+    @Autowired
+    ManageMemberServiceImpl memberService;
 
     @GetMapping("admin")
     public String adminMain(){
@@ -69,22 +73,50 @@ public class AdminController {
     }
 
     @GetMapping("admin/member")
-    public String listMember(){
+    public String listMember(@RequestParam HashMap<String, String> param, Model model){
+
+        List<MemberDto> list = memberService.listMember(param);
+        model.addAttribute("list", list);
+
         return "admin/member/listMember";
     }
 
     @GetMapping("admin/member/updateMember")
-    public String updateMember(){
+    public String updateMember(@RequestParam HashMap<String, String> param, Model model){
+        model.addAttribute("member", memberService.viewMember(param));
         return "admin/member/updateMember";
     }
 
+    @GetMapping("admin/member/updateMember_ok")
+    public String updateMemberOk(@RequestParam HashMap<String, String> param, Model model){
+        int re = memberService.updateMember(param);
+        //정상적으로 한 건이 수정된 경우
+        if (re == 1){
+            return "admin/member/updateMember";
+        }else {
+            return "error";
+        }
+    }
+
     @GetMapping("admin/orders")
-    public String listOrders(){
+    public String listOrders(@RequestParam HashMap<String, String> param, Model model){
+        model.addAttribute("list", ordersService.listOrders(param));
         return "admin/orders/listOrders";
     }
 
     @GetMapping("admin/orders/updateOrders")
     public String updateOrders(){
         return "admin/orders/updateOrders";
+    }
+
+    @GetMapping("admin/orders/updateOrders_ok")
+    public String updateOrdersOk(@RequestParam HashMap<String, String> param, Model model){
+        int re = ordersService.updateOrdersStatus(param);
+        model.addAttribute("page", "1");
+        if (re == 1) {
+            return "redirect:admin/orders";
+        }else {
+            return "error";
+        }
     }
 }

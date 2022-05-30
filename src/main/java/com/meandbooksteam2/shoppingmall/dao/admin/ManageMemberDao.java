@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ManageMemberDao {
     public List<MemberDto> listMember(HashMap<String, String> param);
-    public void updateMember(HashMap<String, String> param);
+    public int updateMember(HashMap<String, String> param);
     public MemberDto viewMember(HashMap<String, String> param);
     public List<MemberDto> searchMember(HashMap<String, String> param);
 }
