@@ -14,9 +14,12 @@ public interface FaqServiceDao {
     //삭제
     int deleteFaq(HashMap<String,String> param);
 
+    //수정하기 위한 개별 FAQ 확인
+    FaqDto viewFaq(HashMap<String, String> param);
+
     //수정
     int updateFaqStatus(HashMap<String,String> param);
 
     //목록 조회
-    List<FaqDto> listFaq(HashMap<String,String> param);
+    List<FaqDto> listFaq();
 }

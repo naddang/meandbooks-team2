@@ -1,0 +1,12 @@
+.main-area {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+#title {
+    margin-bottom: 30px;
+}
+
+#btn-area {
+    text-align: center;
+}

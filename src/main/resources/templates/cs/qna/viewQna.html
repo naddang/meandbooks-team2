@@ -17,12 +17,17 @@
 
     <!-- Custom styles for this template -->
     <style>
-      textarea{
+      textarea {
         resize: none;
       }
 
       #btn-area {
         text-align: center;
+      }
+
+      a {
+        text-decoration: none;
+        color: #777;
       }
     </style>
 </head>
@@ -148,8 +153,14 @@
     <br>
 
     <form action="">
-      <div class="d-flex text-muted pt-3">
-          <input type="text" class="form-control" placeholder="댓글을 입력하세요.">
+      <div class="input-group has-validation">
+        <input type="text" class="form-control" placeholder="댓글을 입력하세요." required>
+        <span class="input-group-text">
+          <a href="">등록</a>
+        </span>
+        <div class="invalid-feedback">
+          required.
+        </div>
       </div>
     </form>
   </div>

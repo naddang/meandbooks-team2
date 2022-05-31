@@ -14,139 +14,53 @@
     
     <!-- Custom styles for this template -->
     <link href="/static/css/common.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+        #btn-area {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    
-<!-- 헤더 -->
-<nav class="py-2 bg-light border-bottom">
-  <div class="container d-flex flex-wrap">
-    <ul class="nav me-auto">
-      <li class="nav-item">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            About
-          </button>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
+<h2>상세 회원 정보</h2>
+<div class="table-responsive">
+    <form>
+        <table class="table table-light table-striped-columns">
+            <tbody>
+            <tr>
+                <th scope="col">회원번호</th>
+                <td>21212121</td>
+                <th scope="col">아이디</th>
+                <td>12121212</td>
+            </tr>
+            <tr>
+                <th scope="col">회원이름</th>
+                <td>2</td>
+                <th scope="col">전화번호</th>
+                <td>가나다라마바사아</td>
+            </tr>
+            <tr>
+                <th scope="col">이메일</th>
+                <td>아무개</td>
+                <th scope="col">마일리지</th>
+                <td>010-1234-5678</td>
+            </tr>
+            <tr>
+                <th scope="col">주소</th>
+                <td colspan="3">부산광역시 진구 부전동</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <div class="mb-3" id="btn-area">
+            <input class="btn btn-primary" type="button" value="이전화면">
+            <input class="btn btn-primary" type="submit" value="회원삭제">
+            <input class="btn btn-primary" type="submit" value="수정완료">
         </div>
-      </li>
-      &nbsp;&nbsp;&nbsp;
-      <li class="nav-item">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            Mall
-          </button>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
-      </li>
-      &nbsp;&nbsp;&nbsp;
-      <li class="nav-item">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            Mall
-          </button>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
-      </li>
-      &nbsp;&nbsp;&nbsp;
-      <li class="nav-item">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            C/S
-          </button>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-
-    <ul class="nav">
-      <li class="nav-item"><a href="./member/login.html" class="nav-link link-dark px-2">로그인</a></li>
-      <li class="nav-item"><a href="./member/resister.html" class="nav-link link-dark px-2">회원가입</a></li>
-      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">장바구니</a></li>
-    </ul>
-  </div>
-</nav>
-
-<header class="py-3 mb-4 border-bottom">
-  <div class="container d-flex flex-wrap justify-content-center">
-    <h1 class="fs-4">나와책 메인 로고 자리</h1>
-  </div>
-</header>
-
-<!-- 메인 -->
-
-
-  
-<!-- 푸터 -->
-<div class="container">
-  <footer class="row row-cols-5 py-5 my-5 border-top">
-    <div class="col">
-      <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      </a>
-      <p class="text-muted">&copy; 2021</p>
-    </div>
-
-    <div class="col">
-
-    </div>
-
-    <div class="col">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-      </ul>
-    </div>
-
-    <div class="col">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-      </ul>
-    </div>
-
-    <div class="col">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-      </ul>
-    </div>
-
-    <p>
-      <a href="#">Back to top</a>
-    </p>
-  </footer>
+    </form>
 </div>
 
     <!-- 부트스트랩 설정 -->

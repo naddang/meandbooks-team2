@@ -1,19 +1,49 @@
 package com.meandbooksteam2.shoppingmall.service.cs;
 
+import com.meandbooksteam2.shoppingmall.dao.cs.FaqServiceDao;
+import com.meandbooksteam2.shoppingmall.dto.FaqDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.List;
 
+@Service
 public class FaqServiceImpl {
-    public int insert(HashMap param) {
-        return 0;
+
+    FaqServiceDao dao;
+
+    @Autowired
+    public void setDao(FaqServiceDao dao) {
+        this.dao = dao;
     }
-    public List read(HashMap param) {
-        return null;
+
+    //FAQ 작성
+    public int insertFaq(HashMap<String,String> param) {
+
+        return dao.insertFaq(param);
     }
-    public int update(HashMap param) {
-        return 0;
+
+    //삭제
+    public int deleteFaq(HashMap<String,String> param) {
+
+        return dao.deleteFaq(param);
     }
-    public int delete(HashMap param) {
-        return 0;
+
+    //개별로 확인
+    public FaqDto viewFaq(HashMap<String, String> param) {
+        return dao.viewFaq(param);
+    }
+
+    //수정
+    public int updateFaqStatus(HashMap<String,String> param) {
+
+        return dao.updateFaqStatus(param);
+    }
+
+    //목록 조회
+    public List<FaqDto> listFaq() {
+
+        return dao.listFaq();
     }
 }

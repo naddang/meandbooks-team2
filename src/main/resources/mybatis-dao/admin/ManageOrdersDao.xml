@@ -12,6 +12,9 @@
         <result column="book_no" property="book_no"></result>
         <result column="book_nm" property="book_nm"></result>
     </resultMap>
+    <resultMap id="Orders" type="com.meandbooksteam2.shoppingmall.dto.OrdersDto">
+
+    </resultMap>
     <!--주문 목록을 가져오는 쿼리-->
     <select id="listOrders" parameterType="hashmap" resultType="map">
         SELECT O.ORDERS_DATE
@@ -20,9 +23,9 @@
              , B.BOOK_NO
              , B.BOOK_NM
              , O.ORDERS_QTY
-        FROM `ORDERS` "O" JOIN BOOK "B"
+        FROM `ORDERS` O JOIN BOOK B
                          ON O.BOOK_NO = B.BOOK_NO
-                       JOIN MEMBER "M"
+                       JOIN MEMBER M
                          ON O.MEM_NO = M.MEM_NO
     </select>
 
@@ -39,9 +42,9 @@
              , B.BOOK_NO
              , B.BOOK_NM
              , O.ORDERS_QTY
-        FROM ORDERS "O" JOIN BOOK "B"
+        FROM ORDERS O JOIN BOOK B
                             ON O.BOOK_NO = B.BOOK_NO
-                       JOIN MEMBER "M"
+                       JOIN MEMBER M
                             ON O.MEM_NO = M.MEM_NO
         WHERE M.MEM_UID LIKE CONCAT('%', #{keyword}, '%')
            OR B.BOOK_NM LIKE CONCAT('%', #{keyword}, '%')
@@ -55,9 +58,9 @@
              , B.BOOK_NO
              , B.BOOK_NM
              , O.ORDERS_QTY
-        FROM ORDERS "O" JOIN BOOK "B"
+        FROM ORDERS O JOIN BOOK B
                              ON O.BOOK_NO = B.BOOK_NO
-                        JOIN MEMBER "M"
+                        JOIN MEMBER M
                              ON O.MEM_NO = M.MEM_NO
         WHERE O.ORDERS_NO = #{order_no}
     </select>

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.meandbooksteam2.shoppingmall.dao.cs.NoticeServiceDao">
+<mapper namespace="com.meandbooksteam2.shoppingmall.dao.cs.QnaServiceDao">
 
     <!--문의 목록 - QnaQDto의 정보를 사용해서 목록으로 나타냄(답변은 개별 문의에 있으니까)-->
     <select id="listQna" resultType="QnaQDto" parameterType="hashmap">
@@ -43,7 +43,7 @@
 
     <!--회원이 자기 문의 수정-->
     <update id="updateQnaQStatus" parameterType="hashmap">
-        update qna_a set q_title = #{q_title}
+        update qna_q set q_title = #{q_title}
                         , q_content = #{q_content}
                         , q_date = sysdate()
                         , q_cate = #{q_cate}
@@ -54,6 +54,11 @@
     <select id="checkQnaPW" parameterType="hashmap" resultType="_int">
         select count(*) from qna_q where q_no=#{q_no} and q_pwd=#{q_pwd}
     </select>
+
+    <!--문의 질문 삭제-->
+    <delete id="deleteQnaQ" parameterType="hashmap">
+        delete from qna_q where q_no=#{q_no}
+    </delete>
 
     <!--관리자가 답변 작성-->
     <insert id="insertQnaA" parameterType="hashmap">
@@ -67,15 +72,20 @@
     <update id="updateQnaAStatus" parameterType="hashmap">
         update qna_a set a_content = #{a_content}
                        , a_date = sysdate()
-        where q_no = #{q_no} and a_no = #{a_no}
+        where q_no = #{q_no}
     </update>
 
     <!--개별 문의에 대한 관리자의 답변 조회-->
     <select id="viewQnaA" parameterType="hashmap" resultType="QnaADto">
         select a_content, a_date
         from qna_a
-        where q_no = #{q_no} and a_no = #{a_no}
+        where q_no = #{q_no}
     </select>
+
+    <!--문의 답변 삭제-->
+    <delete id="deleteQnaA" parameterType="hashmap">
+        delete from qna_a where a_no=#{a_no} or q_no=#{q_no}
+    </delete>
 </mapper>
 
 <!--

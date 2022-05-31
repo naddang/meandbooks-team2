@@ -24,9 +24,9 @@
              , O.ORDERS_PHONENO
              , O.ORDERS_ADDR1
              , O.ORDERS_ADDR2
-             , O.ORDERS_ADDR3,
+             , O.ORDERS_ADDR3
              , O.ORDERS_DATE
-             , O.ORDER_QTY
+             , O.ORDERS_QTY
           FROM ORDERS "O" JOIN BOOK "B"
          WHERE ORDERS_NO = #{orders_no}
     </select>
@@ -56,9 +56,9 @@
              , O.ORDERS_PHONENO
              , O.ORDERS_ADDR1
              , O.ORDERS_ADDR2
-             , O.ORDERS_ADDR3,
+             , O.ORDERS_ADDR3
              , O.ORDERS_DATE
-             , O.ORDER_QTY
+             , O.ORDERS_QTY
           FROM ORDERS "O" JOIN BOOK "B"
             ON O.BOOK_NO = B.BOOK_NO
           JOIN MEMBER "M"

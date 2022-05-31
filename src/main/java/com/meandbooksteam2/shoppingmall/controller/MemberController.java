@@ -1,5 +1,6 @@
 package com.meandbooksteam2.shoppingmall.controller;
 
+import com.meandbooksteam2.shoppingmall.service.member.CartService;
 import com.meandbooksteam2.shoppingmall.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /*개인정보 관련 페이지들의 요청을 처리하는 Controller 클래스입니다*/
@@ -18,6 +20,13 @@ public class MemberController {
 
     //의존 주입
     MemberService service;
+    CartService cartService;
+
+    @Autowired
+    public void setCartService(CartService cartService) {
+        this.cartService = cartService;
+    }
+
     @Autowired
     public void setService(MemberService service) {this.service = service;}
 
@@ -28,7 +37,29 @@ public class MemberController {
 
     @GetMapping("member/cart")
     public String cart(HashMap<String, String> param, Model model){
+        model.addAttribute("list", cartService.listCart(param));
         return "member/cart";
+    }
+
+    @GetMapping("member/updateCart")
+    public String updateCart(HashMap<String, String> param) {
+        int re = cartService.updateCartStatus(param);
+
+        if (re == 1){
+            return "redirect:member/cart";
+        }else {
+            return "redirect:error";
+        }
+    }
+
+    @GetMapping("member/deleteCart")
+    public String deleteCart(HashMap<String, String> param) {
+        int re = cartService.deleteCart(param);
+        if (re == 1){
+            return "redirect:member/cart";
+        }else {
+            return "redirect:error";
+        }
     }
 
     @GetMapping("member/login")

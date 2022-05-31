@@ -48,7 +48,9 @@
               ,mem_pwd
               ,mem_nm
               ,mem_phoneNo
-              ,mem_addr
+              ,mem_addr1
+              ,mem_addr2
+              ,mem_addr3
               ,mem_email
               ,mem_mileage
         from member where mem_uid=#{mem_uid}
@@ -57,13 +59,15 @@
     <!--내 정보 수정(일단 탈퇴도 여기 넣어놨음 - 어떻게 할지 고민)-->
     <update id="updateMyInfo" parameterType="hashmap">
         update member set mem_phoneNo = #{mem_phoneNo}
-                         ,mem_addr = #{mem_addr}
+                         ,mem_addr1 = #{mem_addr1}
+                         ,mem_addr2 = #{mem_addr2}
+                         ,mem_addr3 = #{mem_addr3}
                          ,mem_email = #{mem_email}
         where mem_uid = #{mem_uid}
     </update>
 
     <update id="withdraw" parameterType="hashmap">
-        update member set accessible = 1 where mem_uid= #{mem_uid}
+        update member set `accessible` = 1 where mem_uid= #{mem_uid}
     </update>
 
     <!--내 주문목록 조회 - 리스트는 어떻게 할지 고민-->
@@ -101,7 +105,9 @@
              , b.book_author
              , o.orders_nm
              , o.orders_phoneNo
-             , o.orders_addr
+             , o.orders_addr1
+             , o.orders_addr2
+             , o.orders_addr3
              , o.orders_qty
              , o.orders_status
         from orders o join book b
@@ -144,12 +150,13 @@
              , b.book_author
              , n.orders_nm
              , n.orders_phoneNo
-             , n.orders_addr
+             , n.orders_addr1
+             , n.orders_addr2
+             , n.orders_addr3
              , n.orders_qty
              , n.orders_status
         from book b join no_mem_orders n
-        on b.book_no = o.book_no
-        where o.mem_no = #{mem_no}
+        on b.book_no = n.book_no
     </select>
     <!--비회원 주문조회 - resultMap 사용 끝-->
 
@@ -160,8 +167,8 @@
         ,orders_no
         ,refund_desc)
         values
-            (#{?}
-            ,#{?}
+            (#{refund_no}
+            ,#{orders_no}
             ,#{refund_desc})
     </insert>
 

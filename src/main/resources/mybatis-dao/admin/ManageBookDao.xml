@@ -27,7 +27,7 @@
              , BOOK_PUB
              , BOOK_AUTHOR
         FROM BOOK
-        WHERE BOOK_NAME LIKE CONCAT('%', #{keyword}, '%')
+        WHERE BOOK_NM LIKE CONCAT('%', #{keyword}, '%')
         OR BOOK_AUTHOR LIKE CONCAT('%', #{keyword}, '%')
         ORDER BY BOOK_NO DESC
     </select>

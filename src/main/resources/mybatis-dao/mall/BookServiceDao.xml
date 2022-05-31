@@ -15,7 +15,7 @@
              , B.BOOK_PUB
              , B.BOOK_PRICE
              , B.BOOK_NO
-          FROM orders "O"
+          FROM orders O
               JOIN book b on b.BOOK_NO = O.BOOK_NO
     </select>
     <select id="listCateBest" resultType="BookDto" parameterType="hashmap">

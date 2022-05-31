@@ -6,36 +6,36 @@
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.admin.ManageMemberDao">
     <!--회원 목록을 가져오는 쿼리-->
     <select id="listMember" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
-        SELECT MEMBER_NO
-             , MEMBER_UID
-             , MEMBER_NM
+        SELECT MEM_NO
+             , MEM_UID
+             , MEM_NM
              , MEM_EMAIL
-             , MEM_ACCESSIBLE
+             , `ACCESSIBLE`
         FROM MEMBER
     </select>
     <!--회원 밴을 염두에 둔 쿼리-->
     <update id="updateMember" parameterType="hashmap">
-        UPDATE MEMBER SET ACCESSIBLE = #{accessible} WHERE MEMBER_NO=#{member_no}
+        UPDATE MEMBER SET `ACCESSIBLE` = #{accessible} WHERE MEM_NO=#{member_no}
     </update>
     <!--회원번호를 바인딩 변수로 넣어 한 회원의 정보를 가져오는 쿼리-->
     <select id="viewMember" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
-        SELECT MEMBER_NO
-             , MEMBER_UID
-             , MEMBER_NM
+        SELECT MEM_NO
+             , MEM_UID
+             , MEM_NM
              , MEM_EMAIL
-             , MEM_ACCESSIBLE
+             , `ACCESSIBLE`
         FROM MEMBER
-        WHERE MEMBER_NO = #{member_no}
+        WHERE MEM_NO = #{mem_no}
     </select>
     <!--keyword를 바인딩변수로 받아 회원테이블에서 검색하는 쿼리-->
     <select id="searchMember" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
-        SELECT MEMBER_NO
-             , MEMBER_UID
-             , MEMBER_NM
+        SELECT MEM_NO
+             , MEM_UID
+             , MEM_NM
              , MEM_EMAIL
-             , MEM_ACCESSIBLE
+             , `ACCESSIBLE`
         FROM MEMBER
-        WHERE MEMBER_UID LIKE CONCAT('%', #{keyword}, '%')
-        OR MEMBER_NM LIKE CONCAT('%', #{keyword}, '%')
+        WHERE MEM_UID LIKE CONCAT('%', #{keyword}, '%')
+        OR MEM_NM LIKE CONCAT('%', #{keyword}, '%')
     </select>
 </mapper>

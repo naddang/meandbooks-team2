@@ -14,6 +14,20 @@
     
     <!-- Custom styles for this template -->
     <link href="/static/css/common.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      .main-area {
+        max-width: 1140px;
+        min-height: 600px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      #btn-area {
+        text-align: center;
+      }
+    </style>
 </head>
 <body>
     
@@ -94,7 +108,17 @@
 
 <!-- 메인 -->
 
-
+<main class="main-area">
+  <div id="msg-box">
+    <h1>주문에 성공했습니다.</h1>
+  </div>
+  <form>
+    <div class="mb-3" id="btn-area">
+      <input class="btn btn-primary" type="submit" value="계속쇼핑">
+      <input class="btn btn-primary" type="button" value="메인으로">
+    </div>
+  </form>
+</main>
   
 <!-- 푸터 -->
 <div class="container">

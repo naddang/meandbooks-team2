@@ -18,11 +18,13 @@ public interface NoticeServiceDao {
     int updateNoticeStatus(HashMap<String,String> param);
 
     //공지 목록
-    List<NoticeDto> listNotice(HashMap<String,String> param);
+//    List<NoticeDto> listNotice(HashMap<String,String> param); - 페이징 처리 때 사용
+    List<NoticeDto> listNotice();
 
     //개별 공지 조회
     NoticeDto viewNotice(HashMap<String,String> param);
 
     //검색으로 공지 조회
-    List<NoticeDto> searchNotice(HashMap<String,String> param);
+//    List<NoticeDto> searchNotice(HashMap<String,String> param); - 페이징 처리 때 사용
+    List<NoticeDto> searchNotice();
 }

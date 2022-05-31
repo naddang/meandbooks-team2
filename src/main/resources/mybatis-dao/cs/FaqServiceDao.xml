@@ -22,6 +22,11 @@
         delete from faq where faq_no = #{faq_no}
     </delete>
 
+    <!--수정을 위해서 개별 FAQ 확인-->
+    <select id="viewFaq" parameterType="hashmap" resultType="FaqDto">
+        select faq_cate, faq_title, faq_content from faq where faq_no = #{faq_no}
+    </select>
+
     <!--수정 - 카테고리 말고 제목이랑 내용만 수정하도록 했음-->
     <update id="updateFaqStatus" parameterType="hashmap">
         update faq set faq_title = #{faq_title}
@@ -30,7 +35,7 @@
     </update>
 
     <!--목록 조회 - 정렬은 안시켰음-->
-    <select id="listFaq" parameterType="hashmap" resultType="FaqDto">
+    <select id="listFaq" resultType="FaqDto">
         select faq_cate
               ,faq_title
               ,faq_content

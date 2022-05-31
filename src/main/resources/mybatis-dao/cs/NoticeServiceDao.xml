@@ -14,7 +14,7 @@
         value
             (#{noti_title}
             ,#{noti_content}
-            ,sysdate())
+            ,SYSDATE())
     </insert>
 
     <!--공지 삭제-->

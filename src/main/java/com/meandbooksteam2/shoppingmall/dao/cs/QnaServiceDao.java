@@ -10,7 +10,8 @@ import java.util.List;
 @Mapper
 public interface QnaServiceDao {
     //문의 목록
-    List<QnaQDto> listQna(HashMap<String,String> param);
+//    List<QnaQDto> listQna(HashMap<String,String> param); - 페이징 처리에서 사용
+    List<QnaQDto> listQna();
 
     //문의 작성(회원이 작성 - 게시물에 수정, 삭제에 필요한 비밀번호 입력)
     int insertQnaQ(HashMap<String,String> param);
@@ -24,6 +25,9 @@ public interface QnaServiceDao {
     //문의 작성시 입력한 비밀번호와 비교
     int checkQnaPW(HashMap<String,String> param);
 
+    //질문 삭제
+    int deleteQnaQ(HashMap<String, String> param);
+
     //관리자가 답변 작성
     int insertQnaA(HashMap<String,String> param);
 
@@ -32,4 +36,7 @@ public interface QnaServiceDao {
 
     //개별 문의에 대한 관리자의 답변 조회
     QnaADto viewQnaA(HashMap<String,String> param);
+
+    //문의 답변 삭제
+    int deleteQnaA(HashMap<String, String> param);
 }
