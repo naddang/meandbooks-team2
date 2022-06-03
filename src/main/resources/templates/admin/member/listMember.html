@@ -1,91 +1,77 @@
 <!doctype html>
-<!-- thymeleaf 적용 -->
-<html xmlns:th="http://www.thymeleaf.org"> 
-<nav th:replace="fragments/nav::navFragment">
-</nav>
-<head th:replace="fragments/head::headFragment">
-</head>
-<body>
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" th:replace="fragments/header::headerFragment">
-</header>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/adminLayout">
 
-<div class="container-fluid" th:replace="fragments/adminside :: sideFragment">
-</div>    
-<!-- Main 화면 -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <!-- 회원 리스트 -->
-        <div class="table-responsive">
-          <form>
-          <table class="table table-hover">
-            <colgroup>
-              <col width="10%"/>
-              <col width="10%"/>
-              <col width="10%"/>
-              <col width="10%"/>
-              <col width="25%"/>
-              <col width="15%"/>
-              <col width="10%"/>
-              <col width="10%"/>
-            </colgroup>
-            <thead class="thead-light bg-info">
-            <tr>
-              <th scope="col">회원번호</th>
-              <th scope="col">아이디</th>
-              <th scope="col">회원이름</th>
-              <th scope="col">전화번호</th>
-              <th scope="col">주소</th>
-              <th scope="col">이메일</th>
-              <th scope="col">마일리지</th>
-              <th scope="col">정보관리</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>000-0000-0000</td>
-              <td>부산광역시</td>
-              <td>c@c.com</td>
-              <td>1,000</td>
-              <td>
-                <input type="button" value="정보관리">
-              </td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>000-0000-0000</td>
-              <td>부산광역시</td>
-              <td>c@c.com</td>
-              <td>1,000</td>
-              <td>
-                <input type="button" value="정보관리">
-              </td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>000-0000-0000</td>
-              <td>부산광역시</td>
-              <td>c@c.com</td>
-              <td>1,000</td>
-              <td>
-                <input type="button" value="정보관리">
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          </form>
-        </div>
-        
-        </main>
-        <footer th:replace="fragments/footer :: footerFragment"></footer>
-<!-- 부트스트랩 설정 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-<script src="../../static/js/dashboard.js"></script>
-</body>
+<th:block layout:fragment="css">
+  <style>
+    .table {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .input-group {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  </style>
+</th:block>
+
+<th:block layout:fragment="script">
+  <script>
+
+  </script>
+</th:block>
+
+<div layout:fragment="content">
+  <br>
+  <div class="input-group mb-3">
+    <input type="search" class="form-control" placeholder="검색어 입력" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+  </div>
+  <div class="table-responsive">
+    <form>
+      <table class="table table-bordered table-hover">
+        <colgroup>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="25%"/>
+          <col width="15%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+        </colgroup>
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">회원번호</th>
+          <th scope="col">아이디</th>
+          <th scope="col">회원이름</th>
+          <th scope="col">전화번호</th>
+          <th scope="col">주소</th>
+          <th scope="col">이메일</th>
+          <th scope="col">마일리지</th>
+          <th scope="col">정보관리</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" member : ${list}">
+          <td th:text="${member.mem_no}">1,001</td>
+          <td th:text="${member.mem_uid}">random</td>
+          <td th:text="${member.mem_nm}">data</td>
+          <td th:text="${member.mem_phoneNo}">000-0000-0000</td>
+          <td th:text="|${member.mem_addr1} ${member.mem_addr2} ${member.mem_addr3}|">부산광역시</td>
+          <td th:text="${member.mem_email}">c@c.com</td>
+          <td th:text="${member.mem_mileage}">1,000</td>
+          <td>
+            <a class="btn btn-primary" th:href="@{/admin/member/updateMember(mem_no=${member.mem_no})}">정보관리</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <br>
+    </form>
+  </div>
+</div>
+
 </html>
