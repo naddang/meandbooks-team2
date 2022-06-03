@@ -115,7 +115,7 @@
 
     <div class="mb-3">
       <label for="exampleFormControlTextarea" class="form-label">글 내용</label>
-      <textarea class="form-control" id="exampleFormControlTextarea" rows="10" th:value="${view.noti_contnet}" th:name="noti_contnet"></textarea>
+      <textarea class="form-control" id="exampleFormControlTextarea" rows="10" th:value="${view.noti_contnet}" th:name="noti_contnet" th:text="${view.noti_contnet}"></textarea>
     </div>
 
     <div class="mb-3" id="btn-area">

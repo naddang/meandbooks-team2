@@ -4,6 +4,7 @@ import com.meandbooksteam2.shoppingmall.dto.QnaADto;
 import com.meandbooksteam2.shoppingmall.dto.QnaQDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface QnaServiceDao {
     //문의 목록
 //    List<QnaQDto> listQna(HashMap<String,String> param); - 페이징 처리에서 사용
-    List<QnaQDto> listQna();
+//    List<QnaQDto> listQna();
 
     //문의 작성(회원이 작성 - 게시물에 수정, 삭제에 필요한 비밀번호 입력)
     int insertQnaQ(HashMap<String,String> param);
@@ -39,4 +40,15 @@ public interface QnaServiceDao {
 
     //문의 답변 삭제
     int deleteQnaA(HashMap<String, String> param);
+
+    //관리자가 보는 qna 목록
+    List<QnaQDto> adminListQna(QnaQDto params);
+
+    int selectQnaTotalCount(QnaQDto params);
+
+    //회원이 보는 qna 목록
+    List<QnaQDto> memListQna(String mem_no);
+
+    //답변 상태 수정
+    int updateAccessLevel(HashMap<String, String> param);
 }

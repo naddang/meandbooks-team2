@@ -1,11 +1,14 @@
 package com.meandbooksteam2.shoppingmall.service.cs;
 
 import com.meandbooksteam2.shoppingmall.dao.cs.QnaServiceDao;
+import com.meandbooksteam2.shoppingmall.dto.PaginationInfo;
 import com.meandbooksteam2.shoppingmall.dto.QnaADto;
 import com.meandbooksteam2.shoppingmall.dto.QnaQDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,9 +24,9 @@ public class QnaServiceImpl {
 
     //문의 목록
 //    List<QnaQDto> listQna(HashMap<String,String> param) { - 페이징 처리할 때 사용
-    public List<QnaQDto> listQna() {
-        return dao.listQna();
-    }
+//    public List<QnaQDto> listQna() {
+//        return dao.listQna();
+//    }
 
     //문의 작성(회원이 작성 - 게시물에 수정, 삭제에 필요한 비밀번호 입력)
     public int insertQnaQ(HashMap<String,String> param) {
@@ -55,6 +58,11 @@ public class QnaServiceImpl {
         return dao.insertQnaA(param);
     }
 
+    //답변 상태 수정
+    public int updateAccessLevel(HashMap<String, String> param) {
+        return dao.updateAccessLevel(param);
+    }
+
     //관리자가 답변 수정
     public int updateQnaAStatus(HashMap<String, String> param) {
         return dao.updateQnaAStatus(param);
@@ -68,5 +76,26 @@ public class QnaServiceImpl {
     //문의 답변 삭제
     public int deleteQnaA(HashMap<String, String> param) {
         return dao.deleteQnaA(param);
+    }
+
+    public List<QnaQDto> memListQna(String mem_no) {
+        return dao.memListQna(mem_no);
+    }
+
+    public List<QnaQDto> adminListQna(QnaQDto params) {
+        List<QnaQDto> list = Collections.emptyList();
+
+        int qnaTotalCount = dao.selectQnaTotalCount(params);
+
+        PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(qnaTotalCount);
+
+        params.setPaginationInfo(paginationInfo);
+
+        if (qnaTotalCount > 0) {
+            list = dao.adminListQna(params);
+        }
+
+        return list;
     }
 }

@@ -1,8 +1,6 @@
 package com.meandbooksteam2.shoppingmall.controller;
 
-import com.meandbooksteam2.shoppingmall.dto.FaqDto;
-import com.meandbooksteam2.shoppingmall.dto.NoticeDto;
-import com.meandbooksteam2.shoppingmall.dto.QnaQDto;
+import com.meandbooksteam2.shoppingmall.dto.*;
 import com.meandbooksteam2.shoppingmall.service.cs.FaqServiceImpl;
 import com.meandbooksteam2.shoppingmall.service.cs.NoticeServiceImpl;
 import com.meandbooksteam2.shoppingmall.service.cs.QnaServiceImpl;
@@ -10,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,54 +41,68 @@ public class CsController {
     
     /*FAQ 시작*/
 
-    /*FAQ 목록으로 이동*/
+    /*FAQ 목록으로 이동 - 완, 꾸미기 미완성*/
     @GetMapping("cs/faq")
     public String faq(Model model) {
-        List<FaqDto> listFaq = faqService.listFaq();
-        model.addAttribute("list", listFaq);
+        List<FaqDto> list = faqService.listFaq();
+        model.addAttribute("list", list);
         return "cs/faq/listFaq";
     }
 
-    /*FAQ 작성 페이지로 - 작성 이후에는 목록으로 이동*/
+    /*FAQ 작성 페이지로 이동 - 완*/
     @GetMapping("cs/faq/writeFaq")
-    public String writeFaq(@RequestParam HashMap<String, String> param) {
-        int result = faqService.insertFaq(param);
-
-        if (result == 1) {
-            return "redirect:cs/faq";
+    public String writeFaq(HttpSession session) {
+        if (session.getAttribute("isAdmin").toString().equals("1")) {
+            return "cs/faq/writeFaq";
         } else {
-            return "redirect:cs/faq/writeFaq";
+            return "/";
         }
     }
 
-    /*FAQ 삭제 - 성공하면 목록, 실패하면 어디로 갈까...*/
+    /*FAQ 작성 완료 - 작성 이후에는 목록으로 이동 - 완*/
+    @GetMapping("cs/faq/writeFaq_ok")
+    public String writeFaqOk(@RequestParam HashMap<String, String> param) {
+        int result = faqService.insertFaq(param);
+
+        if (result == 1) {
+            return "redirect:/cs/faq";
+        } else {
+            return "redirect:/cs/faq/writeFaq";
+        }
+    }
+
+    /*FAQ 삭제 - 성공하면 목록, 실패하면 어디로 갈까... - 완*/
     @GetMapping("cs/faq/deleteFaq")
     public String deleteFaq(@RequestParam HashMap<String, String> param) {
         int result = faqService.deleteFaq(param);
 
         if (result == 1) {
-            return "redirect:cs/faq";
+            return "redirect:/cs/faq";
         } else {
             return "error";
         }
     }
 
-    /*선택한 FAQ의 내용을 보여주고, 수정 가능하도록 하는 페이지*/
+    /*선택한 FAQ의 내용을 보여주고, 수정 가능하도록 하는 페이지 - 완*/
     @GetMapping("cs/faq/updateFaq")
-    public String updateFaq(@RequestParam HashMap<String, String> param, Model model) {
-        model.addAttribute("faq", faqService.viewFaq(param));
-        return "cs/faq/updateFaq";
+    public String updateFaq(@RequestParam HashMap<String, String> param, Model model, HttpSession session) {
+        if (session.getAttribute("isAdmin").toString().equals("1")) {
+            model.addAttribute("view", faqService.viewFaq(param));
+            return "cs/faq/updateFaq";
+        }else {
+            return "/";
+        }
     }
 
-    /*수정이 성공하면 리스트로 가고 아니면 다시 수정 화면으로*/
+    /*수정이 성공하면 리스트로 가고 아니면 다시 수정 화면으로 - 완*/
     @GetMapping("cs/faq/updateFaq_ok")
     public String updateFaqOk(@RequestParam HashMap<String, String> param) {
         int result = faqService.updateFaqStatus(param);
 
         if (result == 1) {
-            return "redirect:cs/faq/listFaq";
+            return "redirect:/cs/faq";
         } else {
-            return "redirect:cs/faq/updateFaq";
+            return "redirect:/cs/faq/updateFaq?faq_no="+param.get("faq_no");
         }
     }
     
@@ -96,151 +110,212 @@ public class CsController {
 
     /*--------Notice 시작--------*/
 
-    /*공지사항 목록으로 이동 - 이거 페이징 처리 해야하는데 어떻게 해야할지 잘 모르겠음*/
-    /*매개변수 달아놓은 이유가 페이징 때문에 달아둠*/
+    /*공지 목록으로 - 페이징 완료, 검색 기능 넣으면 오류*/
     @GetMapping("cs/notice")
-//    public String listNotice(@RequestParam HashMap<String, String> param, Model model){ - 페이징 처리할 때 사용
-    public String listNotice(Model model) {
-//        List<NoticeDto> listNotice = noticeService.listNotice(param); - 페이징 처리할 때 사용
-        List<NoticeDto> listNotice = noticeService.listNotice();
-        model.addAttribute("list", listNotice);
+    public String openBoardList(@ModelAttribute("params") NoticeDto params, Model model) {
+        List<NoticeDto> list = noticeService.listNotice(params);
+        model.addAttribute("list", list);
+
         return "cs/notice/listNotice";
     }
 
-    /*검색어로 공지사항 목록 가져오기*/
-    @GetMapping("cs/notice/searchNotice")
-//    public String searchNotice(@RequestParam HashMap<String, String> param, Model model) { - 페이징 처리할 때 사용
-    public String searchNotice(Model model) {
-        List<NoticeDto> searchNotice = noticeService.searchNotice();
-        model.addAttribute("list", searchNotice);
-        return "cs/notice/listNotice";
+    /*개별 공지 내용 확인 - 완*/
+    @GetMapping("cs/notice/viewNotice")
+    public String viewNotice(@RequestParam HashMap<String, String> param, Model model) {
+        model.addAttribute("view", noticeService.viewNotice(param));
+        return "cs/notice/viewNotice";
     }
 
-    /*공지 작성*/
+//    /*검색어로 공지사항 목록 가져오기*/
+//    @GetMapping("cs/notice/searchNotice")
+////    public String searchNotice(@RequestParam HashMap<String, String> param, Model model) { - 페이징 처리할 때 사용
+//    public String searchNotice(Model model) {
+//        List<NoticeDto> searchNotice = noticeService.searchNotice();
+//        model.addAttribute("list", searchNotice);
+//        return "cs/notice/listNotice";
+//    }
+
+    /*공지 작성 페이지로 - 관리자만 가능, 관리자 페이지에서 들어감 - 완*/
     @GetMapping("cs/notice/writeNotice")
-    public String writeNotice(@RequestParam HashMap<String, String> param) {
-        int result = noticeService.insertNotice(param);
-
-        if (result == 1) {
-            return "redirect:cs/notice";
+    public String writeNotice(HttpSession session) {
+        if (session.getAttribute("isAdmin").toString().equals("1")) {
+            return "cs/notice/writeNotice";
         } else {
-            return "redirect:cs/notice/writeNotice";
+            return "/";
         }
     }
 
-    /*수정하기 위해서 내용을 보여주는 페이지로 이동, 이 페이지에서 삭제도*/
-    @GetMapping("cs/notice/updateNotice")
-    public String updateNotice(@RequestParam HashMap<String, String> param, Model model) {
-        model.addAttribute("notice", noticeService.viewNotice(param));
-        return "cs/notice/updateNotice";
+    /*공지 작성완료 - 완*/
+    /*작성완료되면 리스트로 가는데 거기서 다시 새로고침 해야 변경사항이 뜸 방법 찾아야 함*/
+    @GetMapping("cs/notice/writeNotice_ok")
+    public String writeNoticeOk(@RequestParam HashMap<String, String> param) {
+        int result = noticeService.insertNotice(param);
+
+        if (result == 1) {
+            return "redirect:/cs/notice";
+//            return "redirect:/cs/notice";
+        } else {
+            return "redirect:/cs/notice/writeNotice";
+        }
     }
 
-    /*수정 완료되면 목록으로, 아니면 수정 페이지에 머물도록*/
+    /*수정하기 위해서 내용을 보여주는 페이지로 이동, 이 페이지에서 삭제도 - 완*/
+    @GetMapping("cs/notice/updateNotice")
+    public String updateNotice(@RequestParam HashMap<String, String> param, Model model, HttpSession session) {
+        if (session.getAttribute("isAdmin").toString().equals("1")) {
+            model.addAttribute("view", noticeService.viewNotice(param));
+            return "cs/notice/updateNotice";
+        } else {
+            return "/";
+        }
+    }
+
+    /*수정 완료되면 내용 확인 페이지로, 아니면 수정 페이지에 머물도록 - 완*/
     @GetMapping("cs/notice/updateNotice_ok")
     public String updateNoticeOk(@RequestParam HashMap<String, String> param) {
         int result = noticeService.updateNoticeStatus(param);
 
         if (result == 1) {
-            return "redirect:cs/notice";
+            return "redirect:/cs/notice/viewNotice?noti_no="+param.get("noti_no");
         } else {
-            return "redirect:cs/notice/updateNotice";
+            return "redirect:/cs/notice/updateNotice";
         }
     }
 
-    /*삭제 완료*/
+    /*삭제 완료 - 완*/
     @GetMapping("cs/notice/delete_ok")
     public String deleteNotice(@RequestParam HashMap<String, String> param) {
         int result = noticeService.deleteNotice(param);
 
         if (result == 1) {
-            return "redirect:cs/notice";
+            return "redirect:/cs/notice";
         } else {
-            return "redirect:cs/notice/updateNotice";
+            return "redirect:/cs/notice/updateNotice?noti_no="+param.get("noti_no");
         }
-    }
-
-    /*개별 공지 내용 확인*/
-    @GetMapping("cs/notice/viewNotice")
-    public String viewNotice(@RequestParam HashMap<String, String> param, Model model) {
-        model.addAttribute("notice", noticeService.viewNotice(param));
-        return "redirect:cs/notice/viewNotice";
     }
 
     /*--------Notice 끝--------*/
 
     /*--------QNA 시작--------*/
 
-    /*qna 목록*/
-    @GetMapping("cs/qna")
-//    public String qna(@RequestParam HashMap<String, String> param, Model model) { - 페이징 처리 때 사용
-    public String qna(Model model) {
-        List<QnaQDto> listQna = qnaService.listQna();
-        model.addAttribute("list", listQna);
-        return "cs/qna/listQna";
-    }
+    /*qna 목록 - 관리자일 경우에는 전체 문의 목록, 일반 회원일 경우에는 자기 문의 목록*/
+//    @GetMapping("cs/qna")
+////    public String qna(@RequestParam HashMap<String, String> param, Model model) { - 페이징 처리 때 사용
+//    public String qna(Model model) {
+//        List<QnaQDto> listQna = qnaService.listQna();
+//        model.addAttribute("list", listQna);
+//        //여기서 세션으로 분기처리 해야함
+//        return "cs/qna/listQna";
+//    }
 
-    /*비밀번호 확인 페이지로 이동*/
-    @GetMapping("cs/qna/checkQnaPw")
-    public String checkQnaPw() {
-        return "cs/qna/checkQnaPw";
-    }
+    /*관리자 qna 목록 - 페이징*/
+    @GetMapping("cs/qna/adminListQna")
+    public String openBoardList(@ModelAttribute("params") QnaQDto params, Model model, HttpSession session) {
 
-    /*위에서 입력하고 확인 누르면 여기로*/
-    @GetMapping("cs/qna/checkQnaPw_ok")
-    public String checkQnaPwOk(@RequestParam HashMap<String, String> param, Model model) {
-        int result = qnaService.checkQnaPW(param);
-        if (result == 1) {
-            return "redirect:cs/qna/viewQna";
+        if (session.getAttribute("isAdmin").toString().equals("1")) {
+
+            List<QnaQDto> list = qnaService.adminListQna(params);
+            model.addAttribute("list", list);
+
+            return "cs/qna/adminListQna";
         } else {
-            return "redirect:cs/qna";
+            return "/";
         }
     }
 
-    /*개별 qna 확인*/
-    @GetMapping("cs/qna/viewQna")
-    public String viewQna(@RequestParam HashMap<String, String> param, Model model) {
-        model.addAttribute("qna_q", qnaService.viewQnaQ(param));
-        model.addAttribute("qna_a", qnaService.viewQnaA(param));
-        return "cs/qna/viewQna";
+    /*회원 qna 목록 - 페이징x - 만들긴 함 확인 필요*/
+    @GetMapping("cs/qna/memListQna")
+    public String memQnaList(Model model, HttpSession session) {
+        String mem_no = (String)session.getAttribute("mem_no");
+        System.out.println(mem_no);
+        List<QnaQDto> list = qnaService.memListQna(mem_no);
+        model.addAttribute("list", list);
+
+        return "cs/qna/memListQna";
     }
 
-    /*qna질문 작성 페이지로*/
+    /*비밀번호 확인 페이지로 이동 - 필요 없음*/
+//    @GetMapping("cs/qna/checkQnaPw")
+//    public String checkQnaPw() {
+//        return "cs/qna/checkQnaPw";
+//    }
+
+    /*위에서 입력하고 확인 누르면 여기로*/
+//    @GetMapping("cs/qna/checkQnaPw_ok")
+//    public String checkQnaPwOk(@RequestParam HashMap<String, String> param, Model model) {
+//        int result = qnaService.checkQnaPW(param);
+//        if (result == 1) {
+//            return "redirect:/cs/qna/viewQna";
+//        } else {
+//            return "redirect:/cs/qna";
+//        }
+//    }
+
+    /*회원이 개별 qna 확인 - 질문에 대한 수정, 삭제만 가능하고 답변은 읽기 전용 - 만들긴 함 확인 필요*/
+    @GetMapping("cs/qna/viewMemQna")
+    public String viewMemQna(@RequestParam HashMap<String, String> param, Model model) {
+        model.addAttribute("q", qnaService.viewQnaQ(param));
+        model.addAttribute("a", qnaService.viewQnaA(param));
+        return "cs/qna/viewMemQna";
+    }
+
+    /*관리자가 개별 qna 확인 - 질문에 대한 답변만 달고, 수정, 삭제 가능 / 답변은 읽기만 - 만들긴 함 확인 필요*/
+    @GetMapping("cs/qna/viewAdminQna")
+    public String viewAdminQna(@RequestParam HashMap<String, String> param, Model model, HttpSession session) {
+        if (session.getAttribute("isAdmin").toString().equals("1")) {
+            model.addAttribute("q", qnaService.viewQnaQ(param));
+            model.addAttribute("a", qnaService.viewQnaA(param));
+            return "cs/qna/viewAdminQna";
+        } else {
+            return "/";
+        }
+    }
+
+    /*qna질문 작성 페이지로 - 완*/
     @GetMapping("cs/qna/writeQna")
-    public String writeQnaQ() {
-        return "cs/qna/writeQna";
+    public String writeQnaQ(HttpSession session) {
+        //세션으로 분기문 처리
+        //로그인 상태면 작성 페이지, 아니면 로그인 화면
+        String mem_no = (String) session.getAttribute("mem_no");
+        if (mem_no != null) {
+            session.setAttribute("mem_no", mem_no);
+            return "cs/qna/writeQna";
+        } else {
+            return "member/login";
+        }
     }
 
-    /*qna 질문 작성*/
+    /*qna 질문 작성 완료 - 완*/
     @GetMapping("cs/qna/writeQna_ok")
     public String writeQnaOk(@RequestParam HashMap<String, String> param) {
         int result = qnaService.insertQnaQ(param);
         if (result == 1) {
-            return "redirect:cs/qna";
+            return "redirect:/cs/qna/memListQna";
         } else {
-            return "redirect:cs/qna/writeQna";
+            return "redirect:/cs/qna/writeQna";
         }
     }
 
-    /*qna 수정화면으로 이동*/
-    @GetMapping("cs/qna/updateQna")
+    /*qna 수정화면으로 이동 - 만들긴 함 확인 필요*/
+    @GetMapping("cs/qna/updateQnaQ")
     public String updateQna(@RequestParam HashMap<String, String> param, Model model) {
-        model.addAttribute("qna_q", qnaService.viewQnaQ(param));
-        model.addAttribute("qna_a", qnaService.viewQnaA(param));
-        return "cs/qna/updateQna";
+        model.addAttribute("q", qnaService.viewQnaQ(param));
+//        model.addAttribute("a", qnaService.viewQnaA(param));
+        return "cs/qna/updateQnaQ";
     }
 
-    /*수정 성공하면 그 질문 읽는 페이지, 아니면 다시 수정 페이지*/
+    /*수정 성공하면 그 질문 읽는 페이지, 아니면 다시 수정 페이지 - 만들긴 함 확인 필요*/
     @GetMapping("cs/qna/updateQnaQ_ok")
     public String updateQnaQOk(@RequestParam HashMap<String, String> param) {
         int result = qnaService.updateQnaQStatus(param);
         if (result == 1) {
-            return "redirect:cs/qna/viewQna";
+            return "redirect:/cs/qna/viewMemQna?q_no="+param.get("q_no");
         } else {
-            return "redirect:cs/qna/updateQna";
+            return "redirect:/cs/qna/updateQnaQ?q_no="+param.get("q_no");
         }
     }
 
-    /*문의 질문 삭제를 위해서 답변부터 삭제하고 문의 글 삭제*/
+    /*문의 질문 삭제를 위해서 답변부터 삭제하고 문의 글 삭제 - 만들긴 함 확인 필요*/
     @GetMapping("cs/qna/deleteQnaQ")
     public String deleteQnaQ(@RequestParam HashMap<String, String> param) {
         int result_a = qnaService.deleteQnaA(param);
@@ -248,50 +323,78 @@ public class CsController {
 
         if (result_a == 1) {
             if (result_q == 1) {
-                return "redirect:cs/qna";
+                return "redirect:/cs/qna/memListQna";
             } else {
-                return "redirect:cs/qna/updateQna";
+                return "redirect:/cs/qna/viewMemQna?q_no="+param.get("q_no");
             }
         } else {
-            return "redirect:cs/qna/updateQna";
+            if (result_q == 1) {
+                return "redirect:/cs/qna/memListQna";
+            } else {
+                return "redirect:/cs/qna/viewQna?q_no="+param.get("q_no");
+            }
         }
     }
 
     /*문의 답변은 작성 성공하면 시크하게 목록으로 나가는 느낌 - 관리자면 항상 답변은 수정 가능한 폼으로 보이도록*/
     /*회원은 읽기 전용 뷰로 보이게*/
 
-    /*문의에 답변 작성 - 뷰에서 타임리프로 관리자만 작성 가능하도록 분기처리*/
-    @GetMapping("cs/qna/insertQnaA")
-    public String insertQnaA(@RequestParam HashMap<String, String> param) {
+    /*문의 답변 페이지로*/
+//    @GetMapping("cs/qna/insertQnaA")
+//    public String insertQnaA(@RequestParam HashMap<String, String> param, Model model) {
+//        model.addAttribute("q", qnaService.viewQnaQ(param));
+//        return "cs/qna/insertQnaA";
+//    }
+
+    /*문의에 답변 작성 - 만들긴 함 확인 필요*/
+    @GetMapping("cs/qna/insertQnaA_ok")
+    public String insertQnaAOk(@RequestParam HashMap<String, String> param) {
         int result = qnaService.insertQnaA(param);
         if (result == 1) {
-            return "redirect:cs/qna";
+            return "cs/qna/updateAccessLevel";
         } else {
-            return "redirect:cs/qna/viewQna";
+            return "redirect:/cs/qna/viewAdminQna?q_no="+param.get("q_no");
         }
     }
 
-    /*문의 답변 수정*/
+//    @GetMapping("cs/qna/updateAccessLevel")
+//    public String updateAccessLevle() {
+//        return "cs/qna/updateAccessLevel";
+//    }
+
+    /*답변 상태 변경 - 만들긴 함 확인 필요*/
+    @GetMapping("cs/qna/updateAccessLevel_ok")
+    public String updateAccessLevelOK(@RequestParam HashMap<String, String> param) {
+        int result = qnaService.updateAccessLevel(param);
+        if (result == 1) {
+            return "redirect:cs/qna/adminListQna";
+        } else {
+            return "error";
+//            return "redirect:cs/qna/viewAdminQna?q_no="+param.get("q_no");
+        }
+    }
+
+    /*문의 답변 수정 - 만들긴 함 확인 필요*/
     @GetMapping("cs/qna/updateQnaA")
     public String updateQnaA(@RequestParam HashMap<String, String> param) {
         int result = qnaService.updateQnaAStatus(param);
         if (result == 1) {
-            return "redirect:cs/qna";
+            return "redirect:/cs/qna/adminListQna";
         } else {
-            return "redirect:cs/qna/viewQna";
+            return "redirect:/cs/qna/viewAdminQna?q_no="+param.get("q_no");
         }
     }
 
-    /*문의 답변 삭제*/
+    /*문의 답변 삭제 - 만들긴 함 확인 필요*/
     @GetMapping("cs/qna/deleteQnaA")
     public String deleteQnaA(@RequestParam HashMap<String, String> param) {
         int result = qnaService.deleteQnaA(param);
         if (result == 1) {
-            return "redirect:cs/qna";
+            return "redirect:/cs/qna/adminListQna";
         } else {
-            return "redirect:cs/qna/viewQna";
+            return "redirect:/cs/qna/viewQna";
         }
     }
 
-    /*--------Notice 끝--------*/
+    /*--------QNA 끝--------*/
 }

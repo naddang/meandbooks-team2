@@ -5,43 +5,62 @@
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.cs.QnaServiceDao">
 
-    <!--문의 목록 - QnaQDto의 정보를 사용해서 목록으로 나타냄(답변은 개별 문의에 있으니까)-->
-    <select id="listQna" resultType="QnaQDto" parameterType="hashmap">
+    <!--문의 목록 - QnaQDto의 정보를 사용해서 목록으로 나타냄(답변은 개별 문의에 있으니까), 관리자 화면 문의 목록-->
+    <select id="adminListQna" resultType="QnaQDto" parameterType="hashmap">
         select q_no,
                q_title,
                q_content,
                q_date,
-               q_cate
+               q_cate,
+               ACCESS_LEVEL
         from qna_q
-        order by q_no desc
+        order by q_no desc, ACCESS_LEVEL
     </select>
 
-    <!--문의 작성(회원이 작성) - 수정, 삭제에 필요한 비밀번호-->
+    <!--회원 화면 문의 목록 - 만들긴 함, 세션연결함-->
+   <select id="memListQna" resultType="QnaQDto" parameterType="string">
+        select q_no,
+               q_title,
+               q_content,
+               q_date,
+               q_cate,
+               ACCESS_LEVEL
+        from qna_q
+        where MEM_NO = #{mem_no}
+        order by ACCESS_LEVEL desc
+    </select>
+
+    <!--문의 작성(회원이 작성) - 완, 세션연결함-->
     <insert id="insertQnaQ" parameterType="hashmap">
         insert into qna_q (q_title
                          , q_content
                          , q_pwd
                          , q_date
-                         , q_cate)
+                         , q_cate
+                         , ACCESS_LEVEL
+                         , mem_no)
         values (#{q_title}
               , #{q_content}
               , #{q_pwd}
               , sysdate()
-              , #{q_cate})
+              , #{q_cate}
+              , #{access_level}
+              , #{mem_no})
     </insert>
 
-    <!--개별 문의 조회-->
+    <!--개별 문의 조회 - 만들긴 함-->
     <select id="viewQnaQ" parameterType="hashmap" resultType="QnaQDto">
         select q_no,
                q_title,
                q_content,
                q_date,
-               q_cate
+               q_cate,
+               mem_no
         from qna_q
         where q_no = #{q_no}
     </select>
 
-    <!--회원이 자기 문의 수정-->
+    <!--회원이 자기 문의 수정 - 만들긴 함-->
     <update id="updateQnaQStatus" parameterType="hashmap">
         update qna_q set q_title = #{q_title}
                         , q_content = #{q_content}
@@ -51,16 +70,16 @@
     </update>
 
     <!--문의 작성시 입력한 비밀번호와 비교-->
-    <select id="checkQnaPW" parameterType="hashmap" resultType="_int">
-        select count(*) from qna_q where q_no=#{q_no} and q_pwd=#{q_pwd}
-    </select>
+<!--    <select id="checkQnaPW" parameterType="hashmap" resultType="_int">-->
+<!--        select count(*) from qna_q where q_no=#{q_no} and q_pwd=#{q_pwd}-->
+<!--    </select>-->
 
-    <!--문의 질문 삭제-->
+    <!--문의 질문 삭제 - 만들긴 함-->
     <delete id="deleteQnaQ" parameterType="hashmap">
         delete from qna_q where q_no=#{q_no}
     </delete>
 
-    <!--관리자가 답변 작성-->
+    <!--관리자가 답변 작성 - 만들긴 함-->
     <insert id="insertQnaA" parameterType="hashmap">
         insert into qna_a (q_no
                          , a_content
@@ -68,7 +87,12 @@
         values (#{q_no}, #{a_content}, sysdate())
     </insert>
 
-    <!--관리자가 답변 수정-->
+    <!--답변 상태 수정 - 만들긴 함-->
+    <update id="updateAccessLevel" parameterType="hashmap">
+        update qna_q set ACCESS_LEVEL = #{access_level} where q_no = #{q_no}
+    </update>
+
+    <!--관리자가 답변 수정 - 만들긴 함-->
     <update id="updateQnaAStatus" parameterType="hashmap">
         update qna_a set a_content = #{a_content}
                        , a_date = sysdate()
@@ -76,13 +100,13 @@
     </update>
 
     <!--개별 문의에 대한 관리자의 답변 조회-->
-    <select id="viewQnaA" parameterType="hashmap" resultType="QnaADto">
-        select a_content, a_date
-        from qna_a
-        where q_no = #{q_no}
-    </select>
+<!--    <select id="viewQnaA" parameterType="hashmap" resultType="QnaADto">-->
+<!--        select a_content, a_date-->
+<!--        from qna_a-->
+<!--        where q_no = #{q_no}-->
+<!--    </select>-->
 
-    <!--문의 답변 삭제-->
+    <!--문의 답변 삭제 - 만들긴 함-->
     <delete id="deleteQnaA" parameterType="hashmap">
         delete from qna_a where a_no=#{a_no} or q_no=#{q_no}
     </delete>

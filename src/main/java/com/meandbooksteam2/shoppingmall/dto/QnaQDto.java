@@ -7,12 +7,14 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class QnaQDto {
+public class QnaQDto extends CommonDto{
     private int q_no;
     private int mem_no;
     private String q_title;
     private String q_content;
-    private String q_pwd;
+    private String q_pwd; //필요 없음
     private Timestamp q_date;
     private int q_cate;
+    private int access_level; //답변 여부
+
 }

@@ -5,40 +5,42 @@
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.cs.FaqServiceDao">
 
-    <!--FAQ 작성-->
+    <!--FAQ 작성 - 완 -->
     <insert id="insertFaq" parameterType="hashmap">
         insert into faq
             (faq_cate
             ,faq_title
-            ,faq_content)
+            ,faq_contnet)
         values
             (#{faq_cate}
             ,#{faq_title}
-            ,#{faq_content})
+            ,#{faq_contnet})
     </insert>
 
-    <!--삭제-->
+    <!--삭제 - 완-->
     <delete id="deleteFaq" parameterType="hashmap">
         delete from faq where faq_no = #{faq_no}
     </delete>
 
-    <!--수정을 위해서 개별 FAQ 확인-->
+    <!--수정을 위해서 개별 FAQ 확인 - 완-->
     <select id="viewFaq" parameterType="hashmap" resultType="FaqDto">
-        select faq_cate, faq_title, faq_content from faq where faq_no = #{faq_no}
+        select faq_no, faq_cate, faq_title, faq_contnet from faq where faq_no = #{faq_no}
     </select>
 
-    <!--수정 - 카테고리 말고 제목이랑 내용만 수정하도록 했음-->
+    <!--수정 - 카테고리 말고 제목이랑 내용만 수정하도록 했음 - 완-->
     <update id="updateFaqStatus" parameterType="hashmap">
         update faq set faq_title = #{faq_title}
-                     , faq_content = #{faq_content}
+                     , faq_contnet = #{faq_contnet}
         where faq_no = #{faq_no}
     </update>
 
-    <!--목록 조회 - 정렬은 안시켰음-->
+    <!--목록 조회 - 완-->
     <select id="listFaq" resultType="FaqDto">
-        select faq_cate
+        select faq_no
+              ,faq_cate
               ,faq_title
-              ,faq_content
+              ,faq_contnet
         from faq
+        order by faq_cate
     </select>
 </mapper>

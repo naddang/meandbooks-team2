@@ -109,7 +109,7 @@
   <form th:action="@{/cs/qna/writeQna_ok}">
     <input type="hidden" class="form-control" th:name="q_pwd" th:value="0">
     <input type="hidden" class="form-control" th:name="access_level" th:value="0">
-<!--    <input type="hidden" class="form-control" th:name="mem_no" th:value="세션에 있는 회원 번호">-->
+    <input type="hidden" class="form-control" th:name="mem_no" th:value="${session.mem_no}">
 
     <div class="mb-3">
       <label for="exampleFormControlSelect" class="form-label">카테고리</label>

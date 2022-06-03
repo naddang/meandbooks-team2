@@ -1,38 +1,38 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>나와책::Me&Book</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나와책::Me&Book</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    
+    <!-- Custom styles for this template -->
+    <link href="common.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <style>
+      textarea {
+        resize: none;
+      }
 
-  <!-- Custom styles for this template -->
-  <link href="common.css" rel="stylesheet">
+      #btn-area {
+        text-align: center;
+      }
 
-  <!-- Custom styles for this template -->
-  <style>
-    .main-area {
-      max-width: 1140px;
-      margin: 0 auto;
-    }
-
-    #title {
-      margin-bottom: 30px;
-    }
-
-    #btn-area {
-      text-align: center;
-    }
-  </style>
+      a {
+        text-decoration: none;
+        color: #777;
+      }
+    </style>
 </head>
 <body>
-
+    
 <!-- 헤더 -->
 <nav class="py-2 bg-light border-bottom">
   <div class="container d-flex flex-wrap">
@@ -110,52 +110,71 @@
 
 
 <!-- 메인 -->
-<main class="main-area">
-  <div id="title">
-    <h1>공지사항</h1>
+<main class="container">
+  <div class="mb-3">
+    <div>
+      <b><span th:text="${q.q_title}"></span></b>
+    </div>
   </div>
 
-  <th:block layout:fragment="search">
-    <div th:replace="fragments/common :: search"></div>
-  </th:block>
+  <hr>
 
-  <table class="table caption-top">
-    <thead class="table-light">
-    <tr>
-      <th scope="col">카테고리</th>
-      <th scope="col">문의제목</th>
-      <th scope="col">등록일</th>
-      <th scope="col">답변상태</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${not #lists.isEmpty(list)}" th:each="list : ${list}">
-      <td th:text="${list.q_cate}"></td>
-      <td class="text-left">
-        <!--            <a th:href="|@{/cs/notice/viewNotice}${params.makeQueryString(params.currentPageNo)}&noti_no=${list.noti_no}|" th:text="${list.noti_title}"></a>-->
-        <a th:href="@{/cs/qna/viewAdminQna(q_no=${list.q_no})}" th:text="${list.q_title}"></a>
-      </td>
-      <td th:text="${list.q_date}"></td>
-      <td th:switch="${list.access_level}">
-        <span th:case="0">답변대기</span>
-        <span th:case="1">답변완료</span>
-      </td>
-    </tr>
-    <tr th:unless="${not #lists.isEmpty(list)}">
-      <td colspan="5">조회된 결과가 없습니다.</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="mb-3">
+      <span th:switch="${q.q_cate}">
+        <b><span th:case="1">[반품, 교환 문의]</span></b>
+        <b><span th:case="2">[결제 문의]</span></b>
+        <b><span th:case="3">[상품 문의]</span></b>
+        <b><span th:case="4">[배송 문의]</span></b>
+        <b><span th:case="5">[개인정보 문의]</span></b>
+        <b><span th:case="6">[기타 문의]</span></b>
+      </span>
+  </div>
+
+  <hr>
+
+  <div class="mb-3">
+    <b><span th:text="${q.q_content}"></span></b>
+  </div>
+
+  <!-- 관리자 답변 - if문을 이렇게 쓰는게 맞는지 확인이 필요-->
+  <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <h6 class="border-bottom pb-2 mb-0">문의 답변</h6>
+
+    <div class="d-flex text-muted pt-3" th:if="${a} == null">
+      <form th:action="@{/cs/qna/insertQnaA_ok}">
+        <div class="input-group has-validation">
+          <input type="hidden" th:value="${q.q_no}" th:name="q_no">
+          <input type="hidden" th:value="${q.mem_no}" th:name="mem_no">
+          <input type="text" class="form-control" placeholder="답변을 입력하세요" th:name="a_content">
+          <div class="mb-3" id="btn-area">
+            <input class="btn btn-primary" th:type="submit" value="등록">
+          </div>
+        </div>
+      </form>
+    </div>
+
+  <div class="d-flex text-muted pt-3" th:unless="${a} == null">
+    <form th:action="@{/cs/qna/updateQnaA}">
+      <input type="hidden" th:value="${q.q_no}" th:name="q_no">
+      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <p class="pb-3 mb-0 small lh-sm border-bottom">
+        <strong class="d-block text-gray-dark">나와책</strong>
+        <input th:value="${a.a_content}" type="text" th:name="a_content">
+      </p>
+      <div class="d-flex text-muted pt-3" th:text="${a_date}"></div>
+      <input class="btn btn-primary" th:type="submit" value="수정완료">
+      <a class="btn btn-primary" th:href="@{/cs/qna/deleteQnaA(q_no=${q.q_no})}">삭제</a>
+    </form>
+  </div>
 
 
 
-  <th:block layout:fragment="paging">
-    <nav th:replace="fragments/common :: pagination"></nav>
-  </th:block>
-
+  </div>
 
 </main>
 
+
+  
 <!-- 푸터 -->
 <div class="container">
   <footer class="row row-cols-5 py-5 my-5 border-top">
@@ -209,44 +228,7 @@
   </footer>
 </div>
 
-<!-- 부트스트랩 설정 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- 부트스트랩 설정 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
-
-
-
-<th:block layout:fragment="script">
-  <script th:inline="javascript">
-    /*<![CDATA[*/
-
-    function movePage(uri, queryString) {
-      location.href = uri + queryString;
-    }
-
-    function searchBoard(form) {
-      /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
-      if (isEmpty(form) == true) {
-        var searchKeyword = document.getElementById("mainSearchKeyword");
-        if (isEmpty(searchKeyword.value) == true) {
-          alert("키워드를 입력해 주세요.");
-          searchKeyword.focus();
-          return false;
-        }
-
-        form = document.getElementById("searchForm");
-        form.searchKeyword.value = searchKeyword.value;
-        form.submit();
-      }
-
-      if (isEmpty(form.searchKeyword.value) == true) {
-        alert("키워드를 입력해 주세요.");
-        form.searchKeyword.focus();
-        return false;
-      }
-    }
-    /*[- end of function -]*/
-
-    /*]]>*/
-  </script>
-</th:block>
 </html>
