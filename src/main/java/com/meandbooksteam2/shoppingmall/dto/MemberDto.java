@@ -11,7 +11,9 @@ public class MemberDto {
     private String mem_pwd;
     private String mem_nm;
     private String mem_phoneNo;
-    private String mem_addr;
+    private String mem_addr1;
+    private String mem_addr2;
+    private String mem_addr3;
     private String mem_email;
     private int mem_mileage;
     /*권한과 관련된 필드*/

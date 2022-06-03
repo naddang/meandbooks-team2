@@ -72,7 +72,7 @@ public class MemberController {
         int loginResult = service.login(param);
         if (loginResult == 1) {
             HttpSession session = request.getSession();
-            session.setAttribute("mem_uid", param.get("mem_uid"));
+            session.setAttribute("mem_no", service.getMemNo(param));
             session.setAttribute("isAdmin", service.isAdmin(param.get("mem_uid")));
 
             return "redirect:/index";

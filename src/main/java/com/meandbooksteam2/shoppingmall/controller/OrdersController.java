@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 /*주문 페이지들의 요청을 처리하는 Controller 클래스입니다*/
@@ -21,28 +22,34 @@ public class OrdersController {
     }
 
     //회원번호를 매개변수로 한 메서드를이용해 input 에 값들을 넣어줌
-    @GetMapping("order/ordersPage")
-    public String ordersPage(@RequestParam HashMap<String, String> param, Model model){
-        model.addAttribute("member", service.getMyInfo(param));
-        return "order/ordersPage";
+    @GetMapping("orders/ordersPage")
+    public String ordersPage(@RequestParam HashMap<String, String> param, Model model, HttpSession session){
+        String id = (String)session.getAttribute("mem_no");
+        model.addAttribute("qty", param.get("cart_qty"));
+        model.addAttribute("member", service.getMyInfo(id));
+        model.addAttribute("book", service.getBookInfo(param));
+        return "orders/ordersPage";
     }
     
     //주문할때 사용할 메서드
-    @PostMapping("order/insertOrder")
+    @PostMapping("orders/insertOrder")
     public String insertOrder(@RequestParam HashMap<String, String> param, Model model){
+        System.out.println(param.get("mem_no"));
+        System.out.println(param.get("book_no"));
+
         int re = service.insertOrder(param);
 
         if (re == 1) {
-            return "redirect:order/orderDone";
+            return "redirect:/orders/ordersDone?orders_no="+param.get("orders_no");
         }else {
             return "redirect:error";
         }
     }
 
     //제대로 들어간 경우 완료페이지에서 주문번호를 매개변수로 데이터에 저장된 값을 받아올수있도록 함
-    @PostMapping("order/orderDone")
+    @GetMapping("orders/ordersDone")
     public String orderDone(@RequestParam HashMap<String, String> param, Model model){
         model.addAttribute("orders", service.getOneOrder(param));
-        return "order/orderDone";
+        return "/orders/ordersDone";
     }
 }

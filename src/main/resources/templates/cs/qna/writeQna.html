@@ -90,8 +90,8 @@
     </ul>
 
     <ul class="nav">
-      <li class="nav-item"><a href="sign.html" class="nav-link link-dark px-2">로그인</a></li>
-      <li class="nav-item"><a href="join.html" class="nav-link link-dark px-2">회원가입</a></li>
+      <li class="nav-item"><a th:href="@{/member/login}" class="nav-link link-dark px-2">로그인</a></li>
+      <li class="nav-item"><a th:href="@{/member/register}" class="nav-link link-dark px-2">회원가입</a></li>
       <li class="nav-item"><a href="#" class="nav-link link-dark px-2">장바구니</a></li>
     </ul>
   </div>
@@ -106,39 +106,41 @@
 
 <!-- 메인 -->
 <main class="container">
-  <form action="">
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">글 제목</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요.">
-    </div>
+  <form th:action="@{/cs/qna/writeQna_ok}">
+    <input type="hidden" class="form-control" th:name="q_pwd" th:value="0">
+    <input type="hidden" class="form-control" th:name="access_level" th:value="0">
+<!--    <input type="hidden" class="form-control" th:name="mem_no" th:value="세션에 있는 회원 번호">-->
 
     <div class="mb-3">
       <label for="exampleFormControlSelect" class="form-label">카테고리</label>
-      <select class="form-select" id="exampleFormControlSelect" aria-label="Default select example">
-        <option selected>카테고리를 선택하세요.</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+      <select class="form-select" id="exampleFormControlSelect" aria-label="Default select example" th:name="q_cate">
+        <option value="1">[반품,교환 문의]</option>
+        <option value="2">[결제 문의]</option>
+        <option value="3">[상품 문의]</option>
+        <option value="4">[배송 문의]</option>
+        <option value="5">[개인정보 문의]</option>
+        <option value="6">[기타 문의]</option>
       </select>
     </div>
 
     <div class="mb-3">
-      <label for="exampleFormControlTextarea" class="form-label">글 내용</label>
-      <textarea class="form-control" id="exampleFormControlTextarea" rows="10"></textarea>
+      <label for="exampleFormControlInput1" class="form-label">문의 제목</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요." th:name="q_title">
     </div>
 
     <div class="mb-3">
-      <label for="exampleFormControlInput2" class="form-label">비밀번호</label>
-      <input type="password" class="form-control" id="exampleFormControlInput2" placeholder="비밀번호를 입력하세요.">
+      <label for="exampleFormControlTextarea" class="form-label">문의 내용</label>
+      <textarea class="form-control" id="exampleFormControlTextarea" rows="10" th:name="q_content"></textarea>
     </div>
 
     <div class="mb-3" id="btn-area">
-      <input class="btn btn-primary" type="submit" value="등록하기">
+      <input class="btn btn-primary" th:type="submit" value="등록하기">
       <input class="btn btn-primary" type="reset" value="다시쓰기">
-      <input class="btn btn-primary" type="button" value="목록보기">
+      <a th:href="@{/member/memberMain}" class="btn btn-primary">메인으로</a>
     </div>
   </form>
 </main>
+
   
 <!-- 푸터 -->
 <div class="container">

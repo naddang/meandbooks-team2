@@ -191,4 +191,8 @@
     <select id="isAdmin" resultType="_int" parameterType="string">
         select IS_ADMIN from member where MEM_UID = #{mem_uid}
     </select>
+
+    <select id="getMemNo" resultType="string" parameterType="hashmap">
+        select MEM_NO from member where MEM_UID = #{mem_uid}
+    </select>
 </mapper>

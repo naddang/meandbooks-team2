@@ -1,6 +1,7 @@
 package com.meandbooksteam2.shoppingmall.service.orders;
 
 import com.meandbooksteam2.shoppingmall.dao.orders.OrdersDao;
+import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.dto.MemberDto;
 import com.meandbooksteam2.shoppingmall.dto.OrdersDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,9 +41,8 @@ public class OrdersService {
 
     //넣어야할 주문번호를 리턴하는 메서드
     private String getOrdersNo() {
-        LocalDate now = LocalDate.now();
-        //yyMMdd+0000형태의 문자열이 담김
-        String defaultNumberType = now.getYear() + now.getMonthValue() + now.getDayOfMonth() + "0000";
+        //yyMMdd+형태의 문자열이 담김
+        String defaultNumberType = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")) + "0000";
         //오늘 주문 건수 조회
         int order_no = dao.getTodayOrder();
         
@@ -52,7 +53,11 @@ public class OrdersService {
     }
 
     //주문할때 기본값으로 넣을 개인정보를 받아오는 메서드
-    public MemberDto getMyInfo(HashMap<String, String> param) {
-        return dao.getMyInfo(param);
+    public MemberDto getMyInfo(String mem_no) {
+        return dao.getMyInfo(mem_no);
+    }
+
+    public BookDto getBookInfo(HashMap<String, String> param){
+        return dao.getBookInfo(param);
     }
 }

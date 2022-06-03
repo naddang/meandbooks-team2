@@ -1,30 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>나와책::Me&Book</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
-  <!-- Custom styles for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="common.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head th:replace="fragments/head::headFragment">
   <style>
     .main-area {
       max-width: 1140px;
       min-height: 600px;
       margin: 0 auto;
-    }
-
-    #title {
-      margin-bottom: 30px;
     }
 
     .table {
@@ -41,235 +24,112 @@
     }
   </style>
 </head>
-<body>
-
-<!-- 헤더 -->
-<nav class="py-2 bg-light border-bottom">
-  <div class="container d-flex flex-wrap">
-    <ul class="nav me-auto">
-      <li class="nav-item">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            About
-          </button>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
-      </li>
-      &nbsp;&nbsp;&nbsp;
-      <li class="nav-item">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            Mall
-          </button>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
-      </li>
-      &nbsp;&nbsp;&nbsp;
-      <li class="nav-item">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            Mall
-          </button>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
-      </li>
-      &nbsp;&nbsp;&nbsp;
-      <li class="nav-item">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-            C/S
-          </button>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton2">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-
-    <ul class="nav">
-      <li class="nav-item"><a href="sign.html" class="nav-link link-dark px-2">로그인</a></li>
-      <li class="nav-item"><a href="join.html" class="nav-link link-dark px-2">회원가입</a></li>
-      <li class="nav-item"><a href="#" class="nav-link link-dark px-2">장바구니</a></li>
-    </ul>
-  </div>
-</nav>
-
-<header class="py-3 mb-4 border-bottom">
-  <div class="container d-flex flex-wrap justify-content-center">
-    <h1 class="fs-4">나와책 메인 로고 자리</h1>
-  </div>
-</header>
-
 <!-- 메인 -->
-<main class="main-area">
-  <div id="title">
-    <h1>주문/결제</h1>
-  </div>
-  <form>
-    <table class="table">
-      <colgroup>
-        <col width="30%"/>
-        <col width="15%"/>
-        <col width="15%"/>
-        <col width="15%"/>
-        <col width="15%"/>
-        <col width="10%"/>
-      </colgroup>
-      <thead class="table-light">
-      <tr>
-        <th scope="col">상품정보</th>
-        <th scope="col">가격</th>
-        <th scope="col">수량</th>
-        <th scope="col">주문금액</th>
-        <th scope="col">선택</th>
-        <th scope="col">삭제</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>가나다</td>
-        <td>15,000원</td>
-        <td>
-          <input type="number" value="1" min="1" max="99">
-        </td>
-        <td>15,000원</td>
-        <td>
-          <input type="checkbox">
-        </td>
-        <td>
-          <input type="button" value="삭제">
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
-    <table class="table small-table">
-      <tbody>
-      <tr>
-        <td>총 상품가격</td>
-        <td>15,000원</td>
-        <td>마일리지</td>
-        <td>150원</td>
-      </tr>
-      <tr>
-        <td>총 주문 상품수</td>
-        <td>1권</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>총 결제 금액</td>
-        <td>15,000원</td>
-        <td>총 적립 마일리지</td>
-        <td>150원</td>
-      </tr>
-      </tbody>
-    </table>
-
-    <br>
-
-    <h3>주문자/배송지 정보</h3>
-    <div class="table-responsive">
-      <table class="table table-light">
+<div layout:fragment="content">
+<link rel="stylesheet" th:href="@{/css/orders.css}">
+  <!-- 메인 -->
+  <main class="main-area">
+    <div id="title">
+      <h1>주문/결제</h1>
+    </div>
+    <form th:action="@{/orders/insertOrder}" method="post">
+      <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no">
+      <input type="hidden" th:value="${#session.getAttribute('mem_no')}" name="mem_no">
+      <table class="table">
+        <colgroup>
+          <col width="30%"/>
+          <col width="15%"/>
+          <col width="15%"/>
+          <col width="15%"/>
+          <col width="15%"/>
+          <col width="10%"/>
+        </colgroup>
+        <thead class="table-light">
+        <tr>
+          <th scope="col">상품정보</th>
+          <th scope="col">가격</th>
+          <th scope="col">수량</th>
+          <th scope="col">주문금액</th>
+          <th scope="col">선택</th>
+          <th scope="col">삭제</th>
+        </tr>
+        </thead>
         <tbody>
         <tr>
-          <th scope="col">주문자</th>
-          <td colspan="3">아무개</td>
-        </tr>
-        <tr>
-          <th scope="col">전화번호</th>
-          <td colspan="3">010-1234-5678</td>
-        </tr>
-        <tr>
-          <th scope="col">이메일</th>
-          <td colspan="3">abc@abc.com</td>
-        </tr>
-        <tr>
-          <th scope="col">배송주소</th>
-          <td colspan="3">부산광역시 진구 부전동</td>
+          <td th:text="${book.book_nm}">가나다</td>
+          <td th:text="${#numbers.formatInteger(book.book_price, 0, 'COMMA')}">15,000원</td>
+          <td>
+            <input type="number" th:value="${qty}" min="1" max="99" name="orders_qty">
+          </td>
+          <td th:with="all=${book?.book_price} * ${qty}" th:text="|${#numbers.formatInteger(all, 0, 'COMMA')}원|">15,000원</td>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td>
+            <input type="button" value="삭제">
+          </td>
         </tr>
         </tbody>
       </table>
 
-      <div class="mb-3" id="btn-area">
-        <input class="btn btn-primary" type="submit" value="결제하기">
-        <input class="btn btn-primary" type="submit" value="결제취소">
+      <table class="table small-table">
+        <tbody>
+        <tr th:with="all=${book?.book_price} * ${qty}">
+          <td>총 결제 금액</td>
+          <td th:text="|${all}원|">15,000원</td>
+          <td>총 적립 마일리지</td>
+          <td th:with="mile=${all} * 0.01" th:text="|${#numbers.formatDecimal(mile,1,0)}원|">15,000원</td>
+        </tr>
+        <tr>
+          <td>총 주문 상품수</td>
+          <td>1권</td>
+          <td></td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <br>
+
+      <h3>주문자/배송지 정보</h3>
+      <div class="table-responsive">
+        <table class="table table-light">
+          <tbody>
+          <tr>
+            <th scope="col">주문자</th>
+            <td colspan="3"><input type="text" th:value="${member?.mem_nm}" name="orders_nm"></td>
+          </tr>
+          <tr>
+            <th scope="col">전화번호</th>
+            <td colspan="3"><input type="text" th:value="${member?.mem_phoneNo}" name="orders_phoneno"></td>
+          </tr>
+          <tr>
+            <th scope="col">이메일</th>
+            <td colspan="3"><input type="text" th:value="${member?.mem_email}" name="orders_email"></td>
+          </tr>
+          <tr>
+            <th scope="col">배송주소</th>
+            <td><input type="text" th:value="${member?.mem_addr1}" name="orders_addr1"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="text" th:value="${member?.mem_addr2}" name="orders_addr2"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="text" th:value="${member?.mem_addr3}" name="orders_addr3"></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="mb-3" id="btn-area">
+          <input class="btn btn-primary" type="submit" value="결제하기">
+          <input class="btn btn-primary" type="button" th:value="취소하기" onclick="history.back()">
+        </div>
       </div>
-  </form>
-</main>
-
-<!-- 푸터 -->
-<div class="container">
-  <footer class="row row-cols-5 py-5 my-5 border-top">
-    <div class="col">
-      <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      </a>
-      <p class="text-muted">&copy; 2021</p>
-    </div>
-
-    <div class="col">
-
-    </div>
-
-    <div class="col">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-      </ul>
-    </div>
-
-    <div class="col">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-      </ul>
-    </div>
-
-    <div class="col">
-      <h5>Section</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-      </ul>
-    </div>
-
-    <p>
-      <a href="#">Back to top</a>
-    </p>
-  </footer>
+    </form>
+  </main>
+  <!-- 본문 영역 -->
 </div>
-
-<!-- 부트스트랩 설정 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-</body>
 </html>
+

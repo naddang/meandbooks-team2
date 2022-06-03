@@ -16,9 +16,8 @@
 <main class="form-signin">
     <form method="post" th:action="@{/member/login_ok}">
         <a th:href="@{/index}">
-            <img class="mb-4" src="" alt="로고" width="72" height="57">
+            <img class="mb-4" src="/imgs/logo_big.png" alt="로고" width="200" height="140">
         </a>
-        <h1 class="h3 mb-3 fw-normal">나와책::Me&Book</h1>
 
         <div class="form-floating">
             <input type="text" class="form-control" id="floatingInput" name="mem_uid" placeholder="아이디">
@@ -31,13 +30,22 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> 아이디 저장
             </label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
         <br><br>
         <button class="w-100 btn btn-lg btn-primary" type="button" onclick="location.href='register'">회원가입</button>
-        <p class="mt-5 mb-3 text-muted">&copy;2022</p>
+<!--        <br><br>-->
+<!--        <a href="#">아이디 찾기</a> / <a href="#">비밀번호 찾기</a>-->
+        <br><br><br>
+        <p>비회원 주문 조회</p>
+        <div class="input-group mb-3">
+            <input type="search" class="form-control" placeholder="주문번호를 입력하세요." aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+        </div>
+
+        <p class="mt-5 mb-3 text-muted">&copy;2022 Me&Book</p>
     </form>
 </main>
 

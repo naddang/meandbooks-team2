@@ -10,7 +10,7 @@ public class MainController {
 
     @GetMapping("/")
     public String main(HttpSession session){
-        System.out.println(session.getAttribute("mem_uid"));
+        System.out.println(session.getAttribute("mem_no"));
         System.out.println(session.getAttribute("isAdmin"));
         return "index";
     }

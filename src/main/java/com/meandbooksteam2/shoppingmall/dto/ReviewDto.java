@@ -13,5 +13,6 @@ public class ReviewDto {
     private String rev_title;
     private String rev_content;
     private int rev_rating;
-    private Timestamp rev_date;
+    private String rev_date;
+    private MemberDto member;
 }

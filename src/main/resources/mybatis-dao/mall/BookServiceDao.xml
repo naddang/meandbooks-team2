@@ -8,15 +8,15 @@
         <result column="orders_qty" property="orders_qty"/>
     </resultMap>
     <select id="listAllBest" resultType="BookDto">
-        SELECT RANK() OVER(PARTITION BY B.BOOK_NO ORDER BY O.ORDERS_QTY DESC)
+        SELECT row_number() OVER(order by sum(o.ORDERS_QTY))
              , B.BOOK_NM
              , B.BOOK_IMG
              , B.BOOK_AUTHOR
              , B.BOOK_PUB
              , B.BOOK_PRICE
              , B.BOOK_NO
-          FROM orders O
-              JOIN book b on b.BOOK_NO = O.BOOK_NO
+        FROM orders O
+                 JOIN book b on b.BOOK_NO = O.BOOK_NO;
     </select>
     <select id="listCateBest" resultType="BookDto" parameterType="hashmap">
         SELECT RANK() OVER(PARTITION BY B.BOOK_NO ORDER BY O.ORDERS_QTY DESC)
@@ -30,7 +30,7 @@
                  JOIN book b on b.BOOK_NO = O.BOOK_NO
         WHERE b.BOOK_NO LIKE concat(#{keyword}, '%')
     </select>
-    <select id="viewMallBook" resultType="BookDto" parameterType="hashmap">
+    <select id="viewBook" resultType="BookDto" parameterType="hashmap">
         select BOOK_NO
              , BOOK_NM
              , BOOK_DESC
@@ -62,4 +62,75 @@
     <select id="getTodayCart" resultType="_int" parameterType="string">
         select count(*) from cart where CART_NO like concat(#{formattingDate}, '%')
     </select>
+
+    <!--리뷰에서 조인하기 위해 사용하는 resultMap-->
+    <resultMap id="MemberDto" type="MemberDto">
+        <result column="mem_uid" property="mem_uid"></result>
+    </resultMap>
+    <resultMap id="ReviewDto" type="ReviewDto">
+        <result column="rev_title" property="rev_title"></result>
+        <result column="rev_no" property="rev_no"></result>
+        <result column="REV_CONTENT" property="rev_content"></result>
+        <result column="REV_RATING" property="rev_rating"></result>
+        <result column="REV_DATE" property="rev_date"/>
+        <collection property="member" resultMap="MemberDto"></collection>
+    </resultMap>
+    <resultMap id="RevCmtDto" type="RevCmtDto">
+        <result column="CMT_CONTENT" property="cmt_content"></result>
+        <result column="CMT_DATE" property="cmt_date"></result>
+        <collection property="member" resultMap="MemberDto"></collection>
+    </resultMap>
+
+    <select id="listReview" resultMap="ReviewDto" parameterType="hashmap">
+        select r.REV_NO
+             , m.mem_uid
+             , r.REV_TITLE
+             , r.REV_CONTENT
+             , r.REV_RATING
+             , date_format(r.REV_DATE,'%m-%d %h:%i') "REV_DATE"
+        from review r join member m on r.MEM_NO = m.MEM_NO where r.BOOK_NO = #{book_no}
+    </select>
+
+    <select id="listRevCmt" resultMap="RevCmtDto" parameterType="hashmap">
+        select r.CMT_NO
+             , r.CMT_CONTENT
+             , date_format(r.CMT_DATE,'%m-%d %h:%i')"CMT_DATE"
+             , m.mem_uid
+        from rev_cmt r join member m
+            on m.MEM_NO = r.MEM_NO
+    </select>
+
+    <insert id="insertReview" parameterType="hashmap">
+        insert into review(MEM_NO, BOOK_NO, REV_TITLE, REV_CONTENT, REV_RATING, REV_DATE)
+        values (#{mem_no}, #{book_no}, #{rev_title}, #{rev_content}, #{rev_rating}, now())
+    </insert>
+
+    <insert id="insertRevCmt" parameterType="hashmap">
+        insert into rev_cmt(MEM_NO, CMT_CONTENT, CMT_DATE)
+        values (#{mem_no}, #{cmt_content}, now())
+    </insert>
+
+    <update id="updateReview" parameterType="hashmap">
+        update review set
+                          REV_TITLE = #{rev_title}
+                        , REV_CONTENT = #{rev_content}
+                        , REV_RATING = #{rev_rating}
+                        , REV_DATE = now()
+                      where REV_NO=#{rev_no}
+    </update>
+
+    <delete id="deleteReview" parameterType="hashmap">
+        delete from review where REV_NO = #{rev_no}
+    </delete>
+
+    <update id="updateRevCmt" parameterType="hashmap">
+        update rev_cmt set
+                          CMT_CONTENT = #{cmt_content}
+                        , CMT_DATE = now()
+                      where REV_NO=#{rev_no}
+    </update>
+
+    <delete id="deleteRevCmt" parameterType="hashmap">
+        delete from rev_cmt where CMT_NO = #{cmt_no}
+    </delete>
 </mapper>

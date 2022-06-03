@@ -12,5 +12,7 @@ public class RevCmtDto {
     private int rev_no;
     private int mem_no;
     private String cmt_content;
-    private Timestamp cmt_date;
+    private String cmt_date;
+    private ReviewDto review;
+    private MemberDto member;
 }

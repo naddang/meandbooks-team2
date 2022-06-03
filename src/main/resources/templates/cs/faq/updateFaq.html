@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -106,31 +106,33 @@
 
 <!-- 메인 -->
 <main class="container">
-  <form action="">
+  <form th:action="@{/cs/faq/updateFaq_ok}">
+    <input type="hidden" th:value="${view.faq_no}" th:name="faq_no">
     <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">글 제목</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요.">
+      <span th:switch="${view.faq_cate}">
+        <b><span th:case="1">[반품, 교환 문의]</span></b>
+        <b><span th:case="2">[결제 문의]</span></b>
+        <b><span th:case="3">[상품 문의]</span></b>
+        <b><span th:case="4">[배송 문의]</span></b>
+        <b><span th:case="5">[개인정보 문의]</span></b>
+        <b><span th:case="6">[기타 문의]</span></b>
+      </span>
     </div>
 
     <div class="mb-3">
-      <label for="exampleFormControlSelect" class="form-label">카테고리</label>
-      <select class="form-select" id="exampleFormControlSelect" aria-label="Default select example">
-        <option selected>카테고리를 선택하세요.</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
+      <label for="exampleFormControlInput1" class="form-label">글 제목</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" th:value="${view.faq_title}" th:name="faq_title">
     </div>
 
     <div class="mb-3">
       <label for="exampleFormControlTextarea" class="form-label">글 내용</label>
-      <textarea class="form-control" id="exampleFormControlTextarea" rows="10"></textarea>
+      <textarea class="form-control" id="exampleFormControlTextarea" rows="10" th:name="faq_contnet" th:text="${view.faq_contnet}" th:value="${view.faq_contnet}"></textarea>
     </div>
 
     <div class="mb-3" id="btn-area">
-      <input class="btn btn-primary" type="submit" value="등록하기">
+      <input class="btn btn-primary" th:type="submit" value="수정완료">
       <input class="btn btn-primary" type="reset" value="다시쓰기">
-      <input class="btn btn-primary" type="button" value="목록보기">
+      <a th:href="@{/cs/faq}" class="btn btn-primary">목록으로</a>
     </div>
   </form>
 </main>

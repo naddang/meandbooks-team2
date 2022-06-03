@@ -2,6 +2,8 @@ package com.meandbooksteam2.shoppingmall.service.mall;
 
 import com.meandbooksteam2.shoppingmall.dao.mall.BookServiceDao;
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
+import com.meandbooksteam2.shoppingmall.dto.RevCmtDto;
+import com.meandbooksteam2.shoppingmall.dto.ReviewDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +36,35 @@ public class BookService {
 
     public int insertCart(HashMap<String, String> param){
         param.put("cart_no", getCartNo());
+        System.out.println(param.get("mem_no"));
+        System.out.println(param.get("book_no"));
+        System.out.println(param.get("cart_no"));
+        System.out.println(param.get("cart_qty"));
         int re = dao.insertCart(param);
 
         return re;
+    }
+
+    public List<ReviewDto> listReview(HashMap<String, String> param){
+        return dao.listReview(param);
+    }
+
+    public List<RevCmtDto> listRevCmt(HashMap<String, String> param){
+        return dao.listRevCmt(param);
+    }
+
+    public int updateReview(HashMap<String, String> param){
+        return dao.updateReview(param);
+    }
+    public int deleteReview(HashMap<String, String> param){
+        return dao.deleteReview(param);
+    }
+
+    public int updateRevCmt(HashMap<String, String> param){
+        return dao.updateRevCmt(param);
+    }
+    public int deleteRevCmt(HashMap<String, String> param){
+        return dao.deleteRevCmt(param);
     }
 
     private String getCartNo(){

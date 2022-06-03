@@ -1,69 +1,62 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나와책::Me&Book</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    
-    <!-- Custom styles for this template -->
-    <link href="/static/css/common.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <style>
-        #btn-area {
-            text-align: center;
-        }
-    </style>
+<!-- thymeleaf 적용 -->
+<html xmlns:th="http://www.thymeleaf.org"> 
+<nav th:replace="fragments/nav::navFragment">
+</nav>
+<head th:replace="fragments/head::headFragment">
 </head>
 <body>
-<h2>상세 회원 정보</h2>
-<div class="table-responsive">
-    <form>
-        <table class="table table-light table-striped-columns">
-            <tbody>
-            <tr>
-                <th scope="col">회원번호</th>
-                <td>21212121</td>
-                <th scope="col">아이디</th>
-                <td>12121212</td>
-            </tr>
-            <tr>
-                <th scope="col">회원이름</th>
-                <td>2</td>
-                <th scope="col">전화번호</th>
-                <td>가나다라마바사아</td>
-            </tr>
-            <tr>
-                <th scope="col">이메일</th>
-                <td>아무개</td>
-                <th scope="col">마일리지</th>
-                <td>010-1234-5678</td>
-            </tr>
-            <tr>
-                <th scope="col">주소</th>
-                <td colspan="3">부산광역시 진구 부전동</td>
-            </tr>
-            </tbody>
-        </table>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" th:replace="fragments/header::headerFragment">
+</header>
 
-        <br>
-
-        <div class="mb-3" id="btn-area">
-            <input class="btn btn-primary" type="button" value="이전화면">
-            <input class="btn btn-primary" type="submit" value="회원삭제">
-            <input class="btn btn-primary" type="submit" value="수정완료">
+<div class="container-fluid" th:replace="fragments/adminside :: sideFragment">
+</div>    
+<!-- Main 화면 -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <!-- 회원정보수정 -->
+        <div class="table-responsive">
+            <form>
+                <table class="table table-light table-striped-columns">
+                    <tbody>
+                    <tr>
+                        <th scope="col">회원번호</th>
+                        <td>21212121</td>
+                        <th scope="col">아이디</th>
+                        <td>12121212</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">회원이름</th>
+                        <td>2</td>
+                        <th scope="col">전화번호</th>
+                        <td>가나다라마바사아</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">이메일</th>
+                        <td>아무개</td>
+                        <th scope="col">마일리지</th>
+                        <td>010-1234-5678</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">주소</th>
+                        <td colspan="3">부산광역시 진구 부전동</td>
+                    </tr>
+                    </tbody>
+                </table>
+        
+                <br>
+        
+                <div class="mb-3" id="btn-area">
+                    <input class="btn btn-primary" type="button" value="이전화면">
+                    <input class="btn btn-primary" type="submit" value="회원삭제">
+                    <input class="btn btn-primary" type="submit" value="수정완료">
+                </div>
+            </form>
         </div>
-    </form>
-</div>
-
-    <!-- 부트스트랩 설정 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        </main>
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
+<!-- 부트스트랩 설정 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+<script src="../../static/js/dashboard.js"></script>
 </body>
 </html>

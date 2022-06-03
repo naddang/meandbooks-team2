@@ -125,4 +125,8 @@ public class MemberService {
 
         return Long.toString(L_refund_no);
     }
+
+    public String getMemNo(HashMap<String, String> param){
+        return dao.getMemNo(param);
+    }
 }

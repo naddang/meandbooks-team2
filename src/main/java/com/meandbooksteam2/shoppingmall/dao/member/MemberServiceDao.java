@@ -55,4 +55,5 @@ public interface MemberServiceDao {
     public int getTodayRefund();
     public int getTodayNoMemberRefund();
     public int isAdmin(String mem_uid);
+    public String getMemNo(HashMap<String, String> param);
 }

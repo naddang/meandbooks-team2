@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 /*책관련 페이지들의 요청을 처리하는 Controller 클래스입니다*/
@@ -20,7 +22,7 @@ public class MallController {
 
     @GetMapping("mall")
     public String mall(){
-        return "mall/bestSeller";
+        return "redirect:mall/bestSeller";
     }
 
     @GetMapping("mall/bestSeller")
@@ -30,15 +32,17 @@ public class MallController {
     }
 
     @GetMapping("mall/bestCate")
-    public String bestCate(HashMap<String, String> param, Model model) {
+    public String bestCate(@RequestParam HashMap<String, String> param, Model model) {
         model.addAttribute("list", service.listCateBest(param));
         return "mall/bestCate";
     }
 
-    @GetMapping("mall/bookInfo")
-    public String bookInfo(HashMap<String, String> param, Model model) {
+    @GetMapping("mall/viewBook")
+    public String bookInfo(@RequestParam HashMap<String, String> param, Model model) {
         model.addAttribute("book", service.viewBook(param));
-        return "mall/bookInfo";
+        model.addAttribute("reviews", service.listReview(param));
+        model.addAttribute("cmts", service.listRevCmt(param));
+        return "mall/viewBook";
     }
 
     @GetMapping("mall/searchBook")
@@ -47,14 +51,18 @@ public class MallController {
     }
 
     @GetMapping("mall/searchResult")
-    public String searchResult(HashMap<String, String> param, Model model){
+    public String searchResult(@RequestParam HashMap<String, String> param, Model model){
         model.addAttribute("list", service.listMallBook(param));
         return "mall/searchResult";
     }
 
     @GetMapping("mall/insertCart")
-    public String insertCart(HashMap<String, String> param) {
+    public String insertCart(@RequestParam HashMap<String, String> param, HttpSession session) {
+        if (session.getAttribute("mem_no") == null) {
+            return "redirect:/mall/viewBook?book_no=" + param.get("book_no");
+        }
+        param.put("mem_no", (String)session.getAttribute("mem_no"));
         service.insertCart(param);
-        return "redirect:mall/bookInfo?" + param.get("book_no");
+        return "redirect:/mall/viewBook?book_no=" + param.get("book_no");
     }
 }
