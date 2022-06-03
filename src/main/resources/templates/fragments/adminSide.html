@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<nav th:fragment="adminSideFragment" id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/index}">
+                    <span data-feather="home"></span>
+                    홈
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/orders}">
+                    <span data-feather="file"></span>
+                    주문내역
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/book}">
+                    <span data-feather="archive"></span>
+                    상품관리
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/member}">
+                    <span data-feather="users"></span>
+                    고객관리
+                </a>
+            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="#">-->
+<!--                    <span data-feather="bar-chart-2"></span>-->
+<!--                    매출-->
+<!--                </a>-->
+<!--            </li>-->
+            <hr>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/cs/notice/writeNotice}">
+                    <span data-feather="book-open"></span>
+                    공지사항 등록
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/cs/faq/writeFaq}">
+                    <span data-feather="book-open"></span>
+                    FAQ 등록
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/cs/qna/adminListQna}">
+                    <span data-feather="book-open"></span>
+                    1:1 문의 관리
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</html>

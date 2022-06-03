@@ -108,6 +108,7 @@
 <main class="container">
   <form th:action="@{/cs/qna/updateQnaQ_ok}">
     <input type="hidden" th:value="${q.q_no}" th:name="q_no">
+    <input type="hidden" th:value="${q.q_cate}" th:name="q_cate">
     <div class="mb-3">
       <span th:switch="${q.q_cate}">
         <b><span th:case="1">[반품, 교환 문의]</span></b>

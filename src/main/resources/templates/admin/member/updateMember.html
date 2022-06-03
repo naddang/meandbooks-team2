@@ -1,14 +1,9 @@
 <!doctype html>
-<!-- thymeleaf 적용 -->
-<html xmlns:th="http://www.thymeleaf.org"> 
-<nav th:replace="fragments/nav::navFragment">
-</nav>
-<head th:replace="fragments/head::headFragment">
-</head>
-<body>
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" th:replace="fragments/header::headerFragment">
-</header>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/adminLayout">
 
+<<<<<<< HEAD
 <div class="container-fluid" th:replace="fragments/adminside :: sideFragment">
 </div>    
 <!-- Main 화면 -->
@@ -76,3 +71,86 @@
 <script src="../../static/js/dashboard.js"></script>
 </body>
 </html>
+=======
+<th:block layout:fragment="css">
+    <style>
+        #btn-area {
+            text-align: center;
+        }
+
+        .table {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        table th {
+            text-align: center;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+
+    </script>
+</th:block>
+
+<div layout:fragment="content">
+    <br>
+    <div class="table-responsive">
+        <form>
+            <table class="table table-light table-striped-columns caption-top">
+                <caption>상세 회원 정보</caption>
+                <tbody>
+                <tr>
+                    <th scope="col">회원번호</th>
+                    <td th:text="${member.mem_no}">21212121</td>
+                    <th scope="col">아이디</th>
+                    <td th:text="${member.mem_uid}">12121212</td>
+                </tr>
+                <tr>
+                    <th scope="col">회원이름</th>
+                    <td th:text="${member.mem_nm}">2121</td>
+                    <th scope="col">전화번호</th>
+                    <td th:text="${member.mem_phoneNo}">21212121</td>
+                </tr>
+                <tr>
+                    <th scope="col">이메일</th>
+                    <td th:text="${member.mem_email}">2121212</td>
+                    <th scope="col">마일리지</th>
+                    <td th:text="${member.mem_mileage}">121212</td>
+                </tr>
+                <tr>
+                    <th scope="col">주소</th>
+                    <td colspan="3" th:text="|${member.mem_addr1}  ${member.mem_addr2}  ${member.mem_addr3}|">부산광역시 진구 부전동</td>
+                </tr>
+                <tr>
+                    <th>현재 접근 권한</th>
+                    <td>
+                        <span th:if="${member.mem_no} == 1">접근 가능</span>
+                        <span th:unless="${member.mem_no} == 1">접근 불가</span>
+                    </td>
+                    <th>접근 권한 변경</th>
+                    <td>
+                        <form th:action="@{admin/member}">
+                            <input type="hidden" name="mem_no" th:value="${member.mem_no}">
+                            <input type="radio" name="accessible" value="0" th:attr="checked=${1} == ${member.accessible} ? true : false"> 강퇴
+                            <input type="radio" name="accessible" value="1" th:attr="checked=${0} == ${member.accessible} ? true : false"> 복구
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <br>
+
+            <div class="mb-3" id="btn-area">
+                <input class="btn btn-primary" type="button" value="이전화면" onclick="history.back()">
+                <input class="btn btn-primary" type="submit" value="수정완료">
+            </div>
+        </form>
+    </div>
+</div>
+
+</html>
+>>>>>>> workspace
