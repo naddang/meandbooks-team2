@@ -255,8 +255,10 @@ public class CsController {
     @GetMapping("cs/qna/viewMemQna")
     public String viewMemQna(@RequestParam HashMap<String, String> param, Model model) {
         model.addAttribute("q", qnaService.viewQnaQ(param));
-        model.addAttribute("a", qnaService.viewQnaA(param));
-        return "cs/qna/viewMemQna";
+        if (qnaService.viewQnaA(param) != null) {
+            model.addAttribute("a", qnaService.viewQnaA(param));
+        }
+            return "cs/qna/viewMemQna";
     }
 
     /*관리자가 개별 qna 확인 - 질문에 대한 답변만 달고, 수정, 삭제 가능 / 답변은 읽기만 - 만들긴 함 확인 필요*/

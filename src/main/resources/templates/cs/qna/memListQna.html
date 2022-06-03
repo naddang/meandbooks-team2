@@ -127,7 +127,7 @@
     <tbody>
     <tr th:if="${not #lists.isEmpty(list)}" th:each="list : ${list}">
       <td>
-        <span th:switch="${q.q_cate}">
+        <span th:switch="${list.q_cate}">
         <b><span th:case="1">[반품, 교환 문의]</span></b>
         <b><span th:case="2">[결제 문의]</span></b>
         <b><span th:case="3">[상품 문의]</span></b>

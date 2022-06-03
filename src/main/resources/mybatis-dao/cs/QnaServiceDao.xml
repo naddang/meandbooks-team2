@@ -100,11 +100,11 @@
     </update>
 
     <!--개별 문의에 대한 관리자의 답변 조회-->
-<!--    <select id="viewQnaA" parameterType="hashmap" resultType="QnaADto">-->
-<!--        select a_content, a_date-->
-<!--        from qna_a-->
-<!--        where q_no = #{q_no}-->
-<!--    </select>-->
+    <select id="viewQnaA" parameterType="hashmap" resultType="QnaADto">
+        select a_content, a_date
+        from qna_a
+        where q_no = #{q_no}
+    </select>
 
     <!--문의 답변 삭제 - 만들긴 함-->
     <delete id="deleteQnaA" parameterType="hashmap">
