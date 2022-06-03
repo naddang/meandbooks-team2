@@ -10,4 +10,6 @@ public class CartDto {
     private int mem_no;
     private String book_no;
     private int cart_qty;
+    private int sum;
+    private BookDto book;
 }

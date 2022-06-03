@@ -9,6 +9,10 @@
         SELECT MEM_NO
              , MEM_UID
              , MEM_NM
+             , MEM_PHONENO
+             , MEM_ADDR1
+             , MEM_ADDR2
+             , MEM_ADDR3
              , MEM_EMAIL
              , `ACCESSIBLE`
         FROM MEMBER
@@ -21,8 +25,13 @@
     <select id="viewMember" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
         SELECT MEM_NO
              , MEM_UID
+             , MEM_PHONENO
              , MEM_NM
              , MEM_EMAIL
+             , MEM_ADDR1
+             , MEM_ADDR2
+             , MEM_ADDR3
+             , MEM_MILEAGE
              , `ACCESSIBLE`
         FROM MEMBER
         WHERE MEM_NO = #{mem_no}

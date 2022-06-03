@@ -60,10 +60,11 @@
     <delete id="deleteBook" parameterType="hashmap">
         DELETE FROM BOOK WHERE BOOK_NO = #{book_no}
     </delete>
+
     <!--책번호 삽입을 자동화하기위해 사용하는 쿼리-->
     <select id="getBookNo" parameterType="hashmap" resultType="string">
         Select MAX(BOOK_NO)
         FROM BOOK
-        WHERE BOOK_NO LIKE CONCAT('%', #{book_no}, '%')
+        WHERE BOOK_NO LIKE CONCAT(#{book_no}, '%')
     </select>
 </mapper>

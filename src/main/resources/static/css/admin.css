@@ -1,0 +1,31 @@
+.orderList table{
+    margin: 0 auto;
+}
+.orderList table td{
+    padding: 0px 20px;
+}
+#orderList{
+    display: flex;
+    justify-content: center;
+    line-height: 50px;
+    position: relative;
+}
+#list-title{
+    margin-left: -300px;
+}
+#list-content{
+    padding-left: 200px;
+}
+#btn-area{
+    text-align: center;
+    margin-left: -300px;
+    margin-top: 50px;
+}
+#title-area{
+    text-align: center;
+    margin-left: -300px;
+}
+.table-responsive{
+    width: 80%;
+    margin: 0 auto;
+}

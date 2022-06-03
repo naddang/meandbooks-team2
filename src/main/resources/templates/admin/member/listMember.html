@@ -40,47 +40,22 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>000-0000-0000</td>
-              <td>부산광역시</td>
-              <td>c@c.com</td>
-              <td>1,000</td>
+            <tr th:each=" member : ${list}">
+              <td th:text="${member.mem_no}">1,001</td>
+              <td th:text="${member.mem_uid}">1,001</td>
+              <td th:text="${member.mem_nm}">1,001</td>
+              <td th:text="${member.mem_phoneNo}">1,001</td>
+              <td th:text="|${member.mem_addr1} ${member.mem_addr2} ${member.mem_addr3}|">random</td>
+              <td th:text="${member.mem_email}">1,001</td>
+              <td th:text="${member.mem_mileage}">1,001</td>
               <td>
-                <input type="button" value="정보관리">
-              </td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>000-0000-0000</td>
-              <td>부산광역시</td>
-              <td>c@c.com</td>
-              <td>1,000</td>
-              <td>
-                <input type="button" value="정보관리">
-              </td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>000-0000-0000</td>
-              <td>부산광역시</td>
-              <td>c@c.com</td>
-              <td>1,000</td>
-              <td>
-                <input type="button" value="정보관리">
+                <a class="btn btn-primary" th:href="@{/admin/member/updateMember(mem_no=${member.mem_no})}">정보관리</a>
               </td>
             </tr>
             </tbody>
           </table>
           </form>
         </div>
-        
         </main>
         <footer th:replace="fragments/footer :: footerFragment"></footer>
 <!-- 부트스트랩 설정 -->

@@ -5,37 +5,63 @@
 
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.admin.ManageOrdersDao">
-    <resultMap id="Member" type="com.meandbooksteam2.shoppingmall.dto.MemberDto">
+    <resultMap id="Member" type="MemberDto">
         <result column="mem_uid" property="mem_uid"></result>
     </resultMap>
-    <resultMap id="Book" type="com.meandbooksteam2.shoppingmall.dto.BookDto">
+    <resultMap id="Book" type="BookDto">
         <result column="book_no" property="book_no"></result>
         <result column="book_nm" property="book_nm"></result>
+        <result column="book_img" property="book_img"></result>
+        <result column="BOOK_PRICE" property="book_price"></result>
     </resultMap>
-    <resultMap id="Orders" type="com.meandbooksteam2.shoppingmall.dto.OrdersDto">
-
+    <resultMap id="Orders" type="OrdersDto">
+        <result column="ORDERS_DATE" property="orders_date"/>
+        <result column="ORDERS_NO" property="orders_no"/>
+        <result column="ORDERS_QTY" property="orders_qty"/>
+        <result column="orders_status" property="orders_status"/>
+        <collection property="member" resultMap="Member"/>
+        <collection property="book" resultMap="Book"/>
     </resultMap>
     <!--주문 목록을 가져오는 쿼리-->
-    <select id="listOrders" parameterType="hashmap" resultType="map">
-        SELECT O.ORDERS_DATE
+    <select id="listOrders" resultMap="Orders">
+        SELECT o.ORDERS_QTY * b.BOOK_PRICE
+             , O.ORDERS_DATE
+             , date_format(O.ORDERS_DATE,'%m-%d %h:%i') "ORDERS_DATE"
              , O.ORDERS_NO
              , M.MEM_UID
              , B.BOOK_NO
              , B.BOOK_NM
+             , B.BOOK_IMG
              , O.ORDERS_QTY
+             , o.orders_status
         FROM `ORDERS` O JOIN BOOK B
                          ON O.BOOK_NO = B.BOOK_NO
                        JOIN MEMBER M
                          ON O.MEM_NO = M.MEM_NO
     </select>
 
-    <!--회원 밴을 염두에 둔 쿼리-->
+    <!--주문상태 변경 쿼리-->
     <update id="updateOrdersStatus" parameterType="hashmap">
         UPDATE ORDERS SET ORDERS_STATUS = #{orders_status} WHERE ORDERS_NO=#{orders_no}
     </update>
+    <!--주문상태를 변경할때 창에서 해당 주문의 정보를 띄우는 쿼리-->
+    <select id="getOneOrder" parameterType="hashmap" resultMap="Orders">
+        SELECT O.ORDERS_DATE
+             , O.ORDERS_NO
+             , M.MEM_UID
+             , B.BOOK_NO
+             , B.BOOK_NM
+             , O.ORDERS_QTY
+             , O.ORDERS_STATUS
+        FROM ORDERS O JOIN BOOK B
+                           ON O.BOOK_NO = B.BOOK_NO
+                      JOIN MEMBER M
+                           ON O.MEM_NO = M.MEM_NO
+        where o.orders_no = #{orders_no}
+    </select>
 
     <!--keyword를 바인딩변수로 받아 검색하는 쿼리-->
-    <select id="searchOrders" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">
+    <select id="searchOrders" parameterType="hashmap" resultMap="Orders">
         SELECT O.ORDERS_DATE
              , O.ORDERS_NO
              , M.MEM_UID

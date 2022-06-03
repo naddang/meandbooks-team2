@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,15 +20,29 @@ import java.util.List;
 @Controller
 public class AdminController {
 
-    @Autowired
     ManageBookServiceImpl bookService;
-    @Autowired
     ManageOrdersServiceImpl ordersService;
-    @Autowired
     ManageMemberServiceImpl memberService;
 
+    @Autowired
+    public void setBookService(ManageBookServiceImpl bookService) {
+        this.bookService = bookService;
+    }
+    @Autowired
+    public void setOrdersService(ManageOrdersServiceImpl ordersService) {
+        this.ordersService = ordersService;
+    }
+    @Autowired
+    public void setMemberService(ManageMemberServiceImpl memberService) {
+        this.memberService = memberService;
+    }
+
+
     @GetMapping("admin")
-    public String adminMain(){
+    public String adminMain(HttpSession session){
+        if (session.getAttribute("isAdmin").toString().equals("0")) {
+            return "redirect:/";
+        }
         return "admin/adminMain";
     }
 
@@ -105,16 +120,17 @@ public class AdminController {
     }
 
     @GetMapping("admin/orders/updateOrders")
-    public String updateOrders(){
+    public String updateOrders(@RequestParam HashMap<String, String> param, Model model){
+        model.addAttribute("orders", ordersService.getOneOrder(param));
         return "admin/orders/updateOrders";
     }
 
     @GetMapping("admin/orders/updateOrders_ok")
-    public String updateOrdersOk(@RequestParam HashMap<String, String> param, Model model){
+    public String updateOrdersOk(@RequestParam HashMap<String, String> param, Model model, HttpSession session){
         int re = ordersService.updateOrdersStatus(param);
         model.addAttribute("page", "1");
         if (re == 1) {
-            return "redirect:admin/orders";
+            return "redirect:/admin/orders";
         }else {
             return "error";
         }

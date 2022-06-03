@@ -4,13 +4,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.member.CartServiceDao">
+    <resultMap id="BookDto" type="BookDto">
+        <result property="book_nm" column="book_nm"/>
+        <result property="book_img" column="book_img"/>
+        <result property="book_price" column="book_price"/>
+    </resultMap>
+    <resultMap id="CartDto" type="CartDto">
+        <result property="cart_no" column="cart_no"/>
+        <result property="sum" column="sum"/>
+        <result property="mem_no" column="mem_no"/>
+        <result property="book_no" column="book_no"/>
+        <result property="cart_qty" column="cart_qty"/>
+        <collection property="book" resultMap="BookDto"></collection>
+    </resultMap>
     <!--장바구니 정보를 불러오는 쿼리문 - 장바구니에 담긴 책 정보는 다른 곳에서 book_no를 통해 가져와야 함-->
-    <select id="listCart" parameterType="hashmap" resultType="CartDto">
-        select cart_no
-             , mem_no
-             , book_no
-             , cart_qty
-        from cart where mem_no = #{mem_no}
+    <select id="listCart" parameterType="string" resultMap="CartDto">
+        select sum(b.BOOK_PRICE * CART_QTY) over() sum
+             , c.cart_no
+             , c.mem_no
+             , c.book_no
+             , c.cart_qty
+             , b.book_nm
+             , b.BOOK_IMG
+             , b.BOOK_PRICE
+        from cart c join book b on c.BOOK_NO = b.BOOK_NO where mem_no = #{mem_no}
     </select>
 
     <!--장바구니 목록에서 선택한 책의 수량을 변경하는 쿼리-->

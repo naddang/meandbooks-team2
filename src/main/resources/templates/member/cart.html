@@ -35,7 +35,7 @@
         <div id="title">
             <h1>장바구니</h1>
         </div>
-        <form>
+        <form  th:with="allPrice = 0">
             <table class="table">
                 <colgroup>
                     <col width="30%"/>
@@ -56,43 +56,34 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:each="cart : ${list}">
+                    <td th:text="${cart.book.book_nm}">가나다</td>
+                    <td th:text="|${#numbers.formatInteger(cart.book.book_price, 0, 'COMMA')}원|">15,000원</td>
+                    <td>
+                        <input type="number" th:value="${cart.cart_qty}"    min="1" max="99" name="orders_qty">
+                    </td>
+                    <td th:text="|${#numbers.formatInteger(cart.book.book_price * cart.cart_qty, 0, 'COMMA')}원|">15,000원</td>
+                    <td>
+                        <input type="checkbox" name="check" class="check">
+                    </td>
+                    <td>
+                        <a th:href="@{/member/deleteCart(cart_no=${cart.cart_no})}" class="btn btn-primary">삭제</a>
+                    </td>
+                </tr>
                 <tr>
-                    <td>가나다</td>
-                    <td>15,000원</td>
-                    <td>
-                        <input type="number" value="1" min="1" max="99">
-                    </td>
-                    <td>15,000원</td>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>
-                        <input type="button" value="삭제">
-                    </td>
+                    <td colspan="6" style="background: #727272"></td>
+                </tr>
+                <tr>
+                    <th>총 상품가격</th>
+                    <td th:text="|${#numbers.formatInteger(list[0].sum, 0, 'COMMA')}원|" colspan="2">15,000원</td>
+                    <th>적립되는 마일리지</th>
+                    <td th:text="|${#numbers.formatInteger(list[0].sum * 0.05, 0, 'COMMA')}원|" colspan="2">150원</td>
                 </tr>
                 </tbody>
             </table>
 
             <table class="table small-table table-light">
                 <tbody>
-                <tr>
-                    <td>총 상품가격</td>
-                    <td>15,000원</td>
-                    <td>마일리지</td>
-                    <td>150원</td>
-                </tr>
-                <tr>
-                    <td>총 주문 상품수</td>
-                    <td>1권</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>총 결제 금액</th>
-                    <td>15,000원</td>
-                    <th>총 적립 마일리지</th>
-                    <td>150원</td>
-                </tr>
                 </tbody>
             </table>
 

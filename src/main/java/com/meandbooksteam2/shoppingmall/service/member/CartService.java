@@ -17,8 +17,8 @@ public class CartService {
     }
 
     //장바구니 목록 조회
-    public List<CartDto> listCart(HashMap<String,String> param) {
-        return dao.listCart(param);
+    public List<CartDto> listCart(String mem_no) {
+        return dao.listCart(mem_no);
     }
 
     //장바구니 수정

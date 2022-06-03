@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface CartServiceDao {
     //장바구니 목록 조회
-    List<CartDto> listCart(HashMap<String,String> param);
+    List<CartDto> listCart(String mem_no);
 
     //장바구니 수정
     int updateCartStatus(HashMap<String,String> param);

@@ -32,4 +32,7 @@ public class ManageOrdersServiceImpl {
     public OrdersDto viewOrders(HashMap<String, String> param) {
         return dao.viewOrders(param);
     }
+    public OrdersDto getOneOrder(HashMap<String, String> param) {
+        return dao.getOneOrder(param);
+    }
 }

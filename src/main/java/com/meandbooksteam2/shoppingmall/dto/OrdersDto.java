@@ -17,6 +17,7 @@ public class OrdersDto {
     private String orders_date;
     private int orders_qty;
     private int orders_status;
+    private int sum;
     private MemberDto member;
     private BookDto book;
 }

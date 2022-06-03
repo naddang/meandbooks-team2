@@ -36,8 +36,10 @@ public class MemberController {
     }
 
     @GetMapping("member/cart")
-    public String cart(HashMap<String, String> param, Model model){
-        model.addAttribute("list", cartService.listCart(param));
+    public String cart(Model model, HttpSession session){
+        String mem_no = (String)session.getAttribute("mem_no");
+
+        model.addAttribute("list", cartService.listCart(mem_no));
         return "member/cart";
     }
 
@@ -79,6 +81,11 @@ public class MemberController {
         }else {
             return "redirect:login";
         }
+    }
+    @GetMapping("member/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/index";
     }
 
     @GetMapping("member/myOrders")

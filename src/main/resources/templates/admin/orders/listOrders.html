@@ -8,99 +8,46 @@
 <body>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow" th:replace="fragments/header::headerFragment">
 </header>
-
+<link rel="stylesheet" th:href="@{/css/admin.css}">
 <div class="container-fluid" th:replace="fragments/adminside :: sideFragment">
-</div>    
+</div>
 <!-- Main 화면 -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <!-- 주문 목록 -->
-        <div class="Searchorders">
-            <input type="text" placeholder="검색어 입력" id="searchBook">
-            <input class="btn btn-primary" type="button" value="검색" >
-        </div>
+<!--        <div class="searchOrders">-->
+<!--            <form th:action="@{/admin/orders}"-->
+<!--            <input type="text" placeholder="검색어 입력" id="searchBook">-->
+<!--            <input class="btn btn-primary" type="button" value="검색" >-->
+<!--        </div>-->
         <!-- 개별 주문 조회, 수정 가능-->
         <div class="orderList">
-            <form>
-                <table>
-                    <tr>
-                        <td>주문 번호</td>
-                        <td>회원 ID</td>
-                        <td>주문 상품</td>
-                        <td>처리 상태</td>
-                        <td>주문 날짜</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                          <a href="updateOrders.html">
-                            abcd
-                          </a>
-                        </td>
-                        <td>
-                          <img src="/images/book1.jpg">
-                          1번책
-                        </td>
-                        <td>배송중</td>
-                        <td>2022-05-01</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                          <a href="#">
-                            abcd
-                          </a>
-                        </td>
-                        <td>
-                          <img src="/images/book2.jpg">
-                          2번책
-                        </td>
-                        <td>배송중</td>
-                        <td>2022-05-01</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>
-                          <a href="#">
-                            abcd
-                          </a>
-                        </td>
-                        <td>
-                          <img src="/images/book3.jpg">
-                          3번책
-                        </td>
-                        <td>결제 완료</td>
-                        <td>2022-05-01</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>
-                          <a href="#">
-                            abcd
-                          </a>
-                        </td>
-                        <td>
-                          <img src="/images/book4.png">
-                          4번책
-                        </td>
-                        <td>배송 완료</td>
-                        <td>2022-05-01</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>
-                          <a href="#">
-                            abcd
-                          </a>
-                        </td>
-                        <td>
-                          <img src="/images/book5.jpg">
-                          5번책
-                        </td>
-                        <td>배송 완료</td>
-                        <td>2022-05-01</td>
-                    </tr>
-                </table>
-            </form>
+            <table>
+                <tr>
+                    <td>주문 번호</td>
+                    <td>회원 ID</td>
+                    <td>주문 상품</td>
+                    <td>처리 상태</td>
+                    <td>주문 날짜</td>
+                </tr>
+                <tr th:each="order : ${list}">
+                    <td th:href="@{/admin/orders/updateOrders(orders_no=${order.orders_no})}" th:text="${order.orders_no}">1</td>
+                    <td>
+                      <a th:href="@{/admin/orders/updateOrders(orders_no=${order.orders_no})}" th:text="${order.member.mem_uid}">
+                        abcd
+                      </a>
+                    </td>
+                    <td>
+                        <img th:src="@{/imgs/book-imgs/} + ${order.book.book_img}" alt="???"/>
+                    </td>
+                    <td th:switch="${order.orders_status}">
+                        <th:block th:case="0" th:text="주문취소">주문취소</th:block>
+                        <th:block th:case="1" th:text="대기">대기</th:block>
+                        <th:block th:case="2" th:text="배송중">배송중</th:block>
+                        <th:block th:case="3" th:text="배송완료">배송완료</th:block>
+                    </td>
+                    <td th:text="${order.orders_date}">2022-05-01</td>
+                </tr>
+            </table>
         </div>
         </main>
         <footer th:replace="fragments/footer :: footerFragment"></footer>
