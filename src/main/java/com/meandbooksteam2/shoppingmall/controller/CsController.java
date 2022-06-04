@@ -208,7 +208,7 @@ public class CsController {
 //        return "cs/qna/listQna";
 //    }
 
-    /*관리자 qna 목록 - 페이징*/
+    /*관리자 qna 목록 - 완*/
     @GetMapping("cs/qna/adminListQna")
     public String openBoardList(@ModelAttribute("params") QnaQDto params, Model model, HttpSession session) {
 
@@ -223,7 +223,7 @@ public class CsController {
         }
     }
 
-    /*회원 qna 목록 - 페이징x - 만들긴 함 확인 필요*/
+    /*회원 qna 목록 - 페이징x - 완*/
     @GetMapping("cs/qna/memListQna")
     public String memQnaList(Model model, HttpSession session) {
         String mem_no = (String)session.getAttribute("mem_no");
@@ -251,7 +251,7 @@ public class CsController {
 //        }
 //    }
 
-    /*회원이 개별 qna 확인 - 질문에 대한 수정, 삭제만 가능하고 답변은 읽기 전용 - 만들긴 함 확인 필요*/
+    /*회원이 개별 qna 확인 - 완*/
     @GetMapping("cs/qna/viewMemQna")
     public String viewMemQna(@RequestParam HashMap<String, String> param, Model model) {
         model.addAttribute("q", qnaService.viewQnaQ(param));
@@ -261,7 +261,7 @@ public class CsController {
             return "cs/qna/viewMemQna";
     }
 
-    /*관리자가 개별 qna 확인 - 질문에 대한 답변만 달고, 수정, 삭제 가능 / 답변은 읽기만 - 만들긴 함 확인 필요*/
+    /*관리자가 개별 qna 확인 - 완*/
     @GetMapping("cs/qna/viewAdminQna")
     public String viewAdminQna(@RequestParam HashMap<String, String> param, Model model, HttpSession session) {
         if (session.getAttribute("isAdmin").toString().equals("1")) {
@@ -298,7 +298,7 @@ public class CsController {
         }
     }
 
-    /*qna 수정화면으로 이동 - 만들긴 함 확인 필요*/
+    /*qna 수정화면으로 이동 - 완*/
     @GetMapping("cs/qna/updateQnaQ")
     public String updateQna(@RequestParam HashMap<String, String> param, Model model) {
         model.addAttribute("q", qnaService.viewQnaQ(param));
@@ -306,7 +306,7 @@ public class CsController {
         return "cs/qna/updateQnaQ";
     }
 
-    /*수정 성공하면 그 질문 읽는 페이지, 아니면 다시 수정 페이지 - 만들긴 함 확인 필요*/
+    /*수정 성공하면 그 질문 읽는 페이지, 아니면 다시 수정 페이지 - 완*/
     @GetMapping("cs/qna/updateQnaQ_ok")
     public String updateQnaQOk(@RequestParam HashMap<String, String> param) {
         int result = qnaService.updateQnaQStatus(param);
@@ -348,11 +348,13 @@ public class CsController {
 //        return "cs/qna/insertQnaA";
 //    }
 
-    /*문의에 답변 작성 - 만들긴 함 확인 필요*/
+    /*문의에 답변 작성 - 완*/
     @GetMapping("cs/qna/insertQnaA_ok")
-    public String insertQnaAOk(@RequestParam HashMap<String, String> param) {
+    public String insertQnaAOk(@RequestParam HashMap<String, String> param, Model model) {
         int result = qnaService.insertQnaA(param);
+
         if (result == 1) {
+            model.addAttribute("q_no", param.get("q_no"));
             return "cs/qna/updateAccessLevel";
         } else {
             return "redirect:/cs/qna/viewAdminQna?q_no="+param.get("q_no");
@@ -364,19 +366,19 @@ public class CsController {
 //        return "cs/qna/updateAccessLevel";
 //    }
 
-    /*답변 상태 변경 - 만들긴 함 확인 필요*/
+    /*답변 상태 변경 - 완*/
     @GetMapping("cs/qna/updateAccessLevel_ok")
     public String updateAccessLevelOK(@RequestParam HashMap<String, String> param) {
         int result = qnaService.updateAccessLevel(param);
         if (result == 1) {
-            return "redirect:cs/qna/adminListQna";
+            return "redirect:/cs/qna/adminListQna";
         } else {
             return "error";
 //            return "redirect:cs/qna/viewAdminQna?q_no="+param.get("q_no");
         }
     }
 
-    /*문의 답변 수정 - 만들긴 함 확인 필요*/
+    /*문의 답변 수정 - 완*/
     @GetMapping("cs/qna/updateQnaA")
     public String updateQnaA(@RequestParam HashMap<String, String> param) {
         int result = qnaService.updateQnaAStatus(param);
@@ -387,7 +389,7 @@ public class CsController {
         }
     }
 
-    /*문의 답변 삭제 - 만들긴 함 확인 필요*/
+    /*문의 답변 삭제 - 완*/
     @GetMapping("cs/qna/deleteQnaA")
     public String deleteQnaA(@RequestParam HashMap<String, String> param) {
         int result = qnaService.deleteQnaA(param);

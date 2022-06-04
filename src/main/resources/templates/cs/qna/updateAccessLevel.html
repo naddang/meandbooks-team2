@@ -114,6 +114,7 @@
     </div>
     <form th:action="@{/cs/qna/updateAccessLevel_ok}">
         <input type="hidden" th:value="1" th:name="access_level">
+        <input type="hidden" th:value="${q_no}" th:name="q_no">
         <div class="mb-3" id="btn-area">
             <input class="btn btn-primary" type="submit" value="확인">
         </div>

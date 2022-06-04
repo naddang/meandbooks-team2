@@ -115,9 +115,9 @@
     <h1>공지사항</h1>
   </div>
 
-  <th:block layout:fragment="search">
-    <div th:replace="fragments/common :: search"></div>
-  </th:block>
+<!--  <th:block layout:fragment="search">-->
+<!--    <div th:replace="fragments/common :: search"></div>-->
+<!--  </th:block>-->
 
   <table class="table caption-top">
     <thead class="table-light">
@@ -130,7 +130,16 @@
     </thead>
     <tbody>
     <tr th:if="${not #lists.isEmpty(list)}" th:each="list : ${list}">
-      <td th:text="${list.q_cate}"></td>
+      <td>
+        <span th:switch="${list.q_cate}">
+          <b><span th:case="1">[반품, 교환 문의]</span></b>
+          <b><span th:case="2">[결제 문의]</span></b>
+          <b><span th:case="3">[상품 문의]</span></b>
+          <b><span th:case="4">[배송 문의]</span></b>
+          <b><span th:case="5">[개인정보 문의]</span></b>
+          <b><span th:case="6">[기타 문의]</span></b>
+        </span>
+      </td>
       <td class="text-left">
         <!--            <a th:href="|@{/cs/notice/viewNotice}${params.makeQueryString(params.currentPageNo)}&noti_no=${list.noti_no}|" th:text="${list.noti_title}"></a>-->
         <a th:href="@{/cs/qna/viewAdminQna(q_no=${list.q_no})}" th:text="${list.q_title}"></a>
