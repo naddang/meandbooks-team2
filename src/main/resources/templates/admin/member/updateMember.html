@@ -3,75 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/adminLayout">
 
-<<<<<<< HEAD
-<div class="container-fluid" th:replace="fragments/adminside :: sideFragment">
-</div>    
-<!-- Main 화면 -->
-<link rel="stylesheet" th:href="@{/css/admin.css}">
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <!-- 회원정보수정 -->
-        <div class="table-responsive">
-            <form>
-                <table class="table table-light table-striped-columns">
-                    <tbody>
-                    <tr>
-                        <th scope="col">회원번호</th>
-                        <td th:text="${member.mem_no}">21212121</td>
-                        <th scope="col">아이디</th>
-                        <td th:text="${member.mem_uid}">21212121</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">회원이름</th>
-                        <td th:text="${member.mem_nm}">21212121</td>
-                        <th scope="col">전화번호</th>
-                        <td th:text="${member.mem_phoneNo}">21212121</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">이메일</th>
-                        <td th:text="${member.mem_email}">21212121</td>
-                        <th scope="col">마일리지</th>
-                        <td th:text="${member.mem_mileage}">21212121</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">주소</th>
-                        <td colspan="3" th:text="|${member.mem_addr1}  ${member.mem_addr2}  ${member.mem_addr3}|">21212121</td>
-                    </tr>
-                    <tr>
-                        <th>현재 접근 권한</th>
-                        <td>
-                            <span th:if="${member.mem_no} == 1">접근 가능</span>
-                            <span th:unless="${member.mem_no} == 1">접근 불가</span>
-                        </td>
-                        <th>접근 권한 변경</th>
-                        <td>
-                            <form th:action="@{admin/member}">
-                                <input type="hidden" name="mem_no" th:value="${member.mem_no}">
-                                강퇴<input type="radio" name="accessible" value="0" th:attr="checked=${1} == ${member.accessible} ? true : false">
-                                복구<input type="radio" name="accessible" value="1" th:attr="checked=${0} == ${member.accessible} ? true : false">
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-        
-                <br>
-        
-                <div class="mb-3" id="btn-area">
-                    <input class="btn btn-primary" type="button" value="이전화면" onclick="history.back()">
-                    <input class="btn btn-primary" type="submit" value="수정완료">
-                </div>
-            </form>
-        </div>
-        </main>
-        <footer th:replace="fragments/footer :: footerFragment"></footer>
-<!-- 부트스트랩 설정 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-<script src="../../static/js/dashboard.js"></script>
-</body>
-</html>
-=======
 <th:block layout:fragment="css">
     <style>
         #btn-area {
@@ -153,4 +84,3 @@
 </div>
 
 </html>
->>>>>>> workspace
