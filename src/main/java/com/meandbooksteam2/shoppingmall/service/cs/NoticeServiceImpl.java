@@ -76,6 +76,23 @@ public class NoticeServiceImpl{
         return list;
     }
 
+ public List<NoticeDto> listSearchNotice(NoticeDto params) {
+        List<NoticeDto> list = Collections.emptyList();
+
+        int noticeSearchTotalCount = dao.selectNoticeSearchTotalCount(params);
+
+        PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(noticeSearchTotalCount);
+
+        params.setPaginationInfo(paginationInfo);
+
+        if (noticeSearchTotalCount > 0) {
+            list = dao.listSearchNotice(params);
+        }
+
+        return list;
+    }
+
 //    public int getTotal(Criteria param) {
 //        return dao.getTotal(param);
 //    }

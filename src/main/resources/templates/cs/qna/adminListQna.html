@@ -119,6 +119,18 @@
 <!--    <div th:replace="fragments/common :: search"></div>-->
 <!--  </th:block>-->
 
+  <form th:action="@{/cs/qna/searchQna}">
+    <select class="form-select" aria-label="Default select example" th:name="searchKeyword">
+      <option value="1">[반품,교환 문의]</option>
+      <option value="2">[결제 문의]</option>
+      <option value="3">[상품 문의]</option>
+      <option value="4">[배송 문의]</option>
+      <option value="5">[개인정보 문의]</option>
+      <option value="6">[기타 문의]</option>
+    </select>
+    <input class="btn btn-primary" th:type="submit" value="검색">
+  </form>
+
   <table class="table caption-top">
     <thead class="table-light">
     <tr>
@@ -231,30 +243,6 @@
     function movePage(uri, queryString) {
       location.href = uri + queryString;
     }
-
-    function searchBoard(form) {
-      /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
-      if (isEmpty(form) == true) {
-        var searchKeyword = document.getElementById("mainSearchKeyword");
-        if (isEmpty(searchKeyword.value) == true) {
-          alert("키워드를 입력해 주세요.");
-          searchKeyword.focus();
-          return false;
-        }
-
-        form = document.getElementById("searchForm");
-        form.searchKeyword.value = searchKeyword.value;
-        form.submit();
-      }
-
-      if (isEmpty(form.searchKeyword.value) == true) {
-        alert("키워드를 입력해 주세요.");
-        form.searchKeyword.focus();
-        return false;
-      }
-    }
-    /*[- end of function -]*/
-
     /*]]>*/
   </script>
 </th:block>

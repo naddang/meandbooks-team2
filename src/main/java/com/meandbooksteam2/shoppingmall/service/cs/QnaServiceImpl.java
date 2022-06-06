@@ -98,4 +98,21 @@ public class QnaServiceImpl {
 
         return list;
     }
+
+    public List<QnaQDto> searchQna(QnaQDto params) {
+        List<QnaQDto> list = Collections.emptyList();
+
+        int qnaTotalCount = dao.selectQnaSearchTotalCount(params);
+
+        PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(qnaTotalCount);
+
+        params.setPaginationInfo(paginationInfo);
+
+        if (qnaTotalCount > 0) {
+            list = dao.searchQna(params);
+        }
+
+        return list;
+    }
 }

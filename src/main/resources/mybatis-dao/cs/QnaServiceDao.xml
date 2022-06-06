@@ -19,33 +19,29 @@
 
     <select id="adminListQna" resultType="QnaQDto" parameterType="QnaQDto">
         select q_no,
-        q_title,
-        q_content,
-        q_date,
-        q_cate,
-        ACCESS_LEVEL
+               q_title,
+               q_content,
+               q_date,
+               q_cate,
+               ACCESS_LEVEL
         FROM
-        qna_q
-        <!--        WHERE-->
-        <!--        <if test="searchKeyword != null and searchKeyword != ''">-->
-        <!--            <choose>-->
+            qna_q
+        order by ACCESS_LEVEL, q_no desc
+        LIMIT
+        #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+    </select>
 
-        <!--                <when test="searchType != null and searchType != ''">-->
-        <!--                    <choose>-->
-        <!--                        <when test="'q_title'.equals(searchType)">-->
-        <!--                            AND q_title LIKE CONCAT('%', #{searchKeyword}, '%')-->
-        <!--                        </when>-->
-        <!--                    </choose>-->
-        <!--                </when>-->
-
-        <!--                <otherwise>-->
-        <!--                    AND-->
-        <!--                    (-->
-        <!--                    q_title LIKE CONCAT('%', #{searchKeyword}, '%')-->
-        <!--                    )-->
-        <!--                </otherwise>-->
-        <!--            </choose>-->
-        <!--        </if>-->
+    <!--카테코리별 검색 목록 페이징-->
+    <select id="searchQna" resultType="QnaQDto" parameterType="QnaQDto">
+        select q_no,
+               q_title,
+               q_content,
+               q_date,
+               q_cate,
+               ACCESS_LEVEL
+        FROM
+            qna_q
+        where Q_CATE = #{searchKeyword}
         order by ACCESS_LEVEL, q_no desc
         LIMIT
         #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
@@ -56,26 +52,15 @@
         COUNT(*)
         FROM
         qna_q
-        <!--        where-->
-        <!--        <if test="searchKeyword != null and searchKeyword != ''">-->
-        <!--            <choose>-->
+    </select>
 
-        <!--                <when test="searchType != null and searchType != ''">-->
-        <!--                    <choose>-->
-        <!--                        <when test="'noti_title'.equals(searchType)">-->
-        <!--                            AND noti_title LIKE CONCAT('%', #{searchKeyword}, '%')-->
-        <!--                        </when>-->
-        <!--                    </choose>-->
-        <!--                </when>-->
-
-        <!--                <otherwise>-->
-        <!--                    AND-->
-        <!--                    (-->
-        <!--                    noti_title LIKE CONCAT('%', #{searchKeyword}, '%')-->
-        <!--                    )-->
-        <!--                </otherwise>-->
-        <!--            </choose>-->
-        <!--        </if>-->
+    <!--검색 수-->
+    <select id="selectQnaSearchTotalCount" parameterType="QnaQDto" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        qna_q
+        where Q_CATE = #{searchKeyword}
     </select>
 
     <!--회원 화면 문의 목록 - 만들긴 함, 세션연결함-->

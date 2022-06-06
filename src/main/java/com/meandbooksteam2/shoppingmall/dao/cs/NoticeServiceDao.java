@@ -25,12 +25,18 @@ public interface NoticeServiceDao {
 //    //전체 게시글 수
 //    int getTotal(Criteria param);
 
-    public List<NoticeDto> listNotice(NoticeDto params);
+    /*전체 공지 목록*/
+    List<NoticeDto> listNotice(NoticeDto params);
 
-    public int selectNoticeTotalCount(NoticeDto params);
+    /*전체 공지 목록을 위한 데이터 갯수*/
+    int selectNoticeTotalCount(NoticeDto params);
 
     //개별 공지 조회
     NoticeDto viewNotice(HashMap<String,String> param);
 
+    /*검색공지 목록*/
+    List<NoticeDto> listSearchNotice(NoticeDto params);
 
+    /*검색 공지 목록을 위한 데이터 갯수*/
+    int selectNoticeSearchTotalCount(NoticeDto params);
 }

@@ -25,14 +25,6 @@ public class CsController {
     private NoticeServiceImpl noticeService;
     @Autowired
     private QnaServiceImpl qnaService;
-//    @Autowired
-//    private AdminSession adminSession;
-
-
-/*    private boolean isAdmin(HttpSession session) {
-        String mem_uid = (String)session.getAttribute("mem_uid");
-        return adminSession.isAdmin(mem_uid);
-    }*/
 
     @GetMapping("cs")
     public String cs() {
@@ -110,10 +102,19 @@ public class CsController {
 
     /*--------Notice 시작--------*/
 
-    /*공지 목록으로 - 페이징 완료, 검색 기능 넣으면 오류*/
+    /*공지 목록으로 */
     @GetMapping("cs/notice")
     public String openBoardList(@ModelAttribute("params") NoticeDto params, Model model) {
         List<NoticeDto> list = noticeService.listNotice(params);
+        model.addAttribute("list", list);
+
+        return "cs/notice/listNotice";
+    }
+
+    /*검색으로 목록 찾기*/
+    @GetMapping("cs/notice/searchNotice")
+    public String searchNotice(@ModelAttribute("params") NoticeDto params, Model model) {
+        List<NoticeDto> list = noticeService.listSearchNotice(params);
         model.addAttribute("list", list);
 
         return "cs/notice/listNotice";
@@ -125,15 +126,6 @@ public class CsController {
         model.addAttribute("view", noticeService.viewNotice(param));
         return "cs/notice/viewNotice";
     }
-
-//    /*검색어로 공지사항 목록 가져오기*/
-//    @GetMapping("cs/notice/searchNotice")
-////    public String searchNotice(@RequestParam HashMap<String, String> param, Model model) { - 페이징 처리할 때 사용
-//    public String searchNotice(Model model) {
-//        List<NoticeDto> searchNotice = noticeService.searchNotice();
-//        model.addAttribute("list", searchNotice);
-//        return "cs/notice/listNotice";
-//    }
 
     /*공지 작성 페이지로 - 관리자만 가능, 관리자 페이지에서 들어감 - 완*/
     @GetMapping("cs/notice/writeNotice")
@@ -198,16 +190,6 @@ public class CsController {
 
     /*--------QNA 시작--------*/
 
-    /*qna 목록 - 관리자일 경우에는 전체 문의 목록, 일반 회원일 경우에는 자기 문의 목록*/
-//    @GetMapping("cs/qna")
-////    public String qna(@RequestParam HashMap<String, String> param, Model model) { - 페이징 처리 때 사용
-//    public String qna(Model model) {
-//        List<QnaQDto> listQna = qnaService.listQna();
-//        model.addAttribute("list", listQna);
-//        //여기서 세션으로 분기처리 해야함
-//        return "cs/qna/listQna";
-//    }
-
     /*관리자 qna 목록 - 완*/
     @GetMapping("cs/qna/adminListQna")
     public String openBoardList(@ModelAttribute("params") QnaQDto params, Model model, HttpSession session) {
@@ -215,6 +197,19 @@ public class CsController {
         if (session.getAttribute("isAdmin").toString().equals("1")) {
 
             List<QnaQDto> list = qnaService.adminListQna(params);
+            model.addAttribute("list", list);
+
+            return "cs/qna/adminListQna";
+        } else {
+            return "/";
+        }
+    }
+
+    @GetMapping("cs/qna/searchQna")
+    public String searchQna(@ModelAttribute("params") QnaQDto params, Model model, HttpSession session) {
+        if (session.getAttribute("isAdmin").toString().equals("1")) {
+
+            List<QnaQDto> list = qnaService.searchQna(params);
             model.addAttribute("list", list);
 
             return "cs/qna/adminListQna";
@@ -233,23 +228,6 @@ public class CsController {
 
         return "cs/qna/memListQna";
     }
-
-    /*비밀번호 확인 페이지로 이동 - 필요 없음*/
-//    @GetMapping("cs/qna/checkQnaPw")
-//    public String checkQnaPw() {
-//        return "cs/qna/checkQnaPw";
-//    }
-
-    /*위에서 입력하고 확인 누르면 여기로*/
-//    @GetMapping("cs/qna/checkQnaPw_ok")
-//    public String checkQnaPwOk(@RequestParam HashMap<String, String> param, Model model) {
-//        int result = qnaService.checkQnaPW(param);
-//        if (result == 1) {
-//            return "redirect:/cs/qna/viewQna";
-//        } else {
-//            return "redirect:/cs/qna";
-//        }
-//    }
 
     /*회원이 개별 qna 확인 - 완*/
     @GetMapping("cs/qna/viewMemQna")
@@ -338,16 +316,6 @@ public class CsController {
         }
     }
 
-    /*문의 답변은 작성 성공하면 시크하게 목록으로 나가는 느낌 - 관리자면 항상 답변은 수정 가능한 폼으로 보이도록*/
-    /*회원은 읽기 전용 뷰로 보이게*/
-
-    /*문의 답변 페이지로*/
-//    @GetMapping("cs/qna/insertQnaA")
-//    public String insertQnaA(@RequestParam HashMap<String, String> param, Model model) {
-//        model.addAttribute("q", qnaService.viewQnaQ(param));
-//        return "cs/qna/insertQnaA";
-//    }
-
     /*문의에 답변 작성 - 완*/
     @GetMapping("cs/qna/insertQnaA_ok")
     public String insertQnaAOk(@RequestParam HashMap<String, String> param, Model model) {
@@ -360,11 +328,6 @@ public class CsController {
             return "redirect:/cs/qna/viewAdminQna?q_no="+param.get("q_no");
         }
     }
-
-//    @GetMapping("cs/qna/updateAccessLevel")
-//    public String updateAccessLevle() {
-//        return "cs/qna/updateAccessLevel";
-//    }
 
     /*답변 상태 변경 - 완*/
     @GetMapping("cs/qna/updateAccessLevel_ok")

@@ -51,4 +51,9 @@ public interface QnaServiceDao {
 
     //답변 상태 수정
     int updateAccessLevel(HashMap<String, String> param);
+
+    //검색
+    List<QnaQDto> searchQna(QnaQDto params);
+
+    int selectQnaSearchTotalCount(QnaQDto params);
 }
