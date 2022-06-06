@@ -33,7 +33,7 @@
 <div layout:fragment="content">
     <br>
     <main class="main-area">
-        <form>
+        <form th:action="@{/admin/book/insertBook}" method="post">
             <table class="table caption-top">
                 <thead class="table-light">
                 <th colspan="2">도서등록</th>
@@ -80,63 +80,63 @@
                 <tr>
                     <th scope="col">도서명</th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" name="book_nm" required>
                     </td>
                 </tr>
                 <tr>
                     <th scope="col">설명</th>
                     <td>
-                        <textarea cols="25" rows="5" required></textarea>
+                        <textarea cols="25" name="book_desc" rows="5" required></textarea>
                     </td>
                 </tr>
                 <tr>
                     <th scope="col">가격</th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" name="book_price" required>
                     </td>
                 </tr>
                 <tr>
                     <th scope="col">재고</th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" name="book_stock" required>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">표지 이미지</th>
                     <td>
                         <div class="mb-3">
-                            <input class="form-control" type="file">
+                            <input class="form-control" name="book_img" type="file">
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">출판사</th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" name="book_pub" required>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">저자</th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" name="book_author" required>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">출간일</th>
                     <td>
-                        <input type="date" required>
+                        <input type="date" name="book_pub_date" required>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">고유번호</th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" name="book_isbn" required>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">페이지수</th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" name="book_page" required>
                     </td>
                 </tr>
                 </tbody>

@@ -25,6 +25,9 @@ public class OrdersController {
     @GetMapping("orders/ordersPage")
     public String ordersPage(@RequestParam HashMap<String, String> param, Model model, HttpSession session){
         String id = (String)session.getAttribute("mem_no");
+        System.out.println(id);
+        System.out.println("========");
+        System.out.println(param.get("mem_no"));
         model.addAttribute("qty", param.get("cart_qty"));
         model.addAttribute("member", service.getMyInfo(id));
         model.addAttribute("book", service.getBookInfo(param));
@@ -36,8 +39,17 @@ public class OrdersController {
     public String insertOrder(@RequestParam HashMap<String, String> param, Model model){
         System.out.println(param.get("mem_no"));
         System.out.println(param.get("book_no"));
+        int re;
 
-        int re = service.insertOrder(param);
+        if (param.get("mem_no") == null || param.get("mem_no").equals("")) {
+            System.out.println(">>>>nomem");
+            System.out.println(param.get("mem_no"));
+            re = service.insertNoMemOrder(param);
+        }else {
+            System.out.println(param.get("mem_no"));
+            re = service.insertOrder(param);
+        }
+
 
         if (re == 1) {
             return "redirect:/orders/ordersDone?orders_no="+param.get("orders_no");

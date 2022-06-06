@@ -27,14 +27,19 @@
 <!-- 메인 -->
 <div layout:fragment="content">
 <link rel="stylesheet" th:href="@{/css/orders.css}">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script th:src="@{/js/order.js}"></script>
   <!-- 메인 -->
   <main class="main-area">
     <div id="title">
       <h1>주문/결제</h1>
     </div>
-    <form th:action="@{/orders/insertOrder}" method="post">
+    <form th:action="@{/orders/insertOrder}" method="post" name="orderForm">
       <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no">
-      <input type="hidden" th:value="${#session.getAttribute('mem_no')}" name="mem_no">
+      <input type="hidden" th:value="${#session.getAttribute('mem_no')}" name="mem_no" id="mem_no">
+      <input type="hidden" th:with="all=${book?.book_price} * ${qty}" th:value="${all}" name="sum" id="sum">
       <table class="table">
         <colgroup>
           <col width="30%"/>
@@ -56,7 +61,7 @@
         </thead>
         <tbody>
         <tr>
-          <td th:text="${book.book_nm}">가나다</td>
+          <td th:text="${book.book_nm}" id="book_nm">가나다</td>
           <td th:text="${#numbers.formatInteger(book.book_price, 0, 'COMMA')}">15,000원</td>
           <td>
             <input type="number" th:value="${qty}" min="1" max="99" name="orders_qty">
@@ -76,7 +81,7 @@
         <tbody>
         <tr th:with="all=${book?.book_price} * ${qty}">
           <td>총 결제 금액</td>
-          <td th:text="|${all}원|">15,000원</td>
+          <td th:text="|${all}원|" id="amount">15,000원</td>
           <td>총 적립 마일리지</td>
           <td th:with="mile=${all} * 0.01" th:text="|${#numbers.formatDecimal(mile,1,0)}원|">15,000원</td>
         </tr>
@@ -97,33 +102,34 @@
           <tbody>
           <tr>
             <th scope="col">주문자</th>
-            <td colspan="3"><input type="text" th:value="${member?.mem_nm}" name="orders_nm"></td>
+            <td colspan="3"><input type="text" th:value="${member?.mem_nm}" name="orders_nm" id="orders_nm"></td>
           </tr>
           <tr>
             <th scope="col">전화번호</th>
-            <td colspan="3"><input type="text" th:value="${member?.mem_phoneNo}" name="orders_phoneno"></td>
+            <td colspan="3"><input type="text" th:value="${member?.mem_phoneNo}" name="orders_phoneno" id="orders_phoneno"></td>
           </tr>
           <tr>
             <th scope="col">이메일</th>
-            <td colspan="3"><input type="text" th:value="${member?.mem_email}" name="orders_email"></td>
+            <td colspan="3"><input type="text" th:value="${member?.mem_email}" name="orders_email" id="orders_email"></td>
           </tr>
           <tr>
-            <th scope="col">배송주소</th>
-            <td><input type="text" th:value="${member?.mem_addr1}" name="orders_addr1"></td>
+            <th scope="col">
+              배송주소
+              <button class="btn btn-primary" onclick="findAddr()" type="button">주소 찾기</button>
+            </th>
+            <td><input type="text" th:value="${member?.mem_addr1}" name="orders_addr1" id="orders_addr1"></td>
           </tr>
           <tr>
-            <td></td>
-            <td><input type="text" th:value="${member?.mem_addr2}" name="orders_addr2"></td>
+            <td colspan="2"><input type="text" th:value="${member?.mem_addr2}" name="orders_addr2" id="orders_addr2" size="50"></td>
           </tr>
           <tr>
-            <td></td>
-            <td><input type="text" th:value="${member?.mem_addr3}" name="orders_addr3"></td>
+            <td colspan="2"><input type="text" th:value="${member?.mem_addr3}" name="orders_addr3" id="orders_addr3" size="50"></td>
           </tr>
           </tbody>
         </table>
 
         <div class="mb-3" id="btn-area">
-          <input class="btn btn-primary" type="submit" value="결제하기">
+          <input class="btn btn-primary" type="button" value="결제하기" onclick="iamport()">
           <input class="btn btn-primary" type="button" th:value="취소하기" onclick="history.back()">
         </div>
       </div>

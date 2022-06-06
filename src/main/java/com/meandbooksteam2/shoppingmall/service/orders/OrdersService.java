@@ -28,6 +28,12 @@ public class OrdersService {
 
         return dao.insertOrder(param);
     }
+    public int insertNoMemOrder(HashMap<String, String> param){
+
+        param.put("orders_no", getNoMemOrdersNo());
+
+        return dao.insertNoMemOrder(param);
+    }
 
     //하나의 주문 정보를 자세히 볼 수 있게하는 메서드
     public OrdersDto getOneOrder(HashMap<String, String> param){
@@ -46,6 +52,18 @@ public class OrdersService {
         //오늘 주문 건수 조회
         int order_no = dao.getTodayOrder();
         
+        //위의 변수들을 더해 주문번호를 만듬
+        long L_orders_no = (Long.parseLong(defaultNumberType) + order_no + 1);
+
+        return Long.toString(L_orders_no);
+    }
+    //넣어야할 주문번호를 리턴하는 메서드
+    private String getNoMemOrdersNo() {
+        //yyMMdd+형태의 문자열이 담김
+        String defaultNumberType = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")) + "0000";
+        //오늘 주문 건수 조회
+        int order_no = dao.getTodayOrder();
+
         //위의 변수들을 더해 주문번호를 만듬
         long L_orders_no = (Long.parseLong(defaultNumberType) + order_no + 1);
 

@@ -23,18 +23,18 @@
             <tr th:each=" book, i : ${list}">
                 <td th:text="${i.index + 1}"></td>
                 <td class="img">
-                    <a th:href="@{/mall/viewBook(book_no=${book.book_no})}">
-                        <img th:src="@{/imgs/book-imgs/} + ${book.book_img}" alt="???"/>
+                    <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
+                        <img th:src="@{/imgs/book-imgs/} + ${book?.book_img}" alt="???"/>
                     </a>
                 </td>
                 <td>
-                    <a th:href="@{/mall/viewBook(book_no=${book.book_no})}"  th:text="${book.book_nm}"></a>
+                    <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}"  th:text="${book?.book_nm}"></a>
                 </td>
-                <td th:text="${book.book_author}"></td>
-                <td th:text="${book.book_pub}"></td>
+                <td th:text="${book?.book_author}"></td>
+                <td th:text="${book?.book_pub}"></td>
                 <td>
                     <div id="btn-area">
-                    <span th:text="${book.book_price} + 원"/>
+                    <span th:text="${book?.book_price} + 원"/>
                     <br>
                     <a class="btn btn-primary">
                         장바구니

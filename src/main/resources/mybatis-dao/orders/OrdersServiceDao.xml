@@ -5,7 +5,7 @@
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.orders.OrdersDao">
 
-    <!--JOIN 할 때 필요한 값들을 정희함-->
+    <!--JOIN 할 때 필요한 값들을 정의함-->
     <resultMap id="Book" type="com.meandbooksteam2.shoppingmall.dto.BookDto">
         <result column="book_img" property="book_img"></result>
         <result column="book_nm" property="book_nm"></result>
@@ -45,10 +45,22 @@
                            #{orders_phoneno}, #{orders_addr1}, #{orders_addr2}, #{orders_addr3},
                            sysdate(), #{orders_qty})
     </insert>
+    <insert id="insertNoMemOrder" parameterType="hashmap">
+        INSERT INTO no_mem_orders(ORDERS_NO, BOOK_NO, ORDERS_NM,
+                           ORDERS_PHONENO, ORDERS_ADDR1, ORDERS_ADDR2, ORDERS_ADDR3,
+                           ORDERS_DATE, ORDERS_QTY)
+        VALUES(#{orders_no}, #{book_no}, #{orders_nm},
+               #{orders_phoneno}, #{orders_addr1}, #{orders_addr2}, #{orders_addr3},
+               sysdate(), #{orders_qty})
+    </insert>
 
     <!--오늘 주문 건수를 가져오는 쿼리-->
     <select id="getTodayOrder" resultType="_int">
         SELECT COUNT(*) FROM ORDERS WHERE ORDERS_DATE >= CURDATE()
+    </select>
+    <!--위의 비회원용-->
+    <select id="getTodayNoMemOrder" resultType="_int">
+        SELECT COUNT(*) FROM no_mem_orders WHERE ORDERS_DATE >= CURDATE()
     </select>
 
     <!--회원 번호를 매개변수로 자신의 모든 주문내역을 가져오는 쿼리-->

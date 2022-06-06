@@ -55,6 +55,11 @@ public class ManageBookServiceImpl {
 
     /*insert할 때 삽입해야 할 책 번호를 리턴하는 메서드*/
     private String getBookNo(HashMap<String, String> param){
-        return dao.getBookNo(param);
+        String book_no = dao.getBookNo(param);
+
+        if (book_no == null) {
+            book_no = param.get("nation") + param.get("category") + "0001";
+        }
+        return book_no;
     }
 }

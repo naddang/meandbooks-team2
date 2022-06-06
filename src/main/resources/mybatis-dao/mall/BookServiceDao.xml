@@ -43,6 +43,7 @@
              , BOOK_ISBN
              , BOOK_PAGE
           from book
+        where book_no = #{book_no}
     </select>
     <select id="listMallBook" resultType="BookDto" parameterType="hashmap">
         SELECT B.BOOK_NM

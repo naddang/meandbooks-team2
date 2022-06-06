@@ -59,9 +59,9 @@ public class AdminController {
         int result = bookService.insertBook(param);
 
         if (result == 1) {
-            return "redirect:admin/book";
+            return "redirect:/admin/book";
         }else {
-            return "redirect:admin/book/addBook";
+            return "redirect:/admin/book/addBook";
         }
     }
 

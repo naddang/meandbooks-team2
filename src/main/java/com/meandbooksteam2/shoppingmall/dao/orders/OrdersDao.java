@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface OrdersDao {
     public int insertOrder(HashMap<String, String> param);
+    public int insertNoMemOrder(HashMap<String, String> param);
     public OrdersDto getOneOrder(HashMap<String, String> param);
     public int getTodayOrder();
     public List<OrdersDto> getMyOrderList(HashMap<String, String> param);
