@@ -45,13 +45,13 @@ public class MemberService {
     }
 
     //나의 개인정보를 확인할 수 있게하는 메서드
-    public MemberDto viewMyInfo(HashMap<String, String> param) {
-        return dao.viewMyInfo(param);
+    public MemberDto viewMyInfo(String mem_no) {
+        return dao.viewMyInfo(mem_no);
     }
 
     //개인정보를 수정하는 메서드
-    public int updateMyInfo(String mem_uid) {
-        int re = dao.updateMyInfo(mem_uid);
+    public int updateMyInfo(HashMap<String, String> param) {
+        int re = dao.updateMyInfo(param);
 
         return re;
     }

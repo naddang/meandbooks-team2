@@ -18,17 +18,10 @@
 <div layout:fragment="content">
     <div class="container">
         <main>
-            <div class="py-5 text-center">
-                <a th:href="@{/index}">
-                    <img class="d-block mx-auto mb-4" src="/imgs/logo_big.png" alt="로고" width="200" height="140">
-                </a>
-                <h2>회원정보수정</h2>
-                <!-- <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> -->
-            </div>
 
+            <h2>회원정보수정</h2>
             <div class="register">
-                <h4 class="mb-3">개인정보</h4>
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" novalidate method="post" th:action="@{/member/updateMember_ok}">
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="username" class="form-label">아이디</label>

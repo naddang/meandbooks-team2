@@ -23,10 +23,10 @@ public interface MemberServiceDao {
     int checkId(HashMap<String,String> param);
 
     //내 정보 조회
-    MemberDto viewMyInfo(HashMap<String,String> param);
+    MemberDto viewMyInfo(String mem_no);
 
     //내 정보 수정
-    int updateMyInfo(String mem_uid);
+    int updateMyInfo (HashMap<String,String> param);
 
     //Accessible 컬럼을 0으로 변경하여 접근하지 못하게함
     int withdraw(HashMap<String,String> param);

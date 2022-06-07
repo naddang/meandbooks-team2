@@ -43,7 +43,7 @@
     </select>
 
     <!--내 정보 확인 - 세션에 있는 mem_uid를 받아서 값 리턴-->
-    <select id="viewMyInfo" parameterType="hashmap" resultType="MemberDto">
+    <select id="viewMyInfo" parameterType="string" resultType="MemberDto">
         select mem_uid
               ,mem_pwd
               ,mem_nm
@@ -53,7 +53,7 @@
               ,mem_addr3
               ,mem_email
               ,mem_mileage
-        from member where mem_uid=#{mem_uid}
+        from member where mem_no=#{mem_no}
     </select>
 
     <!--내 정보 수정(일단 탈퇴도 여기 넣어놨음 - 어떻게 할지 고민)-->
@@ -63,7 +63,7 @@
                          ,mem_addr2 = #{mem_addr2}
                          ,mem_addr3 = #{mem_addr3}
                          ,mem_email = #{mem_email}
-        where mem_uid = #{mem_uid}
+        where mem_no = #{mem_no}
     </update>
 
     <update id="withdraw" parameterType="hashmap">

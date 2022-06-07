@@ -2,6 +2,7 @@ package com.meandbooksteam2.shoppingmall.controller;
 
 import com.meandbooksteam2.shoppingmall.service.member.CartService;
 import com.meandbooksteam2.shoppingmall.service.member.MemberService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +33,7 @@ public class MemberController {
 
     @GetMapping("member/main")
     public String main(){
-        return "member/main";
+        return "member/memberMain";
     }
 
     @GetMapping("member/cart")
@@ -116,10 +117,20 @@ public class MemberController {
         }
     }
 
-    @PostMapping("member/updateMember")
+    @GetMapping("member/updateMember")
     public String updateMember(HttpSession session, Model model){
-        String mem_uid = (String) session.getAttribute("mem_uid");
-        service.updateMyInfo(mem_uid);
-        return "member/updateMember";
+        String mem_no = (String) session.getAttribute("mem_no");
+        model.addAttribute("member", service.viewMyInfo(mem_no));
+        return "member/myInfo";
+    }
+
+    @PostMapping("member/updateMember_ok")
+    public String updateMember_ok(@RequestParam HashMap<String, String> param){
+        int re = service.updateMyInfo(param);
+        if (re == 1) {
+            return "member/updateMember";
+        }else {
+            return "error";
+        }
     }
 }
