@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,9 +56,9 @@ public class AdminController {
     }
 
     @PostMapping("admin/book/insertBook")
-    public String insertBook(@RequestParam HashMap<String, String> param){
+    public String insertBook(@RequestParam HashMap<String, String> param, @RequestParam("book_img") MultipartFile file) throws IOException {
 
-        int result = bookService.insertBook(param);
+        int result = bookService.insertBook(param, file);
 
         if (result == 1) {
             return "redirect:/admin/book";
@@ -64,6 +66,17 @@ public class AdminController {
             return "redirect:/admin/book/addBook";
         }
     }
+//    @PostMapping("admin/book/insertBook")
+//    public String insertBook(@RequestParam HashMap<String, String> param){
+//
+//        int result = bookService.insertBook(param);
+//
+//        if (result == 1) {
+//            return "redirect:/admin/book";
+//        }else {
+//            return "redirect:/admin/book/addBook";
+//        }
+//    }
 
     @GetMapping("admin/book/addBook")
     public String addBook(){

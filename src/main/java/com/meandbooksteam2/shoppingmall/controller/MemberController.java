@@ -1,5 +1,6 @@
 package com.meandbooksteam2.shoppingmall.controller;
 
+import com.meandbooksteam2.shoppingmall.dto.OrdersDto;
 import com.meandbooksteam2.shoppingmall.service.member.CartService;
 import com.meandbooksteam2.shoppingmall.service.member.MemberService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -95,6 +96,14 @@ public class MemberController {
         model.addAttribute("list", service.listMyOrders(mem_no));
 
         return "member/myOrders";
+    }
+
+    @GetMapping("member/viewOrders")
+    public String viewOrders(@RequestParam HashMap<String, String> param, Model model){
+
+        model.addAttribute("view", service.viewMyOrder(param));
+
+        return "member/viewOrders";
     }
 
     @GetMapping("member/register")

@@ -104,7 +104,7 @@
     </select>
 
 
-    <select id="viewMyOrder" parameterType="OrdersDto" resultMap="OrdersDto">
+    <select id="viewMyOrder" parameterType="hashmap" resultMap="OrdersDto">
         select b.book_nm
              , b.book_price
              , b.book_img
@@ -116,6 +116,7 @@
              , o.orders_addr3
              , o.orders_qty
              , o.orders_status
+             , o.orders_date
         from orders o join book b
         on b.book_no = o.book_no
         where o.mem_no = #{mem_no}

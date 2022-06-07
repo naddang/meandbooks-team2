@@ -1,6 +1,6 @@
 package com.meandbooksteam2.shoppingmall.service.mall;
 
-import com.meandbooksteam2.shoppingmall.dao.mall.BookServiceDao;
+import com.meandbooksteam2.shoppingmall.dao.member.mall.BookServiceDao;
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.dto.PaginationInfo;
 import com.meandbooksteam2.shoppingmall.dto.RevCmtDto;
