@@ -4,7 +4,10 @@ import com.meandbooksteam2.shoppingmall.dao.admin.ManageBookDao;
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,8 +41,15 @@ public class ManageBookServiceImpl {
     }
 
     /*form에서 입력받은 책 정보들을 DB에 삽입하는 메서드*/
-    public int insertBook(HashMap<String, String> param){
+//    public int insertBook(HashMap<String, String> param){
+//        param.put("book_no", getBookNo(param));
+//        return dao.insertBook(param);
+//    }
+    public int insertBook(HashMap<String, String> param, MultipartFile file) throws IOException {
         param.put("book_no", getBookNo(param));
+        String filename = file.getOriginalFilename();   //--- 파일명을 얻어옴.
+        file.transferTo( new File( "D:/3차 취합 깃/src/main/resources/static/imgs/book-imgs/"+filename ) );  //--- 저장할 경로를 설정
+        param.put( "book_img", filename );  //--- 파일명을 저장합니다.
         return dao.insertBook(param);
     }
 

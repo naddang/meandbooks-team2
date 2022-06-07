@@ -72,10 +72,9 @@ public class MemberController {
     }
 
     @PostMapping("member/login_ok")
-    public String loginOk(@RequestParam HashMap<String, String> param, HttpServletRequest request) {
+    public String loginOk(@RequestParam HashMap<String, String> param, HttpSession session) {
         int loginResult = service.login(param);
         if (loginResult == 1) {
-            HttpSession session = request.getSession();
             session.setAttribute("mem_no", service.getMemNo(param));
             session.setAttribute("isAdmin", service.isAdmin(param.get("mem_uid")));
 
@@ -93,8 +92,8 @@ public class MemberController {
     @GetMapping("member/myOrders")
     public String myOrders(HttpSession session, Model model){
 
-        String mem_uid = (String)session.getAttribute("mem_uid");
-        model.addAttribute("list", service.listMyOrders(mem_uid));
+        String mem_no = (String)session.getAttribute("mem_no");
+        model.addAttribute("list", service.listMyOrders(mem_no));
 
         return "member/myOrders";
     }
@@ -134,12 +133,22 @@ public class MemberController {
     }
 
     @PostMapping("member/updateMember_ok")
-    public String updateMember_ok(@RequestParam HashMap<String, String> param){
-        int re = service.updateMyInfo(param);
+    public String updateMember_ok(@RequestParam HashMap<String, String> param, HttpSession session){
+        //세션에 있는 사용자가 정상적으로 접근했는지 체크함
+        int re = service.login(param);
+
         if (re == 1) {
-            return "member/updateMember";
+            //몇 건이 수정되었는지 re에 담음
+            re = service.updateMyInfo(param);
+            //정상적으로 한 건이 수정된 경우
+            if (re == 1) {
+                return "redirect:/member/main";
+            //결과에 문제가 있는 경우
+            }else {
+                return "redirect:/error";
+            }
         }else {
-            return "error";
+            return "redirect:/error";
         }
     }
 }

@@ -53,8 +53,10 @@ function findAddr(){
 
             if (roadAddr !== '') {
                 document.getElementById('orders_addr2').value = roadAddr;
+                document.getElementById('orders_addr3').value = "-";
             }else if (jibunAddr !== '') {
                 document.getElementById('orders_addr2').value = jibunAddr;
+                document.getElementById('orders_addr3').value = "-";
             }
         }
     }).open();

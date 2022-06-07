@@ -4,6 +4,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.member.MemberServiceDao">
+    <!--개별 주문 조회 - resultMap사용 시작-->
+    <resultMap id="BookDto" type="BookDto">
+        <result column="book_nm" property="book_nm"/>
+        <result column="book_price" property="book_price"/>
+        <result column="book_img" property="book_img"/>
+        <result column="book_author" property="book_author"/>
+    </resultMap>
+    <resultMap id="OrdersDto" type="OrdersDto">
+        <result column="orders_no" property="orders_no"/>
+        <result column="orders_nm" property="orders_nm"/>
+        <result column="orders_phoneNo" property="orders_phoneNo"/>
+        <result column="orders_addr1" property="orders_addr1"/>
+        <result column="orders_addr2" property="orders_addr2"/>
+        <result column="orders_addr3" property="orders_addr3"/>
+        <result column="orders_qty" property="orders_qty"/>
+        <result column="orders_status" property="orders_status"/>
+        <collection property="book" resultMap="BookDto"></collection>
+    </resultMap>
 
     <!--입력한 아이디와 비밀번호에 해당하는 것을 카운트 해서 1인 경우에만 로그인 되도록 할 것-->
     <select id="login" parameterType="hashmap" resultType="_int">
@@ -63,6 +81,7 @@
                          ,mem_addr2 = #{mem_addr2}
                          ,mem_addr3 = #{mem_addr3}
                          ,mem_email = #{mem_email}
+                         ,MEM_PWD = #{new_mem_pwd}
         where mem_no = #{mem_no}
     </update>
 
@@ -71,32 +90,23 @@
     </update>
 
     <!--내 주문목록 조회 - 리스트는 어떻게 할지 고민-->
-    <select id="listMyOrders" parameterType="hashmap" resultType="OrdersDto">
+    <select id="listMyOrders" parameterType="string" resultMap="OrdersDto">
         select b.book_nm
              , b.book_price
              , b.book_img
              , b.book_author
              , o.orders_qty
+             , o.orders_no
+             , o.orders_nm
+             , o.ORDERS_ADDR1
+             , o.ORDERS_ADDR2
+             , o.ORDERS_ADDR3
              , o.orders_status
         from book b join orders o
         on b.book_no = o.book_no
         where o.mem_no = #{mem_no}
     </select>
 
-    <!--개별 주문 조회 - resultMap사용 시작-->
-    <resultMap id="BookDto" type="BookDto">
-        <result column="book_nm" property="book_nm"/>
-        <result column="book_price" property="book_price"/>
-        <result column="book_img" property="book_img"/>
-        <result column="book_author" property="book_author"/>
-    </resultMap>
-    <resultMap id="OrdersDto" type="OrdersDto">
-        <result column="orders_nm" property="orders_nm"/>
-        <result column="orders_phoneNo" property="orders_phoneNo"/>
-        <result column="orders_addr" property="orders_addr"/>
-        <result column="orders_qty" property="orders_qty"/>
-        <result column="orders_status" property="orders_status"/>
-    </resultMap>
 
     <select id="viewMyOrder" parameterType="hashmap" resultMap="OrdersDto">
         select b.book_nm

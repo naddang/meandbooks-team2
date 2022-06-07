@@ -32,7 +32,7 @@ public interface MemberServiceDao {
     int withdraw(HashMap<String,String> param);
 
     //내 주문목록 조회
-    List<OrdersDto> listMyOrders(String mem_uid);
+    List<OrdersDto> listMyOrders(String mem_no);
 
     //나의 개별 주문 조회
     OrdersDto viewMyOrder(HashMap<String,String> param);
