@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <nav th:fragment="navFragment" class="py-2 bg-light border-bottom">
         <div class="container d-flex flex-wrap">
           <ul class="nav me-auto">
@@ -9,9 +9,9 @@
                   쇼핑
                 </button>
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton3">
-                  <li><a class="dropdown-item" th:href="@{mall/bestSeller}">베스트셀러</a></li>
-                  <li><a class="dropdown-item" th:href="@{mall/bestCate}">카테고리별 베스트셀러</a></li>
-                  <li><a class="dropdown-item" th:href="@{mall/searchBook}">도서검색</a></li>
+                  <li><a class="dropdown-item" th:href="@{/mall/bestSeller}">베스트셀러</a></li>
+                  <li><a class="dropdown-item" th:href="@{/mall/bestCate}">카테고리별 베스트셀러</a></li>
+                  <li><a class="dropdown-item" th:href="@{/mall/searchBook}">도서검색</a></li>
                 </ul>
               </div>
             </li>
@@ -22,9 +22,9 @@
                   고객센터
                 </button>
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownMenuButton4">
-                  <li><a class="dropdown-item" th:href="@{cs/notice}">공지사항</a></li>
-                  <li><a class="dropdown-item" th:href="@{cs/faq}">FAQ</a></li>
-                  <li><a class="dropdown-item" th:href="@{cs/qna/writeQna}">1:1 문의</a></li>
+                  <li><a class="dropdown-item" th:href="@{/cs/notice}">공지사항</a></li>
+                  <li><a class="dropdown-item" th:href="@{/cs/faq}">FAQ</a></li>
+                  <li><a class="dropdown-item" th:href="@{/cs/qna/memListQna}">1:1 문의</a></li>
                 </ul>
               </div>
             </li>
