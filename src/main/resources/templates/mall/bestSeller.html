@@ -1,50 +1,91 @@
-<!doctype html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout">
-<head th:replace="fragments/head::headFragment">
-</head>
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="layout/layout"
+>
+  <head th:replace="fragments/head::headFragment"> </head>
 
-<!-- 메인 -->
-<div layout:fragment="content">
-<link th:href="@{/css/mall.css}" rel="stylesheet">
-    <div class="shelf-wrapper">
-        <h1>베스트 셀러</h1>
-        <table id="shelf">
-            <tr>
-               <th>순위</th>
-               <th>표지</th>
-               <th>제목</th>
-               <th>작가</th>
-               <th>출판사</th>
-               <th>가격</th>
-            </tr>
-            <tr th:each=" book, i : ${list}">
-                <td th:text="${i.index + 1}"></td>
-                <td class="img">
-                    <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
-                        <img th:src="@{/imgs/book-imgs/} + ${book?.book_img}" alt="???"/>
-                    </a>
-                </td>
-                <td>
-                    <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}"  th:text="${book?.book_nm}"></a>
-                </td>
-                <td th:text="${book?.book_author}"></td>
-                <td th:text="${book?.book_pub}"></td>
-                <td>
-                    <div id="btn-area">
-                    <span th:text="${book?.book_price} + 원"/>
-                    <br>
-                    <a class="btn btn-primary">
-                        장바구니
-                    </a>
-                    </div>
-                </td>
-                <td>
-                </td>
-            </tr>
-        </table>
+  <!-- 메인 -->
+  <div layout:fragment="content">
+    <link th:href="@{/css/mall.css}" rel="stylesheet" />
+    <div class="selhf-wrapper">
+      <h1>베스트 셀러</h1>
+      <table class="table" id="shelf">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">순위</th>
+            <th scope="col">표지</th>
+            <th scope="col">제목</th>
+            <th scope="col">작가</th>
+            <th scope="col">출판사</th>
+            <th scope="col">가격</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each=" book, i : ${list}">
+            <th scope="row" th:text="${i.index + 1}">순위</th>
+            <td class="img">
+              <a th:href="@{/mall/viewBook(book_no = ${book.book_no})}">
+                <img th:src="@{/imgs/book-imgs/}" alt="" />
+              </a>
+            </td>
+            <td
+              th:href="@{/mall/viewBook(book_no = ${book.book_no})}"
+              th:text="${book.book_nm}"
+            >
+              제목
+            </td>
+            <td th:text="${book.book_author}">작가</td>
+            <td th:text="${book.book_pub}">출판사</td>
+            <td th:text="${book.book_price} + 원">가격</td>
+            <td>
+              <a
+                type="button"
+                class="btn btn-dark"
+                th:href="/mall/insertCart?book_no=${book.book_no]"
+                >담기</a
+              >
+              <!-- 장바구니에 담기 누르면 어떻게 할지? -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</div>
+    <!-- <div class="selhf-wrapper">
+      <h1>베스트 셀러</h1>
+      <table id="shelf">
+        <tr>
+          <th>순위</th>
+          <th>표지</th>
+          <th>제목</th>
+          <th>작가</th>
+          <th>출판사</th>
+          <th>가격</th>
+        </tr>
+        <tr th:each=" book, i : ${list}">
+          <td th:text="${i.index + 1}"></td>
+          <td class="img">
+            <a th:href="@{/mall/viewBook(book_no = ${book.book_no})}">
+              <img th:src="@{/imgs/book-imgs/} + ${book.book_img}" alt="???" />
+            </a>
+          </td>
+          <td>
+            <a th:href="@{/mall/viewBook(book_no=${book.book_no})}" th:text="${book.book_nm}">
+            </a>
+          </td>
+          <td th:text="${book.book_author}"></td>
+          <td th:text="${book.book_pub}"></td>
+          <td>
+            <div id="btn-area">
+              <span th:text="${book.book_price} + 원"></span>
+              <a class="btn btn-primary"> 장바구니 </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div> -->
+  </div>
 </html>

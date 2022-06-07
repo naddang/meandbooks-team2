@@ -1,12 +1,14 @@
 package com.meandbooksteam2.shoppingmall.dao.mall;
 
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
+import com.meandbooksteam2.shoppingmall.dto.OrdersDto;
 import com.meandbooksteam2.shoppingmall.dto.RevCmtDto;
 import com.meandbooksteam2.shoppingmall.dto.ReviewDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BookServiceDao {

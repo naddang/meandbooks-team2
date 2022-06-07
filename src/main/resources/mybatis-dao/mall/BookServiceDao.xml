@@ -7,16 +7,11 @@
     <resultMap id="Orders" type="OrdersDto">
         <result column="orders_qty" property="orders_qty"/>
     </resultMap>
-    <select id="listAllBest" resultType="BookDto">
-        SELECT row_number() OVER(order by sum(o.ORDERS_QTY))
-             , B.BOOK_NM
-             , B.BOOK_IMG
-             , B.BOOK_AUTHOR
-             , B.BOOK_PUB
-             , B.BOOK_PRICE
-             , B.BOOK_NO
-        FROM orders O
-                 JOIN book b on b.BOOK_NO = O.BOOK_NO;
+    <select id="listAllBest" resultType="bookDto">
+        select a.*, sum(b.orders_qty) orders_qty
+        from  book a join orders b on a.book_no = b.book_no
+        group by a.book_no
+        order by orders_qty desc;
     </select>
     <select id="listCateBest" resultType="BookDto" parameterType="hashmap">
         SELECT RANK() OVER(PARTITION BY B.BOOK_NO ORDER BY O.ORDERS_QTY DESC)

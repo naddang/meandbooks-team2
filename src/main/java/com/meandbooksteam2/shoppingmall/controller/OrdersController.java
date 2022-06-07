@@ -25,6 +25,7 @@ public class OrdersController {
     @GetMapping("orders/ordersPage")
     public String ordersPage(@RequestParam HashMap<String, String> param, Model model, HttpSession session){
         String id = (String)session.getAttribute("mem_no");
+        String book_no = param.get("book_no");
         System.out.println(id);
         System.out.println("========");
         System.out.println(param.get("mem_no"));

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Map;
 
 /*책관련 페이지들의 요청을 처리하는 Controller 클래스입니다*/
 @Controller
