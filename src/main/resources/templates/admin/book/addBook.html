@@ -33,7 +33,7 @@
 <div layout:fragment="content">
     <br>
     <main class="main-area">
-        <form th:action="@{/admin/book/insertBook}" method="post">
+        <form th:action="@{/admin/book/insertBook}" method="post" enctype="multipart/form-data">
             <table class="table caption-top">
                 <thead class="table-light">
                 <th colspan="2">도서등록</th>
