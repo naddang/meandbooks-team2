@@ -6,9 +6,13 @@
     <style>
         .btn-area {
             text-align: center;
+            min-height: 800px;
+        }
+        .btn-box {
+
         }
         .btn {
-            background: lightgray;
+            background: whitesmoke;
             width: 300px;
             height: 200px;
             margin: 30px;
@@ -17,6 +21,7 @@
 
         a{
             text-decoration: none;
+            font-size: 30px;
         }
     </style>
 </th:block>
@@ -29,18 +34,16 @@
 
 <div layout:fragment="content">
     <div class="btn-area">
-        <div class="btn">
-            <a th:href="@{/admin/orders}">주문내역</a>
-        </div>
-        <div class="btn">
-            <a th:href="@{/admin/book}">상품관리</a>
-        </div>
-        <br>
-        <div class="btn">
-            <a th:href="@{/admin/member}">고객관리</a>
-        </div>
-        <div class="btn">
-            <a th:href="@{/admin/book}">매출</a>
+        <div class="btn-box">
+            <div class="btn">
+                <a th:href="@{/admin/orders}">주문내역</a>
+            </div>
+            <div class="btn">
+                <a th:href="@{/admin/book}">상품관리</a>
+            </div>
+            <div class="btn">
+                <a th:href="@{/admin/member}">고객관리</a>
+            </div>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-package com.meandbooksteam2.shoppingmall.dao.mall;
+package com.meandbooksteam2.shoppingmall.dao.member.mall;
 
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.dto.RevCmtDto;

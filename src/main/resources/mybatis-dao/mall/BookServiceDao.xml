@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.meandbooksteam2.shoppingmall.dao.mall.BookServiceDao">
+<mapper namespace="com.meandbooksteam2.shoppingmall.dao.member.mall.BookServiceDao">
     <resultMap id="Orders" type="OrdersDto">
         <result column="orders_qty" property="orders_qty"/>
     </resultMap>
