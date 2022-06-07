@@ -57,8 +57,8 @@ public class MemberService {
     }
 
     /*본인의 모든 주문정보를 가져오는 메서드*/
-    public List<OrdersDto> listMyOrders(String mem_uid) {
-        ArrayList<OrdersDto> list = (ArrayList<OrdersDto>) dao.listMyOrders(mem_uid);
+    public List<OrdersDto> listMyOrders(String mem_no) {
+        ArrayList<OrdersDto> list = (ArrayList<OrdersDto>) dao.listMyOrders(mem_no);
 
         return list;
     }
