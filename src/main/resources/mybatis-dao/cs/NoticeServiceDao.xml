@@ -9,11 +9,11 @@
     <insert id="insertNotice" parameterType="hashmap">
         insert into notice
             (noti_title
-            ,noti_contnet
+            ,noti_content
             ,noti_date)
         value
             (#{noti_title}
-            ,#{noti_contnet}
+            ,#{noti_content}
             ,SYSDATE())
     </insert>
 
@@ -25,7 +25,7 @@
     <!--공지 수정-->
     <update id="updateNoticeStatus" parameterType="hashmap">
         update notice set noti_title = #{noti_title}
-                        , noti_contnet = #{noti_contnet}
+                        , noti_content = #{noti_content}
                         , noti_date = sysdate()
         where noti_no = #{noti_no}
     </update>
@@ -35,7 +35,7 @@
     <select id="viewNotice" parameterType="hashmap" resultType="NoticeDto">
         select noti_no
              , noti_title
-             , noti_contnet
+             , noti_content
              , noti_date
         from notice
         where noti_no = #{noti_no}

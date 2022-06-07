@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-public class BookDto {
+public class BookDto extends CommonDto{
     private String book_no;
     private String book_nm;
     private String book_desc;

@@ -142,4 +142,22 @@ public class MemberController {
             return "redirect:/error";
         }
     }
+    @GetMapping("member/withdraw")
+    public String withdraw(HttpSession session){
+        return "member/withdraw";
+    }
+
+    @PostMapping("member/withdraw_ok")
+    public String withdrawOk(HttpSession session, @RequestParam String mem_pwd){
+        String mem_no = (String)session.getAttribute("mem_no");
+        int re = service.withdraw(mem_no, mem_pwd);
+
+        if (re == 1) {
+            session.invalidate();
+
+            return "redirect:/index";
+        }
+
+        return "member/withdraw";
+    }
 }

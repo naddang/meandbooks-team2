@@ -10,11 +10,11 @@
         insert into faq
             (faq_cate
             ,faq_title
-            ,faq_contnet)
+            ,faq_content)
         values
             (#{faq_cate}
             ,#{faq_title}
-            ,#{faq_contnet})
+            ,#{faq_content})
     </insert>
 
     <!--삭제 - 완-->
@@ -24,13 +24,13 @@
 
     <!--수정을 위해서 개별 FAQ 확인 - 완-->
     <select id="viewFaq" parameterType="hashmap" resultType="FaqDto">
-        select faq_no, faq_cate, faq_title, faq_contnet from faq where faq_no = #{faq_no}
+        select faq_no, faq_cate, faq_title, faq_content from faq where faq_no = #{faq_no}
     </select>
 
     <!--수정 - 카테고리 말고 제목이랑 내용만 수정하도록 했음 - 완-->
     <update id="updateFaqStatus" parameterType="hashmap">
         update faq set faq_title = #{faq_title}
-                     , faq_contnet = #{faq_contnet}
+                     , faq_content = #{faq_content}
         where faq_no = #{faq_no}
     </update>
 
@@ -39,7 +39,7 @@
         select faq_no
               ,faq_cate
               ,faq_title
-              ,faq_contnet
+              ,faq_content
         from faq
         order by faq_cate
     </select>

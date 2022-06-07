@@ -129,4 +129,9 @@ public class MemberService {
     public String getMemNo(HashMap<String, String> param){
         return dao.getMemNo(param);
     }
+
+    public int withdraw(String mem_no, String mem_pwd){
+        int re = dao.withdraw(mem_no, mem_pwd);
+        return re;
+    }
 }

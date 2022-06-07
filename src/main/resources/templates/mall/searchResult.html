@@ -6,6 +6,55 @@
 </head>
 <!-- 메인 -->
 <div layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/css/mall.css}">
     <!-- 본문 영역 -->
+    <div class="shelf-wrapper">
+        <h1>검색 결과</h1>
+        <table id="shelf">
+            <tr>
+                <th>표지</th>
+                <th>제목</th>
+                <th>작가</th>
+                <th>출판사</th>
+                <th>가격</th>
+            </tr>
+            <tr th:each=" book, i : ${list}">
+                <td class="img">
+                    <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
+                        <img th:src="@{/imgs/book-imgs/} + ${book?.book_img}" alt="???"/>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}"  th:text="${book?.book_nm}"></a>
+                </td>
+                <td th:text="${book?.book_author}"></td>
+                <td th:text="${book?.book_pub}"></td>
+                <td>
+                    <div id="btn-area">
+                        <span th:text="${book?.book_price} + 원"/>
+                        <br>
+                        <a class="btn btn-primary">
+                            장바구니
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    <th:block layout:fragment="paging">
+        <nav th:replace="fragments/common :: pagination" class="pagination"></nav>
+    </th:block>
+    </div>
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            function movePage(uri, queryString) {
+                location.href = uri + queryString;
+            }
+
+            /*]]>*/
+        </script>
+    </th:block>
 </div>
 </html>

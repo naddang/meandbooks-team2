@@ -64,9 +64,9 @@
             </a>
             <ul>
               <li class="answer">
-                <div id="faq_contnet">
+                <div id="faq_content">
                   <br>
-                  <span th:text="${list.faq_contnet}"></span>
+                  <span th:text="${list.faq_content}"></span>
                   <br><br>
                   <div class="mb-3" id="btn-area" th:if="${session.isAdmin}== 1">
                     <a class="btn btn-primary" th:href="@{/cs/faq/updateFaq(faq_no=${list.faq_no})}">수정</a>

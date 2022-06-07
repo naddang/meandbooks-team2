@@ -29,7 +29,7 @@
 <div layout:fragment="content">
     <br>
     <div class="table-responsive">
-        <form>
+        <form action="/admin/member/updateMember_ok">
             <table class="table table-light table-striped-columns caption-top">
                 <caption>상세 회원 정보</caption>
                 <tbody>
@@ -58,8 +58,8 @@
                 <tr>
                     <th>현재 접근 권한</th>
                     <td>
-                        <span th:if="${member.mem_no} == 1">접근 가능</span>
-                        <span th:unless="${member.mem_no} == 1">접근 불가</span>
+                        <span th:if="${member.accessible} == 1">접근 가능</span>
+                        <span th:unless="${member.accessible} == 1">접근 불가</span>
                     </td>
                     <th>접근 권한 변경</th>
                     <td>

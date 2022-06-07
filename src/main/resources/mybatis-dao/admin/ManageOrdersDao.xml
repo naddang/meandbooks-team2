@@ -32,6 +32,7 @@
              , B.BOOK_NO
              , B.BOOK_NM
              , B.BOOK_IMG
+             , B.BOOK_PRICE
              , O.ORDERS_QTY
              , o.orders_status
         FROM `ORDERS` O JOIN BOOK B

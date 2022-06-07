@@ -16,7 +16,9 @@ public interface BookServiceDao {
 
     public BookDto viewBook(HashMap<String, String> param);
 
-    public List<BookDto> listMallBook(HashMap<String, String> param);
+    public List<BookDto> listMallBook(BookDto bookDto);
+
+    public List<BookDto> listMallBookCate(HashMap<String, String> param);
 
     public int insertCart(HashMap<String, String> param);
 
@@ -29,5 +31,7 @@ public interface BookServiceDao {
     public List<RevCmtDto> listRevCmt(HashMap<String, String> param);
     public int updateRevCmt(HashMap<String, String> param);
     public int deleteRevCmt(HashMap<String, String> param);
+    public int selectCateSearchedCount(HashMap<String, String> param);
+    public int selectSearchedCount(BookDto params);
 
 }

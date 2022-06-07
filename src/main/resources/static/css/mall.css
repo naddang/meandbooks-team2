@@ -11,7 +11,7 @@ img{
     margin: 0 auto;
 }
 #shelf{
-    margin: 0 auto;
+    margin: 30px auto;
 }
 
 /*viewBook.html에서 사용하는 스타일*/
@@ -85,4 +85,7 @@ img{
 }
 .cmt-area .id{
 
+}
+.pagination{
+    justify-content: center !important;
 }

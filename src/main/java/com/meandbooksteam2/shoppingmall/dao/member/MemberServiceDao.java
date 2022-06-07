@@ -28,8 +28,6 @@ public interface MemberServiceDao {
     //내 정보 수정
     int updateMyInfo (HashMap<String,String> param);
 
-    //Accessible 컬럼을 0으로 변경하여 접근하지 못하게함
-    int withdraw(HashMap<String,String> param);
 
     //내 주문목록 조회
     List<OrdersDto> listMyOrders(String mem_no);
@@ -56,4 +54,6 @@ public interface MemberServiceDao {
     public int getTodayNoMemberRefund();
     public int isAdmin(String mem_uid);
     public String getMemNo(HashMap<String, String> param);
+
+    public int withdraw(String mem_no, String mem_pwd);
 }

@@ -1,14 +1,17 @@
 package com.meandbooksteam2.shoppingmall.controller;
 
+import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.service.mall.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 
 /*책관련 페이지들의 요청을 처리하는 Controller 클래스입니다*/
 @Controller
@@ -51,8 +54,10 @@ public class MallController {
     }
 
     @GetMapping("mall/searchResult")
-    public String searchResult(@RequestParam HashMap<String, String> param, Model model){
-        model.addAttribute("list", service.listMallBook(param));
+    public String searchResult(@ModelAttribute("params") BookDto params, Model model){
+        List<BookDto> list = service.listMallBook(params);
+        model.addAttribute("list", list);
+
         return "mall/searchResult";
     }
 

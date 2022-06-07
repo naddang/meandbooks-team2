@@ -107,9 +107,9 @@ public class AdminController {
         int re = memberService.updateMember(param);
         //정상적으로 한 건이 수정된 경우
         if (re == 1){
-            return "admin/member/updateMember";
+            return "redirect:/admin/member";
         }else {
-            return "error";
+            return "redirect:error";
         }
     }
 

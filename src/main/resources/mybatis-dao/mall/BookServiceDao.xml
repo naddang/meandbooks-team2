@@ -45,7 +45,7 @@
           from book
         where book_no = #{book_no}
     </select>
-    <select id="listMallBook" resultType="BookDto" parameterType="hashmap">
+    <select id="listMallBook" resultType="BookDto" parameterType="BookDto">
         SELECT B.BOOK_NM
              , B.BOOK_IMG
              , B.BOOK_AUTHOR
@@ -53,8 +53,19 @@
              , B.BOOK_PRICE
              , B.BOOK_NO
         FROM book b
-        WHERE b.BOOK_NM LIKE concat('%', #{keyword}, '%')
-          OR B.BOOK_AUTHOR LIKE concat('%', #{keyword}, '%')
+        where BOOK_NM LIKE concat('%', #{searchKeyword}, '%')
+           or BOOK_AUTHOR LIKE concat('%', #{searchKeyword}, '%')
+           or BOOK_NO LIKE concat(#{searchKeyword}, '%')
+    </select>
+    <select id="listMallBookCate" resultType="BookDto" parameterType="hashmap">
+        SELECT B.BOOK_NM
+             , B.BOOK_IMG
+             , B.BOOK_AUTHOR
+             , B.BOOK_PUB
+             , B.BOOK_PRICE
+             , B.BOOK_NO
+        FROM book b
+        WHERE b.BOOK_NO LIKE concat(#{category}, '%')
     </select>
     <insert id="insertCart" parameterType="hashmap">
         insert into cart(cart_no, mem_no, book_no, cart_qty)
@@ -134,4 +145,12 @@
     <delete id="deleteRevCmt" parameterType="hashmap">
         delete from rev_cmt where CMT_NO = #{cmt_no}
     </delete>
+
+    <select id="selectSearchedCount" parameterType="BookDto" resultType="_int">
+        select count(*)
+        from book
+        where BOOK_NM LIKE concat('%', #{searchKeyword}, '%')
+           or BOOK_AUTHOR LIKE concat('%', #{searchKeyword}, '%')
+           or BOOK_NO LIKE concat(#{searchKeyword}, '%')
+    </select>
 </mapper>

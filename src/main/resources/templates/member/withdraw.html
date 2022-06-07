@@ -1,0 +1,20 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head th:replace="fragments/head::headFragment">
+</head>
+<!-- 메인 -->
+<div layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/css/member.css}">
+    <!-- 본문 영역 -->
+    <div id="wrapper">
+        <h1>회원탈퇴</h1>
+        정말 탈퇴하시겠습니까?
+        <form action="/member/withdraw_ok" method="post">
+            <input type="password" placeholder="탈퇴하시려면 비밀번호를 입력하세요." name="mem_pwd">
+            <button class="btn btn-primary">탈퇴</button>
+        </form>
+    </div>
+</div>
+</html>

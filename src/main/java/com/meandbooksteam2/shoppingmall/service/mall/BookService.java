@@ -2,6 +2,7 @@ package com.meandbooksteam2.shoppingmall.service.mall;
 
 import com.meandbooksteam2.shoppingmall.dao.mall.BookServiceDao;
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
+import com.meandbooksteam2.shoppingmall.dto.PaginationInfo;
 import com.meandbooksteam2.shoppingmall.dto.RevCmtDto;
 import com.meandbooksteam2.shoppingmall.dto.ReviewDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,8 +28,24 @@ public class BookService {
         return dao.listCateBest(param);
     }
 
-    public List<BookDto> listMallBook(HashMap<String, String> param){
-        return dao.listMallBook(param);
+    public List<BookDto> listMallBook(BookDto params){
+        List<BookDto> list = Collections.emptyList();
+
+        int allCount = dao.selectSearchedCount(params);
+
+        PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(allCount);
+
+        params.setPaginationInfo(paginationInfo);
+
+        if (allCount > 0){
+            list = dao.listMallBook(params);
+        }
+
+        return list;
+    }
+    public List<BookDto> listMallBookCate(HashMap<String, String> param){
+        return dao.listMallBookCate(param);
     }
 
     public BookDto viewBook(HashMap<String, String> param){

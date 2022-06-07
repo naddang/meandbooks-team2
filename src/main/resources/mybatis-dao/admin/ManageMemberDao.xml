@@ -19,7 +19,7 @@
     </select>
     <!--회원 밴을 염두에 둔 쿼리-->
     <update id="updateMember" parameterType="hashmap">
-        UPDATE MEMBER SET `ACCESSIBLE` = #{accessible} WHERE MEM_NO=#{member_no}
+        UPDATE MEMBER SET `ACCESSIBLE` = #{accessible} WHERE MEM_NO=#{mem_no}
     </update>
     <!--회원번호를 바인딩 변수로 넣어 한 회원의 정보를 가져오는 쿼리-->
     <select id="viewMember" parameterType="hashmap" resultType="com.meandbooksteam2.shoppingmall.dto.MemberDto">

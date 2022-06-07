@@ -41,14 +41,8 @@
   <form action="/mall/searchResult" method="get">
 
     <div class="input-group mb-3">
-      <select class="selectpicker">
-        <option selected>카테고리</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-      <input type="text" class="form-control" placeholder="검색어를 입력하세요." aria-describedby="button-addon2">
-      <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+      <input type="text" class="form-control" placeholder="작가나 제목을 입력하세요." aria-describedby="button-addon2" name="searchKeyword">
+      <button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
     </div>
   </form>
 
@@ -56,33 +50,33 @@
     <div class="flex-box">
       <ul class="list-group">
         <li class="list-group-item active" aria-current="true">국내도서</li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=111">소설/시/희곡</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=112">에세이</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=121">경제/경영</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=122">자기계발</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=131">역사</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=132">사회/정치</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=141">수험서</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=142">대학교재</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=151">어린이</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=161">여행</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=171">만화</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=111">소설/시/희곡</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=112">에세이</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=121">경제/경영</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=122">자기계발</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=131">역사</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=132">사회/정치</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=141">수험서</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=142">대학교재</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=151">어린이</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=161">여행</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=171">만화</a></li>
       </ul>
     </div>
     <div class="flex-box">
       <ul class="list-group">
         <li class="list-group-item active" aria-current="true">해외</li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=211">소설/시/희곡</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=212">에세이</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=221">경제/경영</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=222">자기계발</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=231">역사</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=232">사회/정치</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=241">수험서</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=242">대학교재</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=251">어린이</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=261">여행</a></li>
-        <li class="list-group-item"><a href="/mall/searchResult?category=271">만화</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=211">소설/시/희곡</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=212">에세이</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=221">경제/경영</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=222">자기계발</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=231">역사</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=232">사회/정치</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=241">수험서</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=242">대학교재</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=251">어린이</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=261">여행</a></li>
+        <li class="list-group-item"><a href="/mall/searchResult?searchKeyword=271">만화</a></li>
       </ul>
     </div>
   </div>
