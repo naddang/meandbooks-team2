@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
     <th:block th:fragment="footerFragment">
       <div class="container">
         <footer class="row row-cols-5 py-5 my-5 border-top">
@@ -17,18 +17,18 @@
           <div class="col">
             <h5>쇼핑</h5>
             <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a th:href="@{mall/bestSeller}" class="nav-link p-0 text-muted">베스트셀러</a></li>
-              <li class="nav-item mb-2"><a th:href="@{mall/bestCate}" class="nav-link p-0 text-muted">카테고리별 베스트셀러</a></li>
-              <li class="nav-item mb-2"><a th:href="@{mall/searchBook}" class="nav-link p-0 text-muted">도서검색</a></li>
+              <li class="nav-item mb-2"><a th:href="@{/mall/bestSeller}" class="nav-link p-0 text-muted">베스트셀러</a></li>
+              <li class="nav-item mb-2"><a th:href="@{/mall/bestCate}" class="nav-link p-0 text-muted">카테고리별 베스트셀러</a></li>
+              <li class="nav-item mb-2"><a th:href="@{/mall/searchBook}" class="nav-link p-0 text-muted">도서검색</a></li>
             </ul>
           </div>
 
           <div class="col">
             <h5>고객센터</h5>
             <ul class="nav flex-column">
-              <li class="nav-item mb-2"><a th:href="@{cs/notice}" class="nav-link p-0 text-muted">공지사항</a></li>
-              <li class="nav-item mb-2"><a th:href="@{cs/faq}" class="nav-link p-0 text-muted">FAQ</a></li>
-              <li class="nav-item mb-2"><a th:href="@{cs/qna}" class="nav-link p-0 text-muted">1:1 문의</a></li>
+              <li class="nav-item mb-2"><a th:href="@{/cs/notice}" class="nav-link p-0 text-muted">공지사항</a></li>
+              <li class="nav-item mb-2"><a th:href="@{/cs/faq}" class="nav-link p-0 text-muted">FAQ</a></li>
+              <li class="nav-item mb-2"><a th:href="@{/cs/qna/memListQna}" class="nav-link p-0 text-muted">1:1 문의</a></li>
             </ul>
           </div>
 
