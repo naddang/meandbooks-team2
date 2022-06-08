@@ -12,8 +12,12 @@
       margin-bottom: 30px;
     }
 
-    #btn-area {
-      text-align: center;
+    .mb-3 {
+      width: 300px;
+    }
+
+    .pagination {
+      justify-content: center;
     }
   </style>
   </th:block>
@@ -22,10 +26,15 @@
 <div layout:fragment="content">
 <main class="main-area">
   <div id="title">
-    <h1>공지사항</h1>
+    <h1>고객 1:1 문의 내역</h1>
   </div>
 
-  <form th:action="@{/cs/qna/searchQna}">
+<!--  <div class="input-group mb-3">-->
+<!--    <input type="search" class="form-control" placeholder="검색어 입력" aria-describedby="button-addon2">-->
+<!--    <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>-->
+<!--  </div>-->
+
+  <form th:action="@{/cs/qna/searchQna}" class="input-group mb-3">
     <select class="form-select" aria-label="Default select example" th:name="searchKeyword">
       <option value="1">[반품,교환 문의]</option>
       <option value="2">[결제 문의]</option>
@@ -38,6 +47,12 @@
   </form>
 
   <table class="table caption-top">
+    <colgroup>
+      <col width="15%">
+      <col width="60%">
+      <col width="15%">
+      <col width="10%">
+    </colgroup>
     <thead class="table-light">
     <tr>
       <th scope="col">카테고리</th>
@@ -74,7 +89,7 @@
   </table>
 
   <th:block layout:fragment="paging">
-    <nav th:replace="fragments/common :: pagination"></nav>
+    <nav th:replace="fragments/common :: pagination" class="pagination"></nav>
   </th:block>
 
 </main>
