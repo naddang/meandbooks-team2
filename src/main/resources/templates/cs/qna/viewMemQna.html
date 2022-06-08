@@ -29,13 +29,14 @@
         <b><span th:case="5">[개인정보 문의] </span></b>
         <b><span th:case="6">[기타 문의] </span></b>
       </span>
+    &nbsp;
       <span th:text="${q.q_title}"/>
   </div>
 
   <hr>
 
-  <div class="mb-3">
-    <b><span th:text="${q.q_content}"></span></b>
+  <div class="border border-secondary p-2 mb-2 border-opacity-25">
+    <span th:text="${q.q_content}"></span>
   </div>
 
   <div class="mb-3" id="btn-area">
@@ -45,18 +46,20 @@
   </div>
 
   <div class="my-3 p-3 bg-body rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">문의 답변</h6>
+    <p>문의 답변</p>
 
     <th:block class="d-flex text-muted pt-3" th:if="${a} != null">
-      <p class="pb-3 mb-0 small lh-sm border-bottom">
-        <strong class="d-block text-gray-dark">나와책</strong>
-        <span th:text="${a?.a_content}"></span>
-        <span class="d-flex text-muted pt-3" th:text="${a?.a_date}"></span>
+      <p class="border border-secondary p-2 mb-2 border-opacity-25">
+        <span><strong>나와책</strong></span>
+        &nbsp;
+        <span th:text="${a?.a_date}"></span>
+        <br><br>
+        <span th:text="${a?.a_content}" class="d-block"></span>
       </p>
     </th:block>
 
     <th:block th:unless="${a} != null">
-      <p class="pb-3 mb-0 small lh-sm border-bottom">
+      <p class="border border-secondary p-2 mb-2 border-opacity-25">
         <span th:text="'아직 답변이 없습니다.'"></span>
       </p>
     </th:block>
