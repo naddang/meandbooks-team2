@@ -51,7 +51,7 @@
             </tr>
             <tr>
                 <th>결제 금액</th>
-                <td>230,000원</td>
+                <td th:text="${orders.book.book_price} * ${orders.orders_qty} + 원">230,000원</td>
             </tr>
             <tr>
                 <th>주문 날짜</th>
@@ -83,7 +83,6 @@
                 </td>
             </tr>
         </table>
-    </form>
     <br>
     <div id="btn-area">
         <input type="hidden" name="orders_no" th:value="${orders.orders_no}">
@@ -91,6 +90,7 @@
         <input type="reset" class="btn btn-primary" value="수정취소">
         <input type="button" class="btn btn-primary" value="이전화면" onclick="history.back()">
     </div>
+    </form>
 </div>
 
 </html>

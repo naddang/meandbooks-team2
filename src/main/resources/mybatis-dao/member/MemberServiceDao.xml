@@ -7,6 +7,7 @@
     <!--개별 주문 조회 - resultMap사용 시작-->
     <resultMap id="BookDto" type="BookDto">
         <result column="book_nm" property="book_nm"/>
+        <result column="book_no" property="book_no"/>
         <result column="book_price" property="book_price"/>
         <result column="book_img" property="book_img"/>
         <result column="book_author" property="book_author"/>
@@ -20,6 +21,7 @@
         <result column="orders_addr3" property="orders_addr3"/>
         <result column="orders_qty" property="orders_qty"/>
         <result column="orders_status" property="orders_status"/>
+        <result column="orders_date" property="orders_date"/>
         <collection property="book" resultMap="BookDto"></collection>
     </resultMap>
 
@@ -90,6 +92,7 @@
         select b.book_nm
              , b.book_price
              , b.book_img
+             , b.book_no
              , b.book_author
              , o.orders_qty
              , o.orders_no
@@ -109,17 +112,19 @@
              , b.book_price
              , b.book_img
              , b.book_author
+             , b.book_no
              , o.orders_nm
-             , o.orders_phoneNo
+             , o.orders_phoneno
+             , o.orders_no
              , o.orders_addr1
              , o.orders_addr2
              , o.orders_addr3
+             , date_format(O.ORDERS_DATE,'%m-%d %h:%i') "ORDERS_DATE"
              , o.orders_qty
              , o.orders_status
-             , o.orders_date
         from orders o join book b
         on b.book_no = o.book_no
-        where o.mem_no = #{mem_no}
+        where o.orders_no = #{orders_no}
     </select>
 
     <!--주문취소-->

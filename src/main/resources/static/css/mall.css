@@ -89,3 +89,23 @@ img{
 .pagination{
     justify-content: center !important;
 }
+.right-btn{
+    text-align: right;
+    width: 80%;
+}
+.flex-wrapper{
+    display: flex;
+    justify-content: center;
+    line-height: 50px;
+}
+#rev_title{
+    height: 25px;
+    width: 800px;
+}
+#rev_content{
+    height: 400px;
+    width: 800px;
+}
+.title-area{
+    padding-right: 30px;
+}

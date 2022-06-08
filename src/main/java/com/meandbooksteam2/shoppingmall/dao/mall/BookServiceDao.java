@@ -1,4 +1,4 @@
-package com.meandbooksteam2.shoppingmall.dao.member.mall;
+package com.meandbooksteam2.shoppingmall.dao.mall;
 
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.dto.RevCmtDto;
@@ -33,5 +33,7 @@ public interface BookServiceDao {
     public int deleteRevCmt(HashMap<String, String> param);
     public int selectCateSearchedCount(HashMap<String, String> param);
     public int selectSearchedCount(BookDto params);
+    int insertReview(HashMap<String, String> param);
+    int insertRevCmt(HashMap<String, String> param);
 
 }

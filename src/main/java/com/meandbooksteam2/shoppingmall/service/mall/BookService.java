@@ -1,6 +1,6 @@
 package com.meandbooksteam2.shoppingmall.service.mall;
 
-import com.meandbooksteam2.shoppingmall.dao.member.mall.BookServiceDao;
+import com.meandbooksteam2.shoppingmall.dao.mall.BookServiceDao;
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.dto.PaginationInfo;
 import com.meandbooksteam2.shoppingmall.dto.RevCmtDto;
@@ -95,5 +95,13 @@ public class BookService {
         long L_cart_no = (Long.parseLong(defaultNumberType + "0000") + cart_no + 1);
 
         return Long.toString(L_cart_no);
+    }
+
+    public int insertReview(HashMap<String, String> param){
+        return dao.insertReview(param);
+    }
+
+    public int insertRevCmt(HashMap<String, String> param){
+        return dao.insertRevCmt(param);
     }
 }

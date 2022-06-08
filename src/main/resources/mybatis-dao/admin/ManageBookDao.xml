@@ -62,7 +62,7 @@
     </delete>
 
     <!--책번호 삽입을 자동화하기위해 사용하는 쿼리-->
-    <select id="getBookNo" parameterType="hashmap" resultType="string">
+    <select id="getBookNo" parameterType="hashmap" resultType="long">
         Select MAX(BOOK_NO) + 1
         FROM BOOK
         WHERE BOOK_NO LIKE CONCAT(#{nation}, #{category}, '%')

@@ -48,7 +48,7 @@ public class ManageBookServiceImpl {
     public int insertBook(HashMap<String, String> param, MultipartFile file) throws IOException {
         param.put("book_no", getBookNo(param));
         String filename = file.getOriginalFilename();   //--- 파일명을 얻어옴.
-        file.transferTo( new File( "D:/3차 취합 깃/src/main/resources/static/imgs/book-imgs/"+filename ) );  //--- 저장할 경로를 설정
+//        file.transferTo( new File( "D:/3차 취합 깃/src/main/resources/static/imgs/book-imgs/"+filename ) );  //--- 저장할 경로를 설정
         param.put( "book_img", filename );  //--- 파일명을 저장합니다.
         return dao.insertBook(param);
     }
@@ -65,11 +65,12 @@ public class ManageBookServiceImpl {
 
     /*insert할 때 삽입해야 할 책 번호를 리턴하는 메서드*/
     private String getBookNo(HashMap<String, String> param){
-        String book_no = dao.getBookNo(param);
+        String book_no = String.valueOf(dao.getBookNo(param));
 
         if (book_no == null) {
             book_no = param.get("nation") + param.get("category") + "0001";
         }
+        System.out.println(book_no);
         return book_no;
     }
 }

@@ -16,5 +16,5 @@ public interface ManageBookDao {
      public int insertBook(HashMap<String, String> param);
      public int updateBook(HashMap<String, String> param);
      public int deleteBook(HashMap<String, String> param);
-     public String getBookNo(HashMap<String, String> param);
+     public long getBookNo(HashMap<String, String> param);
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
@@ -69,5 +70,34 @@ public class MallController {
         param.put("mem_no", (String)session.getAttribute("mem_no"));
         service.insertCart(param);
         return "redirect:/mall/viewBook?book_no=" + param.get("book_no");
+    }
+
+    @GetMapping("mall/writeReview")
+    public String writeReview(@RequestParam HashMap<String, String> param, Model model) {
+        model.addAttribute(service.viewBook(param));
+        return "mall/writeReview";
+    }
+
+    @PostMapping("mall/insertReview")
+    public String insertReview(@RequestParam HashMap<String, String> param) {
+        int re = service.insertReview(param);
+
+        if (re == 1) {
+            return "redirect:/mall/viewBook?book_no=" + param.get("book_no");
+        }else {
+            return "error";
+        }
+    }
+
+    @PostMapping("/mall/insertRevCmt")
+    public String insertRevCmt(@RequestParam HashMap<String, String> param) {
+        int re = service.insertRevCmt(param);
+
+        if (re == 1) {
+            return "redirect:/mall/viewBook?book_no=" + param.get("book_no");
+        }else {
+            return "error";
+        }
+
     }
 }

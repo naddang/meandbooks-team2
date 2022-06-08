@@ -101,7 +101,7 @@ public class MemberController {
     @GetMapping("member/viewOrders")
     public String viewOrders(@RequestParam HashMap<String, String> param, Model model){
 
-        model.addAttribute("view", service.viewMyOrder(param));
+        model.addAttribute("orders", service.viewMyOrder(param));
 
         return "member/viewOrders";
     }

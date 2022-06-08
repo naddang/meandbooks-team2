@@ -20,32 +20,43 @@
             <table class="table table-light table-striped-columns">
                 <tbody>
                 <tr>
+                    <td rowspan="6">
+                        <img th:src="@{/imgs/book-imgs/} + ${orders.book.book_img}">
+                    </td>
+                </tr>
+                <tr>
                     <th scope="col">주문번호</th>
-                    <td>1212121</td>
+                    <td th:text="${orders.orders_no}">1212121</td>
                     <th scope="col">책번호</th>
-                    <td>12121212</td>
+                    <td th:text="${orders.book.book_no}">12121212</td>
                 </tr>
                 <tr>
                     <th scope="col">주문수량</th>
-                    <td>2</td>
+                    <td th:text="${orders.orders_qty}">2</td>
                     <th scope="col">책이름</th>
-                    <td th:text="${view.orders_nm}"></td>
+                    <td th:text="${orders.book.book_nm}"></td>
                 </tr>
                 <tr>
                     <th scope="col">주문접수일</th>
-                    <td>2022.05.26</td>
+                    <td th:text="${orders.orders_date}"></td>
                     <th scope="col">주문상태</th>
-                    <td>배송대기</td>
+                    <td th:switch="${orders.orders_status}">
+                        <th:block th:case="0">주문취소</th:block>
+                        <th:block th:case="1">배송대기</th:block>
+                        <th:block th:case="2">배송중</th:block>
+                        <th:block th:case="3">배송오나료</th:block>
+
+                    </td>
                 </tr>
                 <tr>
                     <th scope="col">주문자</th>
-                    <td>아무개</td>
+                    <td th:text="${orders.orders_nm}">아무개</td>
                     <th scope="col">전화번호</th>
-                    <td>010-1234-5678</td>
+                    <td th:text="${orders.orders_phoneNo}">010-1234-5678</td>
                 </tr>
                 <tr>
                     <th scope="col">배송주소</th>
-                    <td colspan="3" >부산광역시 진구 부전동</td>
+                    <td colspan="3" th:text="|${orders.orders_addr1}, ${orders.orders_addr2}, ${orders.orders_addr3}|">부산광역시 진구 부전동</td>
                 </tr>
                 </tbody>
             </table>

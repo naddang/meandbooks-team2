@@ -42,33 +42,51 @@
   <!--리뷰 영역-->
   <div class="review-area">
     <h2>리뷰</h2>
-    <table th:each="rev : ${reviews}">
-      <tr>
-        <td th:text="${rev.member.mem_uid}" class="id" rowspan="2"></td>
-        <td th:text="${rev.rev_date}" class="date"></td>
-      </tr>
-      <tr>
-        <td >
-          <th:block th:each=" star : ${#numbers.sequence(1, 5)}">
-            <span th:if="${rev.rev_rating >= star}">★</span>
-            <span th:unless="${rev.rev_rating >= star}">☆</span>
-          </th:block>
-        </td>
-      </tr>
-      <tr>
-        <td cl th:text="${rev.rev_title}" class="title" colspan="2"></td>
-      </tr>
-      <tr>
-        <td colspan="5" th:text="${rev.rev_content}" class="content"></td>
-      </tr>
-    </table>
-    <table>
-      <tr th:each="cmt : ${cmts}" class="cmt-area">
-        <td th:text="${cmt.member?.mem_uid}" width="50px" style="border-right: #2470dc 1px solid;"></td>
-        <td th:text="${cmt.cmt_content}" width="383px"></td>
-        <td th:text="${cmt.cmt_date}" width="150px"></td>
-      </tr>
-    </table>
+    <div class="right-btn" th:if="${session.mem_no != null}">
+      <a th:href="@{/mall/writeReview(book_no=${#request.getParameter('book_no')})}" class="btn btn-primary">리뷰 작성하기</a>
+    </div>
+    <div th:each="rev : ${reviews}">
+      <table>
+        <tr>
+          <td th:text="${rev.member.mem_uid}" class="id" rowspan="2"></td>
+          <td th:text="${rev.rev_date}" class="date"></td>
+        </tr>
+        <tr>
+          <td >
+            <th:block th:each=" star : ${#numbers.sequence(1, 5)}">
+              <span th:if="${rev.rev_rating >= star}">★</span>
+              <span th:unless="${rev.rev_rating >= star}">☆</span>
+            </th:block>
+          </td>
+        </tr>
+        <tr>
+          <td cl th:text="${rev.rev_title}" class="title" colspan="2"></td>
+        </tr>
+        <tr>
+          <td colspan="5" th:text="${rev.rev_content}" class="content"></td>
+        </tr>
+        <tr th:if="${session.mem_no} == ${rev.mem_no}">
+          <td colspan="2" style="text-align: right">
+            <a class="btn btn-primary" th:href="@{/mall/updateReveiw(rev_no=${rev.rev_no})}">리뷰 수정하기</a>
+          </td>
+        </tr>
+      </table>
+      <form th:if="${session.mem_no != null}" th:action="@{/mall/insertRevCmt}" method="post">
+        <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no" required>
+        <input type="hidden" th:value="${session.mem_no}" name="mem_no">
+        <input type="hidden" th:value="${rev.rev_no}" name="rev_no">
+        댓글 적기 <input type="text" name="cmt_content" style="width: 24.3%;">
+        <input class="btn btn-primary" type="submit">
+      </form>
+      <table>
+        <tr th:each="cmt : ${cmts}" class="cmt-area">
+          <td th:text="${cmt.member?.mem_uid}" width="50px" style="border-right: #2470dc 1px solid;"></td>
+          <td th:text="${cmt.cmt_content}" width="383px"></td>
+          <td th:text="${cmt.cmt_date}" width="150px"></td>
+        </tr>
+      </table>
+      <br>
+    </div>
   </div>
 </div>
 </html>

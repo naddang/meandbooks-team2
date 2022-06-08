@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.meandbooksteam2.shoppingmall.dao.member.mall.BookServiceDao">
+<mapper namespace="com.meandbooksteam2.shoppingmall.dao.mall.BookServiceDao">
     <resultMap id="Orders" type="OrdersDto">
         <result column="orders_qty" property="orders_qty"/>
     </resultMap>
@@ -82,6 +82,7 @@
     <resultMap id="ReviewDto" type="ReviewDto">
         <result column="rev_title" property="rev_title"></result>
         <result column="rev_no" property="rev_no"></result>
+        <result column="mem_no" property="mem_no"></result>
         <result column="REV_CONTENT" property="rev_content"></result>
         <result column="REV_RATING" property="rev_rating"></result>
         <result column="REV_DATE" property="rev_date"/>
@@ -96,6 +97,7 @@
     <select id="listReview" resultMap="ReviewDto" parameterType="hashmap">
         select r.REV_NO
              , m.mem_uid
+             , m.mem_no
              , r.REV_TITLE
              , r.REV_CONTENT
              , r.REV_RATING
@@ -109,7 +111,7 @@
              , date_format(r.CMT_DATE,'%m-%d %h:%i')"CMT_DATE"
              , m.mem_uid
         from rev_cmt r join member m
-            on m.MEM_NO = r.MEM_NO
+            on m.MEM_NO = r.MEM_NO where r.rev_no = ${rev_no}
     </select>
 
     <insert id="insertReview" parameterType="hashmap">

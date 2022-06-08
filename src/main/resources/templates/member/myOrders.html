@@ -34,7 +34,7 @@
         <tr th:each="orders : ${list}">
           <td>
             <th:block>
-              <a th:text="${orders.orders_no}" th:href="@{/member/viewOrders(order_no=${orders.orders_no})}">
+              <a th:text="${orders.orders_no}" th:href="@{/member/viewOrders(orders_no=${orders.orders_no})}">
 
               </a>
             </th:block>
