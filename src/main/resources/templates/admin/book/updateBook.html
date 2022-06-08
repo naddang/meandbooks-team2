@@ -33,121 +33,105 @@
 <div layout:fragment="content">
     <br>
     <main class="main-area">
-        <form>
+        <form th:action="@{/admin/book/update_ok}" name="frm">
+<!--        <form name="frm">-->
+            <input type="hidden" th:value="${view.book_no}" th:name="book_no">
             <table class="table caption-top">
                 <thead class="table-light">
                 <th colspan="2">도서등록</th>
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope="col">대분류</th>
+                    <th scope="col">도서 번호</th>
                     <td>
-                        <input type="radio" name="nation" value="1" checked> 국내
-                        <input type="radio" name="nation" value="2"> 해외
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="col">소분류</th>
-                    <td>
-                        <select name="category">
-                            <option value="11" selected>소설</option>
-                            <option value="12">시/에세이</option>
-                            <option value="21">경제/경영</option>
-                            <option value="22">자기계발</option>
-                            <option value="31">인문학</option>
-                            <option value="32">예술/종교</option>
-                            <option value="33">정치/사회</option>
-                            <option value="34">역사</option>
-                            <option value="41">과학</option>
-                            <option value="42">기술/공학</option>
-                            <option value="43">컴퓨터/IT</option>
-                            <option value="51">유아(~7세)</option>
-                            <option value="52">어린이</option>
-                            <option value="61">초등참고서</option>
-                            <option value="62">중고등참고서</option>
-                            <option value="63">대학교재</option>
-                            <option value="64">수험서</option>
-                            <option value="65">외국어</option>
-                            <option value="71">가정/육아</option>
-                            <option value="72">건강/헬스/스포츠</option>
-                            <option value="73">여행/요리</option>
-                            <option value="74">취미</option>
-                            <option value="81">만화</option>
-                            <option value="82">잡지</option>
-                        </select>
+                        <span th:text="${view.book_no}"></span>
                     </td>
                 </tr>
                 <tr>
                     <th scope="col">도서명</th>
                     <td>
-                        <input type="text" required>
+                        <span th:text="${view.book_nm}"></span>
                     </td>
                 </tr>
                 <tr>
                     <th scope="col">설명</th>
                     <td>
-                        <textarea cols="25" rows="5" required></textarea>
+                        <textarea cols="25" rows="5" th:value="${view.book_desc}" th:text="${view.book_desc}" readonly></textarea>
                     </td>
                 </tr>
                 <tr>
                     <th scope="col">가격</th>
                     <td>
-                        <input type="text" required>
+                        <span th:text="${view.book_price}"></span>
                     </td>
                 </tr>
                 <tr>
                     <th scope="col">재고</th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" th:value="${view.book_stock}" th:name="book_stock" required>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">표지 이미지</th>
-                    <td>
-                        <div class="mb-3">
-                            <input class="form-control" type="file">
-                        </div>
+                    <td th:if="${view.book_img} != null">
+                        <img th:src="@{/imgs/book-imgs/{param1}(param1=${view.book_img})}">
+                    </td>
+                    <td th:unless="${view.book_img} != null">
+                        <img th:src="@{/imgs/book-imgs/default-img.png}">
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">출판사</th>
                     <td>
-                        <input type="text" required>
+                        <span th:text="${view.book_pub}"></span>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">저자</th>
                     <td>
-                        <input type="text" required>
+                        <span th:text="${view.book_author}"></span>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">출간일</th>
                     <td>
-                        <input type="date" required>
+                        <span th:text="${view.book_pub_date}"></span>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">고유번호</th>
                     <td>
-                        <input type="text" required>
+                        <span th:text="${view.book_isbn}"></span>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">페이지수</th>
                     <td>
-                        <input type="text" required>
+                        <span th:text="${view.book_page}"></span>
                     </td>
                 </tr>
                 </tbody>
             </table>
             <div class="mb-3" id="btn-area">
-                <input class="btn btn-primary" type="submit" value="등록하기">
+                <input class="btn btn-primary" type="submit" value="수정하기">
                 <input class="btn btn-primary" type="reset" value="다시쓰기">
-                <input class="btn btn-primary" type="button" value="목록보기">
+                <a class="btn btn-primary" th:href="@{/admin/book}">목록보기</a>
+                <input type="submit" value="삭제하기" onclick="btn_click('delete');" class="btn btn-primary">
             </div>
         </form>
     </main>
 </div>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
 
+        function btn_click(str) {
+            if (str == "delete") {
+                frm.action = "/admin/book/delete";
+            }
+        }
+
+        /*]]>*/
+    </script>
+</th:block>
 </html>

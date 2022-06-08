@@ -5,7 +5,7 @@
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.admin.ManageBookDao">
     <!--책 관리를 위해 리스트를 가져오는 쿼리-->
-    <select id="listBook" parameterType="hashmap" resultType="BookDto">
+    <select id="listBook" parameterType="BookDto" resultType="BookDto">
         SELECT BOOK_NO
              , BOOK_NM
              , BOOK_PRICE
@@ -14,11 +14,33 @@
              , BOOK_PUB
              , BOOK_AUTHOR
           FROM BOOK
-          where `BOOK_NO` = #{page}
         ORDER BY BOOK_NO DESC
+        LIMIT
+            #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
     </select>
-    <!--책 검색 쿼리-->
-    <select id="searchBook" parameterType="hashmap" resultType="BookDto">
+<!--    <select id="listBook" parameterType="hashmap" resultType="BookDto">-->
+<!--        SELECT BOOK_NO-->
+<!--             , BOOK_NM-->
+<!--             , BOOK_PRICE-->
+<!--             , BOOK_STOCK-->
+<!--             , BOOK_IMG-->
+<!--             , BOOK_PUB-->
+<!--             , BOOK_AUTHOR-->
+<!--          FROM BOOK-->
+<!--          where `BOOK_NO` = #{page}-->
+<!--        ORDER BY BOOK_NO DESC-->
+<!--    </select>-->
+
+    <!--책 목록을 위한 총 데이터 개수-->
+    <select id="selectBookTotalCount" parameterType="BookDto" resultType="int">
+        select
+            count(*)
+        from
+            book
+    </select>
+
+    <!--검색 목록-->
+    <select id="listSearchBook" parameterType="BookDto" resultType="BookDto">
         SELECT BOOK_NO
              , BOOK_NM
              , BOOK_PRICE
@@ -27,19 +49,46 @@
              , BOOK_PUB
              , BOOK_AUTHOR
         FROM BOOK
-        WHERE BOOK_NM LIKE CONCAT('%', #{keyword}, '%')
-        OR BOOK_AUTHOR LIKE CONCAT('%', #{keyword}, '%')
-        ORDER BY BOOK_NO DESC
+        WHERE BOOK_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+           OR BOOK_AUTHOR LIKE CONCAT('%', #{searchKeyword}, '%')
+           or book_pub like CONCAT('%', #{searchKeyword}, '%')
+        ORDER BY
+            BOOK_NO desc
+        LIMIT
+            #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
     </select>
+
+    <select id="selectBookSearchTotalCount" parameterType="BookDto" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            book
+        WHERE BOOK_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+           OR BOOK_AUTHOR LIKE CONCAT('%', #{searchKeyword}, '%')
+           or book_pub like CONCAT('%', #{searchKeyword}, '%')
+        order by book_no desc
+    </select>
+
+    <!--책 검색 쿼리-->
+<!--    <select id="searchBook" parameterType="hashmap" resultType="BookDto">-->
+<!--        SELECT BOOK_NO-->
+<!--             , BOOK_NM-->
+<!--             , BOOK_PRICE-->
+<!--             , BOOK_STOCK-->
+<!--             , BOOK_IMG-->
+<!--             , BOOK_PUB-->
+<!--             , BOOK_AUTHOR-->
+<!--        FROM BOOK-->
+<!--        WHERE BOOK_NM LIKE CONCAT('%', #{keyword}, '%')-->
+<!--        OR BOOK_AUTHOR LIKE CONCAT('%', #{keyword}, '%')-->
+<!--        ORDER BY BOOK_NO DESC-->
+<!--    </select>-->
+
     <!--책 하나에대한 정보를 가져오는 쿼리-->
     <select id="viewBook" parameterType="hashmap" resultType="BookDto">
-        SELECT BOOK_NO
-             , BOOK_NM
-             , BOOK_PRICE
-             , BOOK_STOCK
-             , BOOK_IMG
-             , BOOK_PUB
-             , BOOK_AUTHOR
+        SELECT BOOK_NO, BOOK_NM, BOOK_DESC, BOOK_PRICE
+                      , BOOK_STOCK, BOOK_IMG, BOOK_PUB, BOOK_AUTHOR
+                      , BOOK_PUB_DATE, BOOK_ISBN, BOOK_PAGE
         FROM BOOK
         WHERE BOOK_NO = #{book_no}
     </select>
@@ -54,7 +103,7 @@
     </insert>
     <!--책 재고를 업데이트 하는 쿼리-->
     <update id="updateBook" parameterType="hashmap">
-        UPDATE BOOK SET BOOK_STOCK=#{book_stock}
+        UPDATE BOOK SET BOOK_STOCK=#{book_stock} where book_no = #{book_no}
     </update>
     <!--해당 책을 삭제하는 쿼리-->
     <delete id="deleteBook" parameterType="hashmap">

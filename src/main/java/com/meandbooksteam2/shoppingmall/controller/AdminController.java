@@ -2,6 +2,7 @@ package com.meandbooksteam2.shoppingmall.controller;
 
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.dto.MemberDto;
+import com.meandbooksteam2.shoppingmall.dto.NoticeDto;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageBookServiceImpl;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageMemberServiceImpl;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageOrdersServiceImpl;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,12 +51,30 @@ public class AdminController {
         return "admin/adminMain";
     }
 
+    /*전체 책 목록 리스트*/
     @GetMapping("admin/book")
-    public String bookMenu(@RequestParam HashMap<String, String> param, Model model){
-        List<BookDto> bookList = bookService.bookList(param);
-        model.addAttribute("bookList", bookList);
+    public String bookMenu(@ModelAttribute("params") BookDto params, Model model){
+        List<BookDto> bookList = bookService.listBook(params);
+        model.addAttribute("list", bookList);
+
         return "admin/book/listBook";
     }
+
+    /*검색 책 목록 리스트*/
+    @GetMapping("admin/book/searchBook")
+    public String searchBookList(@ModelAttribute("params") BookDto params, Model model) {
+        List<BookDto> list = bookService.listSearchBook(params);
+        model.addAttribute("list", list);
+
+        return "admin/book/listBook";
+    }
+
+//    @GetMapping("admin/book")
+//    public String bookMenu(@RequestParam HashMap<String, String> param, Model model){
+//        List<BookDto> bookList = bookService.bookList(param);
+//        model.addAttribute("bookList", bookList);
+//        return "admin/book/listBook";
+//    }
 
     @PostMapping("admin/book/insertBook")
     public String insertBook(@RequestParam HashMap<String, String> param, @RequestParam("book_img") MultipartFile file, HttpServletRequest request) throws IOException {
@@ -67,29 +87,6 @@ public class AdminController {
             return "redirect:/admin/book/addBook";
         }
     }
-//    @PostMapping("admin/book/insertBook")
-//    public String insertBook(@RequestParam HashMap<String, String> param, @RequestParam("book_img") MultipartFile file) throws IOException {
-//
-//        int result = bookService.insertBook(param, file);
-//
-//        if (result == 1) {
-//            return "redirect:/admin/book";
-//        }else {
-//            return "redirect:/admin/book/addBook";
-//        }
-//    }
-
-//    @PostMapping("admin/book/insertBook")
-//    public String insertBook(@RequestParam HashMap<String, String> param){
-//
-//        int result = bookService.insertBook(param);
-//
-//        if (result == 1) {
-//            return "redirect:/admin/book";
-//        }else {
-//            return "redirect:/admin/book/addBook";
-//        }
-//    }
 
     @GetMapping("admin/book/addBook")
     public String addBook(){
@@ -97,19 +94,32 @@ public class AdminController {
     }
 
     @GetMapping("admin/book/updateBook")
-    public String updateBook(@RequestParam HashMap<String, String> param){
+    public String updateBook(@RequestParam HashMap<String, String> param, Model model){
+        model.addAttribute("view", bookService.viewBook(param));
         return "admin/book/updateBook";
     }
 
-    @GetMapping("admin/book/update")
-    public String updateBook(@RequestParam HashMap<String, String> param, Model model){
+    @GetMapping("admin/book/update_ok")
+    public String updateBookOk(@RequestParam HashMap<String, String> param){
 
         int result = bookService.updateBook(param);
 
         if (result == 1) {
-            return "redirect:admin/book";
+            return "redirect:/admin/book";
         }else {
-            return "redirect:error";
+            return "redirect:/error";
+        }
+    }
+
+    @GetMapping("admin/book/delete")
+    public String deleteBook(@RequestParam HashMap<String, String> param) {
+
+        int result = bookService.deleteBook(param);
+
+        if (result == 1) {
+            return "redirect:/admin/book";
+        }else {
+            return "redirect:/error";
         }
     }
 
