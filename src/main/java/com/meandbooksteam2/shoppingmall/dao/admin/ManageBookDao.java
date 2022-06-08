@@ -18,9 +18,6 @@ public interface ManageBookDao {
      public int updateBook(HashMap<String, String> param);
      public int deleteBook(HashMap<String, String> param);
      public long getBookNo(HashMap<String, String> param);
-<<<<<<< HEAD
-=======
-
 
      /*전체 책 목록*/
      List<BookDto> listBook(BookDto params);
@@ -34,5 +31,4 @@ public interface ManageBookDao {
      /*검색 책 목록을 위한 데이터 갯수*/
      int selectBookSearchTotalCount(BookDto params);
 
->>>>>>> 8ca488e1fa16635f25f4e22acdebfef4148aba12
 }

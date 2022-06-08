@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.member.CartServiceDao">
+    <!--JOIN할 때 필요한 것들을 resultMap으로 정의함-->
     <resultMap id="BookDto" type="BookDto">
         <result property="book_nm" column="book_nm"/>
         <result property="book_img" column="book_img"/>
@@ -17,6 +18,7 @@
         <result property="cart_qty" column="cart_qty"/>
         <collection property="book" resultMap="BookDto"></collection>
     </resultMap>
+
     <!--장바구니 정보를 불러오는 쿼리문 - 장바구니에 담긴 책 정보는 다른 곳에서 book_no를 통해 가져와야 함-->
     <select id="listCart" parameterType="string" resultMap="CartDto">
         select sum(b.BOOK_PRICE * CART_QTY) over() sum
@@ -27,10 +29,12 @@
              , b.book_nm
              , b.BOOK_IMG
              , b.BOOK_PRICE
-        from cart c join book b on c.BOOK_NO = b.BOOK_NO where mem_no = #{mem_no}
+         from cart c join book b
+           on c.BOOK_NO = b.BOOK_NO
+        where mem_no = #{mem_no}
     </select>
 
-    <!--장바구니 목록에서 선택한 책의 수량을 변경하는 쿼리-->
+    <!--장바구니 목록에서 선택한 책의 수량을 변경하는 DML-->
     <update id="updateCartStatus" parameterType="hashmap">
         update cart set cart_qty=#{cart_qty} where cart_no=#{cart_no}
     </update>

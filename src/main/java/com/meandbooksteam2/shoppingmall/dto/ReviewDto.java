@@ -15,4 +15,5 @@ public class ReviewDto {
     private int rev_rating;
     private String rev_date;
     private MemberDto member;
+    private RevCmtDto rev_cmt;
 }

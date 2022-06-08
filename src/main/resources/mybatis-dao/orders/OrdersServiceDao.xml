@@ -5,7 +5,7 @@
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.orders.OrdersDao">
 
-    <!--JOIN 할 때 필요한 값들을 정의함-->
+    <!--Orders에서 JOIN 할 때 필요한 것들을 정의함-->
     <resultMap id="Book" type="com.meandbooksteam2.shoppingmall.dto.BookDto">
         <result column="book_img" property="book_img"></result>
         <result column="book_nm" property="book_nm"></result>
@@ -21,6 +21,8 @@
         <result column="ORDERS_QTY" property="orders_qty"/>
         <collection property="book" resultMap="Book"></collection>
     </resultMap>
+
+    <!--주문완료창에서 방금 DB에 삽입된 주문에 대한 자세한 정보를 가져오는 쿼리-->
     <select id="getOneOrder" resultMap="OrdersDto" parameterType="hashmap">
         SELECT O.ORDERS_NO
              , B.BOOK_NM
@@ -36,7 +38,7 @@
          WHERE ORDERS_NO = #{orders_no}
     </select>
 
-    <!--hashmap으로 받아온 값들을 db에 삽입하는 쿼리-->
+    <!--hashmap으로 받아온 값들을 db에 삽입하는 DML-->
     <insert id="insertOrder" parameterType="hashmap">
         INSERT INTO ORDERS(ORDERS_NO, MEM_NO, BOOK_NO, ORDERS_NM,
                            ORDERS_PHONENO, ORDERS_ADDR1, ORDERS_ADDR2, ORDERS_ADDR3,
@@ -45,6 +47,7 @@
                            #{orders_phoneno}, #{orders_addr1}, #{orders_addr2}, #{orders_addr3},
                            sysdate(), #{orders_qty})
     </insert>
+    <!--위의 비회원용-->
     <insert id="insertNoMemOrder" parameterType="hashmap">
         INSERT INTO no_mem_orders(ORDERS_NO, BOOK_NO, ORDERS_NM,
                            ORDERS_PHONENO, ORDERS_ADDR1, ORDERS_ADDR2, ORDERS_ADDR3,
@@ -54,7 +57,7 @@
                sysdate(), #{orders_qty})
     </insert>
 
-    <!--오늘 주문 건수를 가져오는 쿼리-->
+    <!--주문번호를 넣기위해 오늘 주문 건수를 가져오는 쿼리-->
     <select id="getTodayOrder" resultType="_int">
         SELECT COUNT(*) FROM ORDERS WHERE ORDERS_DATE >= CURDATE()
     </select>
@@ -63,26 +66,7 @@
         SELECT COUNT(*) FROM no_mem_orders WHERE ORDERS_DATE >= CURDATE()
     </select>
 
-    <!--회원 번호를 매개변수로 자신의 모든 주문내역을 가져오는 쿼리-->
-    <select id="getMyOrderList" resultType="OrdersDto" parameterType="hashmap">
-        SELECT O.ORDERS_NO
-             , O.ORDERS_DATE
-             , B.BOOK_NM
-             , B.BOOK_IMG
-             , O.ORDERS_NM
-             , O.ORDERS_PHONENO
-             , O.ORDERS_ADDR1
-             , O.ORDERS_ADDR2
-             , O.ORDERS_ADDR3
-             , O.ORDERS_DATE
-             , O.ORDERS_QTY
-          FROM ORDERS "O" JOIN BOOK "B"
-            ON O.BOOK_NO = B.BOOK_NO
-          JOIN MEMBER "M"
-            ON O.MEM_NO = M.MEM_NO
-    </select>
-
-    <!--주문페이지에서 default 값을 주기위해 MEMBER 테이블에서 일부 값들을 가져오는 메서드-->
+    <!--주문페이지에서 default 값을 주기위해 MEMBER 테이블에서 일부 값들을 가져오는 쿼리-->
     <select id="getMyInfo" parameterType="string" resultType="MemberDto">
         SELECT MEM_ADDR1
              , MEM_ADDR2
@@ -93,7 +77,8 @@
           FROM MEMBER
          WHERE MEM_NO = #{mem_no}
     </select>
-    <!--주문페이지에서 책정보를 주기위해 book 테이블에서 일부 값들을 가져오는 메서드-->
+
+    <!--주문페이지에서 책정보를 주기위해 book 테이블에서 일부 값들을 가져오는 쿼리-->
     <select id="getBookInfo" parameterType="hashmap" resultType="BookDto">
         SELECT BOOK_NM
              , BOOK_PRICE

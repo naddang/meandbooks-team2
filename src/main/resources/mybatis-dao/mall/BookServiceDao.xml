@@ -4,9 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meandbooksteam2.shoppingmall.dao.mall.BookServiceDao">
-    <resultMap id="Orders" type="OrdersDto">
-        <result column="orders_qty" property="orders_qty"/>
-    </resultMap>
+    <!--책 정보와 관련된 쿼리들-->
+    <!--전체 판매량 베스트 톱 10을 출력하기위해 사용하는 쿼리-->
     <select id="listAllBest" resultType="BookDto">
         SELECT row_number() OVER(order by sum(o.ORDERS_QTY))
              , B.BOOK_NM
@@ -18,6 +17,8 @@
         FROM orders O
                  JOIN book b on b.BOOK_NO = O.BOOK_NO;
     </select>
+
+    <!--카테고리별 판매량 베스트 톱 10을 출력하기위해 사용하는 쿼리-->
     <select id="listCateBest" resultType="BookDto" parameterType="hashmap">
         SELECT RANK() OVER(PARTITION BY B.BOOK_NO ORDER BY O.ORDERS_QTY DESC)
              , B.BOOK_NM
@@ -30,6 +31,8 @@
                  JOIN book b on b.BOOK_NO = O.BOOK_NO
         WHERE b.BOOK_NO LIKE concat(#{keyword}, '%')
     </select>
+
+    <!--하나의 책에대한 자세한 정보를 가져오는 쿼리-->
     <select id="viewBook" resultType="BookDto" parameterType="hashmap">
         select BOOK_NO
              , BOOK_NM
@@ -45,6 +48,8 @@
           from book
         where book_no = #{book_no}
     </select>
+
+    <!--검색결과를 가져오는 쿼리-->
     <select id="listMallBook" resultType="BookDto" parameterType="BookDto">
         SELECT B.BOOK_NM
              , B.BOOK_IMG
@@ -57,27 +62,28 @@
            or BOOK_AUTHOR LIKE concat('%', #{searchKeyword}, '%')
            or BOOK_NO LIKE concat(#{searchKeyword}, '%')
     </select>
-    <select id="listMallBookCate" resultType="BookDto" parameterType="hashmap">
-        SELECT B.BOOK_NM
-             , B.BOOK_IMG
-             , B.BOOK_AUTHOR
-             , B.BOOK_PUB
-             , B.BOOK_PRICE
-             , B.BOOK_NO
-        FROM book b
-        WHERE b.BOOK_NO LIKE concat(#{category}, '%')
-    </select>
+
+    <!--장바구니에 담을때 사용하는 DML-->
     <insert id="insertCart" parameterType="hashmap">
         insert into cart(cart_no, mem_no, book_no, cart_qty)
         values(#{cart_no}, #{mem_no}, #{book_no}, #{cart_qty})
     </insert>
+
+    <!--장바구니에 담을때, 장바구니 번호를 주기위해 사용하는 쿼리-->
     <select id="getTodayCart" resultType="_int" parameterType="string">
         select count(*) from cart where CART_NO like concat(#{formattingDate}, '%')
     </select>
 
+    <!--리뷰, 댓글과 관련된 쿼리-->
     <!--리뷰에서 조인하기 위해 사용하는 resultMap-->
     <resultMap id="MemberDto" type="MemberDto">
         <result column="mem_uid" property="mem_uid"></result>
+    </resultMap>
+    <resultMap id="RevCmtDto" type="RevCmtDto">
+        <result column="c_rev_no" property="rev_no"></result>
+        <result column="CMT_CONTENT" property="cmt_content"></result>
+        <result column="CMT_DATE" property="cmt_date"></result>
+        <collection property="member" resultMap="MemberDto"></collection>
     </resultMap>
     <resultMap id="ReviewDto" type="ReviewDto">
         <result column="rev_title" property="rev_title"></result>
@@ -87,43 +93,53 @@
         <result column="REV_RATING" property="rev_rating"></result>
         <result column="REV_DATE" property="rev_date"/>
         <collection property="member" resultMap="MemberDto"></collection>
-    </resultMap>
-    <resultMap id="RevCmtDto" type="RevCmtDto">
-        <result column="CMT_CONTENT" property="cmt_content"></result>
-        <result column="CMT_DATE" property="cmt_date"></result>
-        <collection property="member" resultMap="MemberDto"></collection>
+        <collection property="rev_cmt" resultMap="RevCmtDto"></collection>
     </resultMap>
 
+    <!--해당 책에 대한 리뷰들을 가져오는 쿼리-->
     <select id="listReview" resultMap="ReviewDto" parameterType="hashmap">
         select r.REV_NO
              , m.mem_uid
              , m.mem_no
              , r.REV_TITLE
+             , r.REV_NO
+             , rc.REV_NO "c_rev_no"
              , r.REV_CONTENT
              , r.REV_RATING
              , date_format(r.REV_DATE,'%m-%d %h:%i') "REV_DATE"
-        from review r join member m on r.MEM_NO = m.MEM_NO where r.BOOK_NO = #{book_no}
+             , rc.REV_NO
+             , rc.CMT_CONTENT
+             , date_format(rc.CMT_DATE,'%m-%d %h:%i') "CMT_DATE"
+        from review r join member m
+            on r.MEM_NO = m.MEM_NO
+        join rev_cmt rc on r.REV_NO = rc.REV_NO
+        where r.BOOK_NO = #{book_no}
     </select>
 
+    <!--바인딩 변수로 받은 리뷰번호와 맞는 댓글을 가져오는 쿼리-->
     <select id="listRevCmt" resultMap="RevCmtDto" parameterType="hashmap">
         select r.CMT_NO
              , r.CMT_CONTENT
              , date_format(r.CMT_DATE,'%m-%d %h:%i')"CMT_DATE"
              , m.mem_uid
         from rev_cmt r join member m
-            on m.MEM_NO = r.MEM_NO where r.rev_no = ${rev_no}
+            on m.MEM_NO = r.MEM_NO
+        where r.rev_no = #{rev_no}
     </select>
 
+    <!--사용자가 입력한 리뷰를 DB에 저장하는 쿼리-->
     <insert id="insertReview" parameterType="hashmap">
         insert into review(MEM_NO, BOOK_NO, REV_TITLE, REV_CONTENT, REV_RATING, REV_DATE)
         values (#{mem_no}, #{book_no}, #{rev_title}, #{rev_content}, #{rev_rating}, now())
     </insert>
 
+    <!--사용자가 입력한 댓글을 DB에 저장하는 쿼리-->
     <insert id="insertRevCmt" parameterType="hashmap">
-        insert into rev_cmt(MEM_NO, CMT_CONTENT, CMT_DATE)
-        values (#{mem_no}, #{cmt_content}, now())
+        insert into rev_cmt(MEM_NO, REV_NO, CMT_CONTENT, CMT_DATE)
+        values (#{mem_no}, #{rev_no}, #{cmt_content}, now())
     </insert>
 
+    <!--리뷰를 수정하는 DML-->
     <update id="updateReview" parameterType="hashmap">
         update review set
                           REV_TITLE = #{rev_title}
@@ -133,10 +149,13 @@
                       where REV_NO=#{rev_no}
     </update>
 
+    <!--리뷰를 삭제하는 DML-->
+    <!--on delete cascade를 이용하여 댓글도 삭제될 수 있도록 함-->
     <delete id="deleteReview" parameterType="hashmap">
         delete from review where REV_NO = #{rev_no}
     </delete>
 
+    <!--댓글을 수정하는 DML-->
     <update id="updateRevCmt" parameterType="hashmap">
         update rev_cmt set
                           CMT_CONTENT = #{cmt_content}
@@ -144,10 +163,12 @@
                       where REV_NO=#{rev_no}
     </update>
 
+    <!--댓글을 삭제하는 DML-->
     <delete id="deleteRevCmt" parameterType="hashmap">
         delete from rev_cmt where CMT_NO = #{cmt_no}
     </delete>
 
+    <!--페이징을 위해 해당 검색어와 매칭되는 row가 몇 건인지 가져오는 쿼리-->
     <select id="selectSearchedCount" parameterType="BookDto" resultType="_int">
         select count(*)
         from book

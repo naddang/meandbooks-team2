@@ -71,7 +71,8 @@
           </td>
         </tr>
       </table>
-      <form th:if="${session.mem_no != null}" th:action="@{/mall/insertRevCmt}" method="post">
+      <!--댓글 적는 폼-->
+      <form th:if="${session.mem_no != null}" th:action="@{/mall/insertRevCmt}" method="post"><!--회원만 작성 가능-->
         <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no" required>
         <input type="hidden" th:value="${session.mem_no}" name="mem_no">
         <input type="hidden" th:value="${rev.rev_no}" name="rev_no">
@@ -79,10 +80,10 @@
         <input class="btn btn-primary" type="submit">
       </form>
       <table>
-        <tr th:each="cmt : ${cmts}" class="cmt-area">
-          <td th:text="${cmt.member?.mem_uid}" width="50px" style="border-right: #2470dc 1px solid;"></td>
-          <td th:text="${cmt.cmt_content}" width="383px"></td>
-          <td th:text="${cmt.cmt_date}" width="150px"></td>
+        <tr th:if="${rev.rev_no} == ${rev.rev_cmt.rev_no}" class="cmt-area">
+          <td th:text="${rev.rev_cmt.member.mem_uid}" width="50px" style="border-right: #2470dc 1px solid;"></td>
+          <td th:text="${rev.rev_cmt.cmt_content}" width="383px"></td>
+          <td th:text="${rev.rev_cmt.cmt_date}" width="150px"></td>
         </tr>
       </table>
       <br>
