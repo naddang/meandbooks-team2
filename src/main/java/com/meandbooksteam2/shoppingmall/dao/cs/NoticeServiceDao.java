@@ -39,4 +39,5 @@ public interface NoticeServiceDao {
 
     /*검색 공지 목록을 위한 데이터 갯수*/
     int selectNoticeSearchTotalCount(NoticeDto params);
+
 }

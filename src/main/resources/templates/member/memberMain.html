@@ -2,23 +2,29 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
+
+<th:block layout:fragment="css">
+    <style>
+        .btn-area {
+            text-align: center;
+        }
+
+        .btn {
+            padding: 20px;
+            margin: 10px;
+        }
+    </style>
+</th:block>
+
 <!-- 메인 -->
 <div layout:fragment="content">
     <!-- 본문 영역 -->
     <div class="btn-area">
-        <div class="btn">
-            <a th:href="@{/member/updateMember}">정보수정</a>
-        </div>
-        <div class="btn">
-            <a th:href="@{/member/cart}">장바구니</a>
-        </div>
+        <a th:href="@{/member/updateMember}" class="btn btn-outline-secondary" role="button">정보수정</a>
+        <a th:href="@{/member/cart}" class="btn btn-outline-secondary" role="button">장바구니</a>
         <br>
-        <div class="btn">
-            <a th:href="@{/member/myOrders}">나의 주문</a>
-        </div>
-        <div class="btn">
-            <a th:href="@{/member/withdraw}">회원탈퇴</a>
-        </div>
+        <a th:href="@{/member/myOrders}" class="btn btn-outline-secondary" role="button">주문목록</a>
+        <a th:href="@{/member/withdraw}" class="btn btn-outline-secondary" role="button">회원탈퇴</a>
     </div>
 </div>
 </html>

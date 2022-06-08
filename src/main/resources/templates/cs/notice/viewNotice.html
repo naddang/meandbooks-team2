@@ -22,7 +22,8 @@
 <!--      <b>공지 제목</b>-->
 <!--    </div>-->
     <div>
-      <b><span th:text="${view.noti_no}"></span></b>
+      <b>[<span th:text="${view.noti_no}"></span>]</b>
+      &nbsp;
       <span th:text="${view.noti_title}"></span>
     </div>
   </div>
@@ -30,16 +31,16 @@
   <hr>
 
   <div>
-<!--    <span th:text="">관리자</span>-->
-    <span>관리자</span>
+    <span><b>[관리자]</b></span>
+    &nbsp;
     <span th:text="${view.noti_date}"></span>
   </div>
-
+    <hr>
   <div class="mb-3">
 <!--    <div class="form-label">글 내용</div>-->
-    <div th:text="${view.noti_content}"></div>
+    <div th:text="${view.noti_content}" class="border border-secondary p-2 mb-2 border-opacity-25"></div>
   </div>
-
+    <br>
   <div class="mb-3" id="btn-area">
     <span th:if="${session.isAdmin}==1">
       <a th:href="@{/cs/notice/updateNotice(noti_no=${view.noti_no})}" class="btn btn-primary">수정하기</a>
