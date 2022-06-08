@@ -5,9 +5,11 @@
 
 <th:block layout:fragment="css">
     <style>
-        #btn-area {
-            text-align: center;
-        }
+        /*#btn-area {*/
+        /*    display: flex;*/
+        /*    justify-content: right;*/
+        /*    margin-right: 100px;*/
+        /*}*/
 
         .table {
             width: 80%;
@@ -16,8 +18,8 @@
         }
 
         img {
-            width: 80px;
-            height: 50px;
+            width: 50px;
+            height: 80px;
         }
 
         a {
@@ -28,18 +30,24 @@
             max-width: 480px;
             margin: 0 auto;
         }
+
+        .pagination {
+            justify-content: center;
+        }
     </style>
 </th:block>
 
 <div layout:fragment="content">
     <br>
-    <div class="input-group mb-3">
-        <form th:action="@{/admin/book/searchBook}">
-            <input type="search" class="form-control" placeholder="제목, 저자, 출판사로 검색" aria-describedby="button-addon2" th:name="searchKeyword">
-            <input class="btn btn-outline-secondary" th:type="submit" id="button-addon2" value="검색">
-        </form>
-    </div>
+    <form th:action="@{/admin/book/searchBook}" class="input-group mb-3">
+        <input type="search" class="form-control" placeholder="제목, 저자, 출판사로 검색" aria-describedby="button-addon2" th:name="searchKeyword">
+        <input class="btn btn-outline-secondary" th:type="submit" id="button-addon2" value="검색">
+    </form>
 
+<!--    <div id="btn-area">-->
+<!--        <input type="button" class="btn btn-primary" value="등록하기" onclick="location.href='book/addBook'">-->
+<!--    </div>-->
+    <br>
     <!-- 개별 주문 조회, 수정 가능-->
     <table class="table table-bordered table-hover">
         <tr>
@@ -70,10 +78,8 @@
         </tr>
     </table>
     <br>
-    <div id="btn-area">
-        <input type="button" class="btn btn-primary" value="등록하기" onclick="location.href='book/addBook'">
-    </div>
 
+    <br>
     <th:block layout:fragment="paging">
         <nav th:replace="fragments/common :: pagination" class="pagination"></nav>
     </th:block>
