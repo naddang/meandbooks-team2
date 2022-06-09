@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,14 +39,14 @@
 <!--        <br><br>-->
 <!--        <a href="#">아이디 찾기</a> / <a href="#">비밀번호 찾기</a>-->
         <br><br><br>
-        <p>비회원 주문 조회</p>
-        <div class="input-group mb-3">
-            <input type="search" class="form-control" placeholder="주문번호를 입력하세요." aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
-        </div>
-
-        <p class="mt-5 mb-3 text-muted">&copy;2022 Me&Book</p>
     </form>
+    <p>비회원 주문 조회</p>
+    <form class="input-group mb-3" th:action="@{/member/viewNoMemOrder}">
+        <input type="search" name="keyword" class="form-control" placeholder="주문번호를 입력하세요." aria-describedby="button-addon2">
+        <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="검색">
+    </form>
+
+    <p class="mt-5 mb-3 text-muted">&copy;2022 Me&Book</p>
 </main>
 
 <!-- 부트스트랩 설정 -->

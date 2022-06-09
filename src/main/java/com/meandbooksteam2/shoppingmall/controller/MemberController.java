@@ -170,4 +170,11 @@ public class MemberController {
 
         return "member/withdraw";
     }
+
+    /*비회원 주문 조회*/
+    @GetMapping("member/viewNoMemOrder")
+    public String viewNoMemOrder(@RequestParam HashMap<String, String> param, Model model) {
+        model.addAttribute("orders", service.viewNoMemOrder(param));
+        return "member/viewNoMemOrder";
+    }
 }

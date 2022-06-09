@@ -30,10 +30,13 @@
       수량 <input type="number" name="qty" id="qty" value="1"><br>
       <input type="hidden" th:value="${book.book_no}" id="book_no">
       <div class="mb-3" id="btn-area">
-        <a id="insert-cart" onclick="insertCartFromView()" class="btn btn-primary">
+        <a id="insert-cart" onclick="insertCartFromView()" class="btn btn-primary" th:if="${session.mem_no} != null">
           장바구니
         </a>
-        <a id="order-btn" onclick="goOrder()" class="btn btn-primary">
+        <a th:href="@{/member/login}" class="btn btn-primary" th:unless="${session.mem_no} != null">
+          장바구니
+        </a>
+        <a id="order-btn" onclick="goOrderFromView()" class="btn btn-primary">
           &nbsp;&nbsp;&nbsp;구매&nbsp;&nbsp;&nbsp;
         </a>
       </div>

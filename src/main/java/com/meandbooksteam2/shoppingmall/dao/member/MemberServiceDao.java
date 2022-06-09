@@ -56,4 +56,5 @@ public interface MemberServiceDao {
     public String getMemNo(HashMap<String, String> param);
 
     public int withdraw(String mem_no, String mem_pwd);
+
 }
