@@ -38,7 +38,7 @@
     </div>
     <form th:action="@{/orders/insertOrder}" method="post" name="orderForm">
       <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no">
-      <input type="hidden" th:value="${#session.getAttribute('mem_no')}" name="mem_no" id="mem_no">
+      <input type="hidden" th:value="${session.mem_no}" name="mem_no" id="mem_no">
       <input type="hidden" th:with="all=${book?.book_price} * ${qty}" th:value="${all}" name="sum" id="sum">
       <table class="table">
         <colgroup>

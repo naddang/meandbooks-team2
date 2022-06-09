@@ -62,7 +62,7 @@
         <div id="title">
             <h1>장바구니</h1>
         </div>
-        <form name="orders" th:with="allPrice = 0">
+        <form name="orders" th:with="allPrice = 0" th:action="@{/orders/ordersPage}">
             <table class="table">
                 <colgroup>
                     <col width="30%"/>
