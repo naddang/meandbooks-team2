@@ -57,10 +57,10 @@ public class MemberController {
     }
 
     @GetMapping("member/deleteCart")
-    public String deleteCart(HashMap<String, String> param) {
+    public String deleteCart(@RequestParam HashMap<String, String> param) {
         int re = cartService.deleteCart(param);
         if (re == 1){
-            return "redirect:member/cart";
+            return "redirect:/member/cart";
         }else {
             return "redirect:error";
         }
