@@ -42,12 +42,11 @@ public class OrdersController {
         int re;
 
         if (param.get("mem_no") == null || param.get("mem_no").equals("")) {
-            System.out.println(">>>>nomem");
-            System.out.println(param.get("mem_no"));
             re = service.insertNoMemOrder(param);
+            service.subBookStock(param);
         }else {
-            System.out.println(param.get("mem_no"));
             re = service.insertOrder(param);
+            service.subBookStock(param);
         }
 
 

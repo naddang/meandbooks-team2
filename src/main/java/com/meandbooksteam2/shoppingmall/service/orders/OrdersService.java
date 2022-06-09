@@ -70,6 +70,10 @@ public class OrdersService {
         return Long.toString(L_orders_no);
     }
 
+    public int subBookStock(HashMap<String, String> param) {
+        return dao.subBookStock(param);
+    }
+
     //주문할때 기본값으로 넣을 개인정보를 받아오는 메서드
     public MemberDto getMyInfo(String mem_no) {
         return dao.getMyInfo(mem_no);

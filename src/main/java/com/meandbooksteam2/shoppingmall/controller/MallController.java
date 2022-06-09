@@ -36,9 +36,17 @@ public class MallController {
     }
 
     @GetMapping("mall/bestCate")
-    public String bestCate(@RequestParam HashMap<String, String> param, Model model) {
-        model.addAttribute("list", service.listCateBest(param));
+    public String bestCate() {
         return "mall/bestCate";
+    }
+
+    @GetMapping("/mall/bestCateResult")
+    public String bestCateResult(@RequestParam HashMap<String, String> param, Model model){
+        String category = param.get("category");
+        model.addAttribute("category", category);
+        model.addAttribute("cateBest", service.listCateBest(param));
+        System.out.println(category);
+        return "mall/bestCateResult";
     }
 
     @GetMapping("mall/viewBook")

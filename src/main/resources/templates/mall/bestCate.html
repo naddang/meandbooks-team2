@@ -1,30 +1,76 @@
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
-<head th:replace="fragments/head::headFragment">
-</head>
-<!-- 메인 -->
-<div layout:fragment="content">
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <h1 align="center">Category</h1>
+<th:block layout:fragment="css">
+  <style>
+    select {
+      width: 20%;
+    }
+
+    .main-area {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .flex-area {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .flex-box {
+      width: 40%;
+      margin: 0 20px;
+    }
+  </style>
+</th:block>
+
+<th:block layout:fragment="js">
+  <script>
+    $('.selectpicker').selectpicker({
+      style: 'btn-info',
+      size: 3
+    });
+  </script>
+</th:block>
+
+<!-- 메인 --> 
+<div class="main-area" layout:fragment="content">
+  <div class="flex-area">
+    <div class="flex-box">
+      <ul class="list-group">
+        <li class="list-group-item active" aria-current="true">국내</li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='111')}">소설/시/희곡</a></li>  
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='112')}" >에세이</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='121')}" >경제/경영</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='122')}" >자기계발</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='131')}" >역사</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='132')}" >사회/정치</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='141')}" >수험서</a></li> 
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='142')}" >대학교재</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='151')}" >어린이</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='161')}" >여행</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category='171')}" >만화</a></li>
+      </ul>
     </div>
-    <div class="container px-4 py-5" id="hanging-icons">
-        <h2 class="pb-2 border-bottom">소설</h2>
-        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-            <div class="col d-flex align-items-start">
-                <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-                    <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
-                </div>
-                <div>
-                    <h2>책 제목</h2>
-                    <p>작가, 책 세부내용, 이미지 등등</p>
-                    <a href="#" class="btn btn-primary">
-                        장바구니 담기
-                    </a>
-                </div>
-            </div>
-        </div>
+    <div class="flex-box">
+      <ul class="list-group">
+        <li class="list-group-item active" aria-current="true">해외</li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=211)}">소설/시/희곡</a></li>  
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=212)}" >에세이</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=221)}" >경제/경영</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=222)}" >자기계발</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=231)}" >역사</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=232)}" >사회/정치</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=241)}" >수험서</a></li> 
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=242)}" >대학교재</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=251)}" >어린이</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=261)}" >여행</a></li>
+        <li class="list-group-item"><a th:href="@{/mall/bestCateResult(category=271)}" >만화</a></li>
+      </ul>
     </div>
+  </div>
 </div>
 </html>

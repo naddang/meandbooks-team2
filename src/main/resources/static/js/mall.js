@@ -1,4 +1,4 @@
-function insertCart(){
+function insertCartFromView(){
     var qty = $('#qty').val();
     var book_no = $('#book_no').val();
     location.href="/mall/insertCart?book_no=" + book_no + "&cart_qty="+ qty;
