@@ -80,7 +80,7 @@
         <result column="mem_uid" property="mem_uid"></result>
     </resultMap>
     <resultMap id="RevCmtDto" type="RevCmtDto">
-        <result column="c_rev_no" property="rev_no"></result>
+        <result column="rev_no" property="rev_no"></result>
         <result column="CMT_CONTENT" property="cmt_content"></result>
         <result column="CMT_DATE" property="cmt_date"></result>
         <collection property="member" resultMap="MemberDto"></collection>
@@ -103,28 +103,29 @@
              , m.mem_no
              , r.REV_TITLE
              , r.REV_NO
-             , rc.REV_NO "c_rev_no"
              , r.REV_CONTENT
              , r.REV_RATING
              , date_format(r.REV_DATE,'%m-%d %h:%i') "REV_DATE"
-             , rc.REV_NO
-             , rc.CMT_CONTENT
-             , date_format(rc.CMT_DATE,'%m-%d %h:%i') "CMT_DATE"
         from review r join member m
-            on r.MEM_NO = m.MEM_NO
-        join rev_cmt rc on r.REV_NO = rc.REV_NO
+        on r.MEM_NO = m.MEM_NO
         where r.BOOK_NO = #{book_no}
     </select>
 
     <!--바인딩 변수로 받은 리뷰번호와 맞는 댓글을 가져오는 쿼리-->
     <select id="listRevCmt" resultMap="RevCmtDto" parameterType="hashmap">
-        select r.CMT_NO
-             , r.CMT_CONTENT
-             , date_format(r.CMT_DATE,'%m-%d %h:%i')"CMT_DATE"
+        select rc.cmt_no
+             , rc.rev_no
+             , rc.mem_no
              , m.mem_uid
-        from rev_cmt r join member m
-            on m.MEM_NO = r.MEM_NO
-        where r.rev_no = #{rev_no}
+             , rc.cmt_content
+             , rc.CMT_DATE
+        from rev_cmt rc join review r
+                             on rc.REV_NO = r.REV_NO
+                        join book b
+                             on r.BOOK_NO = b.book_no
+                        join member m
+                             on rc.mem_no = m.mem_no
+        where r.BOOK_NO = #{book_no}
     </select>
 
     <!--사용자가 입력한 리뷰를 DB에 저장하는 쿼리-->

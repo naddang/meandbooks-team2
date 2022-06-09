@@ -31,7 +31,6 @@ public interface BookServiceDao {
     public List<RevCmtDto> listRevCmt(HashMap<String, String> param);
     public int updateRevCmt(HashMap<String, String> param);
     public int deleteRevCmt(HashMap<String, String> param);
-    public int selectCateSearchedCount(HashMap<String, String> param);
     public int selectSearchedCount(BookDto params);
     int insertReview(HashMap<String, String> param);
     int insertRevCmt(HashMap<String, String> param);

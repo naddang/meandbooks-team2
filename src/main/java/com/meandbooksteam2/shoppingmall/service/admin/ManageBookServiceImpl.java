@@ -4,20 +4,25 @@ import com.meandbooksteam2.shoppingmall.dao.admin.ManageBookDao;
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.dto.NoticeDto;
 import com.meandbooksteam2.shoppingmall.dto.PaginationInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 
 @Service
+@Slf4j
 public class ManageBookServiceImpl {
 
     ManageBookDao dao;
@@ -88,15 +93,9 @@ public class ManageBookServiceImpl {
 //        return dao.insertBook(param);
 //    }
 
-    public int insertBook(HashMap<String, String> param, MultipartFile file, HttpServletRequest request) throws IOException {
+    public int insertBook(HashMap<String, String> param) throws Exception {
         param.put("book_no", getBookNo(param));
-//        String resourceSrc = request.getServletContext().getRealPath("/book-imgs/");
-//        System.out.println(resourceSrc);
-//        String filename = file.getOriginalFilename();   //--- 파일명을 얻어옴.
-//        file.transferTo( new File( resourceSrc+filename ) );  //--- 저장할 경로를 설정
-//        param.put( "book_img", filename );  //--- 파일명을 저장합니다.
 
-//        System.out.println(filename);
         return dao.insertBook(param);
     }
 
