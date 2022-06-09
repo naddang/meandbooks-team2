@@ -91,10 +91,11 @@ public class ManageBookServiceImpl {
     public int insertBook(HashMap<String, String> param, MultipartFile file, HttpServletRequest request) throws IOException {
         param.put("book_no", getBookNo(param));
 //        String resourceSrc = request.getServletContext().getRealPath("/book-imgs/");
-//        System.out.println(resourceSrc);
-//        String filename = file.getOriginalFilename();   //--- 파일명을 얻어옴.
-//        file.transferTo( new File( resourceSrc+filename ) );  //--- 저장할 경로를 설정
-//        param.put( "book_img", filename );  //--- 파일명을 저장합니다.
+        String resourceSrc = request.getServletContext().getContextPath();
+        System.out.println(resourceSrc);
+        String filename = file.getOriginalFilename();   //--- 파일명을 얻어옴.
+        file.transferTo( new File( resourceSrc+filename ) );  //--- 저장할 경로를 설정
+        param.put( "book_img", filename );  //--- 파일명을 저장합니다.
 
 //        System.out.println(filename);
         return dao.insertBook(param);

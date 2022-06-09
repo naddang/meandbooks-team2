@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberDto {
+public class MemberDto extends CommonDto{
     private int mem_no;
     private String mem_uid;
     private String mem_pwd;

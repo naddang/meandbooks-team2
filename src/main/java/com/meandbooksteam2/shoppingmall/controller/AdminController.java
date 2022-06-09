@@ -123,10 +123,20 @@ public class AdminController {
         }
     }
 
+    /*회원 리스트*/
     @GetMapping("admin/member")
-    public String listMember(@RequestParam HashMap<String, String> param, Model model){
+    public String listMember(@ModelAttribute("params") MemberDto params, Model model){
 
-        List<MemberDto> list = memberService.listMember(param);
+        List<MemberDto> list = memberService.listMember(params);
+        model.addAttribute("list", list);
+
+        return "admin/member/listMember";
+    }
+
+    /*검색 회원 목록 리스트*/
+    @GetMapping("admin/member/searchMember")
+    public String searchMemberList(@ModelAttribute("params") MemberDto params, Model model) {
+        List<MemberDto> list = memberService.listSearchMember(params);
         model.addAttribute("list", list);
 
         return "admin/member/listMember";

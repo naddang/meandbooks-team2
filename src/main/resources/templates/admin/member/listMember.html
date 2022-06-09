@@ -14,6 +14,10 @@
       max-width: 480px;
       margin: 0 auto;
     }
+
+    .pagination {
+      justify-content: center;
+    }
   </style>
 </th:block>
 
@@ -25,10 +29,10 @@
 
 <div layout:fragment="content">
   <br>
-  <div class="input-group mb-3">
-    <input type="search" class="form-control" placeholder="검색어 입력" aria-describedby="button-addon2">
-    <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
-  </div>
+  <form th:action="@{/admin/member/searchMember}" class="input-group mb-3">
+    <input type="search" class="form-control" placeholder="이름 혹은 아이디로 검색" aria-describedby="button-addon2" th:name="searchKeyword">
+    <input class="btn btn-outline-secondary" th:type="submit" id="button-addon2" value="검색">
+  </form>
   <div class="table-responsive">
     <form>
       <table class="table table-bordered table-hover">
@@ -72,5 +76,20 @@
       <br>
     </form>
   </div>
+  <br>
+  <th:block layout:fragment="paging">
+    <nav th:replace="fragments/common :: pagination" class="pagination"></nav>
+  </th:block>
 </div>
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+
+    function movePage(uri, queryString) {
+      location.href = uri + queryString;
+    }
+
+    /*]]>*/
+  </script>
+</th:block>
 </html>
