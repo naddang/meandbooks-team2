@@ -6,6 +6,8 @@
 </head>
 <!-- 메인 -->
 <div layout:fragment="content">
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
+    <script th:src="@{/js/mall.js}"></script>
     <link rel="stylesheet" th:href="@{/css/mall.css}">
     <!-- 본문 영역 -->
     <div class="shelf-wrapper">
@@ -18,7 +20,7 @@
                 <th>출판사</th>
                 <th>가격</th>
             </tr>
-            <tr th:each=" book, i : ${list}">
+            <tr th:if="${not #lists.isEmpty(book)}" th:each=" book, i : ${list}">
                 <td class="img">
                     <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
                         <img th:src="@{/imgs/book-imgs/} + ${book?.book_img}" alt="???"/>
@@ -33,10 +35,18 @@
                     <div id="btn-area">
                         <span th:text="${book?.book_price} + 원"/>
                         <br>
-                        <a class="btn btn-primary">
+                        <input type="hidden" name="qty" id="qty" value="1"><br>
+                        <input type="hidden" th:value="${book?.book_no}" id="book_no">
+                        <button id="insert-cart" th:book_no="${book.book_no}" th:onclick="insertCart([[${book.book_no}]])" class="btn btn-primary">
                             장바구니
-                        </a>
+                        </button>
                     </div>
+                </td>
+            </tr>
+            <tr th:unless="${not #lists.isEmpty(book)}">
+                <td colspan="5">
+                    <br><br>
+                    조회된 결과가 없습니다.
                 </td>
             </tr>
         </table>
@@ -55,6 +65,7 @@
 
             /*]]>*/
         </script>
+
     </th:block>
 </div>
 </html>
