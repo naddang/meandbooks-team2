@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +11,11 @@
 
     <!-- Custom styles for this template -->
     <link th:href="@{/css/login.css}" rel="stylesheet">
+    <script src="/js/member.js"></script>
 </head>
 <body class="text-center">
 <main class="form-signin">
-    <form method="post" th:action="@{/member/login_ok}">
+    <form method="post" th:action="@{/member/login_ok}" name="login">
         <a th:href="@{/index}">
             <img class="mb-4" src="/imgs/logo_big.png" alt="로고" width="200" height="140">
         </a>
@@ -33,20 +34,20 @@
                 <input type="checkbox" value="remember-me"> 아이디 저장
             </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+        <button class="w-100 btn btn-lg btn-primary" type="button" onclick="loginCheck()">로그인</button>
         <br><br>
         <button class="w-100 btn btn-lg btn-primary" type="button" onclick="location.href='register'">회원가입</button>
 <!--        <br><br>-->
 <!--        <a href="#">아이디 찾기</a> / <a href="#">비밀번호 찾기</a>-->
         <br><br><br>
-        <p>비회원 주문 조회</p>
-        <div class="input-group mb-3">
-            <input type="search" class="form-control" placeholder="주문번호를 입력하세요." aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
-        </div>
-
-        <p class="mt-5 mb-3 text-muted">&copy;2022 Me&Book</p>
     </form>
+    <p>비회원 주문 조회</p>
+    <form class="input-group mb-3" th:action="@{/member/viewNoMemOrder}">
+        <input type="search" name="keyword" class="form-control" placeholder="주문번호를 입력하세요." aria-describedby="button-addon2">
+        <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="검색">
+    </form>
+
+    <p class="mt-5 mb-3 text-muted">&copy;2022 Me&Book</p>
 </main>
 
 <!-- 부트스트랩 설정 -->

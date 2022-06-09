@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head th:replace="fragments/head::headFragment">
+</head>
+
+<!-- 메인 -->
+<div layout:fragment="content">
+<link th:href="@{/css/mall.css}" rel="stylesheet">
+    <div class="shelf-wrapper">
+        <div th:switch="${category}" name="korea">
+            <h1 th:case="111">(국내)소설/시/희곡</h1> 
+            <h1 th:case="112">(국내)에세이</h1> 
+            <h1 th:case="121">(국내)경제/경영</h1> 
+            <h1 th:case="122">(국내)자기계발</h1> 
+            <h1 th:case="131">(국내)역사</h1> 
+            <h1 th:case="132">(국내)사회/정치</h1> 
+            <h1 th:case="141">(국내)수험서</h1> 
+            <h1 th:case="142">(국내)대학교재</h1> 
+            <h1 th:case="151">(국내)어린이</h1> 
+            <h1 th:case="161">(국내)여행</h1> 
+            <h1 th:case="171">(국내)만화</h1> 
+        </div>
+        <div th:switch="${category}" name="not korea">
+            <h1 th:case="211">(해외)소설/시/희곡</h1> 
+            <h1 th:case="212">(해외)에세이</h1> 
+            <h1 th:case="221">(해외)경제/경영</h1> 
+            <h1 th:case="222">(해외)자기계발</h1> 
+            <h1 th:case="231">(해외)역사</h1> 
+            <h1 th:case="232">(해외)사회/정치</h1> 
+            <h1 th:case="241">(해외)수험서</h1> 
+            <h1 th:case="242">(해외)대학교재</h1> 
+            <h1 th:case="251">(해외)어린이</h1> 
+            <h1 th:case="261">(해외)여행</h1> 
+            <h1 th:case="271">(해외)만화</h1> 
+        </div>
+            <table id="shelf">
+                <tr>
+                   <th>순위</th>
+                   <th>표지</th>
+                   <th>제목</th>
+                   <th>작가</th>
+                   <th>출판사</th>
+                   <th>가격</th>
+                </tr>
+                <tr th:if="${not #lists.isEmpty(cateBest)}" th:each=" book, i : ${cateBest}">
+                    <td th:text="${i.index + 1}"></td>
+                    <td class="img">
+                        <a th:if="${book.book_img} != null" th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
+                            <img th:src="@{/imgs/book-imgs/} + ${book?.book_img}" alt="???"/>
+                        </a>
+                        <a th:unless="${book.book_img} != null" th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
+                            <img th:src="@{/imgs/book-imgs/default-img.png}">
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}"  th:text="${book?.book_nm}"></a>
+                    </td>
+                    <td th:text="${book?.book_author}"></td>
+                    <td th:text="${book?.book_pub}"></td>
+                    <td th:text="${book?.book_price} + 원"></td>
+                    <td>
+                        <div id="btn-area">
+                            <input type="hidden" name="qty" id="qty" value="1">
+                            <input type="hidden" th:value="${book?.book_no}" id="book_no">
+                            <button th:book_no="${book.book_no}" th:onclick="insertCart([[${book.book_no}]])" class="btn btn-primary"
+                                    th:if="${session.mem_no} != null">
+                                장바구니
+                            </button>
+                            <br>
+                            <a th:book_no="${book.book_no}" th:href="@{/member/login}" class="btn btn-primary"
+                               th:unless="${session.mem_no} != null">
+                                장바구니
+                            </a>
+                            <br>
+                            <button th:book_no="${book.book_no}" th:onclick="goOrder([[${book.book_no}]])" class="btn btn-primary">
+                                구매하기
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:unless="${not #lists.isEmpty(cateBest)}">
+                    <td colspan="7">
+                        <br><br>
+                        아직 베스트셀러가 없습니다.
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</html>

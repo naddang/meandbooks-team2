@@ -26,8 +26,12 @@
     </resultMap>
 
     <!--입력한 아이디와 비밀번호에 해당하는 것을 카운트 해서 1인 경우에만 로그인 되도록 할 것-->
+    <!--탈퇴했거나 밴된 유저는 로그인하지못함-->
     <select id="login" parameterType="hashmap" resultType="_int">
-        select count(*) from member where mem_uid=#{mem_uid} and mem_pwd=#{mem_pwd}
+        select count(*) from member
+                        where mem_uid=#{mem_uid}
+                          and mem_pwd=#{mem_pwd}
+                          and `ACCESSIBLE` != 0
     </select>
 
     <!--회원가입, 관리자는 회원가입 안하니까 그냥 0으로 줘서 일반회원 만들고, 마일리지도 0으로 주고, 액세서블은 1(로그인 가능)-->
@@ -147,20 +151,25 @@
 
     <!--비회원 주문조회를 위한 resultMap -->
     <resultMap id="NoMemOrdersDto" type="NoMemOrdersDto">
+        <result column="orders_no" property="orders_no"/>
         <result column="orders_nm" property="orders_nm"/>
         <result column="orders_phoneNo" property="orders_phoneNo"/>
-        <result column="orders_addr" property="orders_addr"/>
+        <result column="orders_addr1" property="orders_addr1"/>
+        <result column="orders_addr2" property="orders_addr2"/>
+        <result column="orders_addr3" property="orders_addr3"/>
         <result column="orders_qty" property="orders_qty"/>
         <result column="orders_status" property="orders_status"/>
-        <collection property="bookDto" resultMap="BookDto"/>
+        <collection property="book" resultMap="BookDto"/>
     </resultMap>
 
-    <!--전화번호나 연락처가 사용자가 입력한 값과 같으면 해당 주문정보를 가져가는 쿼리-->
-    <select id="viewNoMemberOrder" parameterType="NoMemOrdersDto" resultMap="NoMemOrdersDto">
+    <!--주문번호가 사용자가 입력한 값과 같으면 해당 주문정보를 가져가는 쿼리-->
+    <select id="viewNoMemOrder" parameterType="NoMemOrdersDto" resultMap="NoMemOrdersDto">
         select b.book_nm
+             , b.BOOK_NO
              , b.book_price
              , b.book_img
              , b.book_author
+             , n.ORDERS_NO
              , n.orders_nm
              , n.orders_phoneNo
              , n.orders_addr1
@@ -170,8 +179,7 @@
              , n.orders_status
         from book b join no_mem_orders n
         on b.book_no = n.book_no
-        where orders_phoneNo = #{keyword}
-            or orders_no = #{keyword}
+        where ORDERS_NO = #{keyword}
     </select>
 
     <!--비회원 환불신청 - 수정 필요-->

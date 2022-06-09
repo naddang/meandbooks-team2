@@ -104,4 +104,11 @@ public class BookService {
     public int insertRevCmt(HashMap<String, String> param){
         return dao.insertRevCmt(param);
     }
+
+    public BookDto getRandomBest(){
+        return dao.getRandomBest();
+    }
+    public BookDto getMonthlySpecial(){
+        return dao.getMonthlySpecial();
+    }
 }

@@ -7,20 +7,7 @@
     <!--책 정보와 관련된 쿼리들-->
     <!--전체 판매량 베스트 톱 10을 출력하기위해 사용하는 쿼리-->
     <select id="listAllBest" resultType="BookDto">
-        SELECT row_number() OVER(order by sum(o.ORDERS_QTY))
-             , B.BOOK_NM
-             , B.BOOK_IMG
-             , B.BOOK_AUTHOR
-             , B.BOOK_PUB
-             , B.BOOK_PRICE
-             , B.BOOK_NO
-        FROM orders O
-                 JOIN book b on b.BOOK_NO = O.BOOK_NO;
-    </select>
-
-    <!--카테고리별 판매량 베스트 톱 10을 출력하기위해 사용하는 쿼리-->
-    <select id="listCateBest" resultType="BookDto" parameterType="hashmap">
-        SELECT RANK() OVER(PARTITION BY B.BOOK_NO ORDER BY O.ORDERS_QTY DESC)
+        SELECT row_number() OVER(order by sum(o.ORDERS_QTY) desc)
              , B.BOOK_NM
              , B.BOOK_IMG
              , B.BOOK_AUTHOR
@@ -29,7 +16,22 @@
              , B.BOOK_NO
         FROM orders O
                  JOIN book b on b.BOOK_NO = O.BOOK_NO
-        WHERE b.BOOK_NO LIKE concat(#{keyword}, '%')
+        group by book_no limit 10
+    </select>
+
+    <!--카테고리별 판매량 베스트 톱 10을 출력하기위해 사용하는 쿼리-->
+    <select id="listCateBest" resultType="BookDto" parameterType="hashmap">
+        SELECT row_number() OVER(order by sum(o.ORDERS_QTY) desc)
+             , B.BOOK_NM
+             , B.BOOK_IMG
+             , B.BOOK_AUTHOR
+             , B.BOOK_PUB
+             , B.BOOK_PRICE
+             , B.BOOK_NO
+        FROM orders O
+                 JOIN book b on b.BOOK_NO = O.BOOK_NO
+        WHERE SUBSTR(B.BOOK_NO,1,3) = #{category}
+        group by book_no limit 10
     </select>
 
     <!--하나의 책에대한 자세한 정보를 가져오는 쿼리-->
@@ -63,6 +65,42 @@
            or BOOK_NO LIKE concat(#{searchKeyword}, '%')
     </select>
 
+    <!--index.html에서 랜덤한 추천도서를 보여주기위한 쿼리들들-->    <!--판매량 베스트 10 중 한 권을 랜덤하게 가져오는 쿼리-->
+    <select id="getRandomBest" resultType="BookDto">
+        select BOOK_NO
+             , book_nm
+             , book_img
+             , BOOK_DESC
+             , book_author
+             , book_price
+        from
+            (SELECT row_number() OVER(order by sum(o.ORDERS_QTY) desc)
+                  , B.BOOK_NM
+                  , B.BOOK_IMG
+                  , B.BOOK_AUTHOR
+                  , B.BOOK_DESC
+                  , B.BOOK_PRICE
+                  , B.BOOK_NO
+             FROM orders O
+                      JOIN book b on b.BOOK_NO = O.BOOK_NO
+             group by book_no limit 10) best
+        order by rand() limit 1
+    </select>
+
+    <!--이달의 신작중 랜덤하게 한 건을 가져오는 쿼리-->
+    <select id="getMonthlySpecial" resultType="BookDto">
+        select BOOK_NO
+             , BOOK_NM
+             , BOOK_DESC
+             , BOOK_PRICE
+             , BOOK_IMG
+             , BOOK_AUTHOR
+          from book
+         where BOOK_PUB_DATE >= LAST_DAY(NOW() - interval 1 month) + interval 1 DAY /*현재날짜 - 한달의 마지막날 + 1일로 각 월의 첫날을 구함*/
+        order by rand() limit 1
+    </select>
+
+    <!--장바구니 관련 쿼리-->
     <!--장바구니에 담을때 사용하는 DML-->
     <insert id="insertCart" parameterType="hashmap">
         insert into cart(cart_no, mem_no, book_no, cart_qty)

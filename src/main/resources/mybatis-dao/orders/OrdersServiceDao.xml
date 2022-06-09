@@ -66,6 +66,10 @@
         SELECT COUNT(*) FROM no_mem_orders WHERE ORDERS_DATE >= CURDATE()
     </select>
 
+    <update id="subBookStock" parameterType="hashmap">
+        update book set BOOK_STOCK = BOOK_STOCK - #{orders_qty} where BOOK_NO = #{book_no}
+    </update>
+
     <!--주문페이지에서 default 값을 주기위해 MEMBER 테이블에서 일부 값들을 가져오는 쿼리-->
     <select id="getMyInfo" parameterType="string" resultType="MemberDto">
         SELECT MEM_ADDR1
@@ -82,6 +86,7 @@
     <select id="getBookInfo" parameterType="hashmap" resultType="BookDto">
         SELECT BOOK_NM
              , BOOK_PRICE
+             , BOOK_STOCK
              , BOOK_AUTHOR
              , BOOK_PUB
              , BOOK_IMG

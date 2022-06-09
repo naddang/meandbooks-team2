@@ -9,7 +9,9 @@ function iamport(){
     var addr2 = $("#orders_addr2").val()+$("#orders_addr3").val();
     var email = $("#orders_email").val();
     var bookName = $("#book_nm").text();
-    var amount = $("#sum").val();
+    var orders_qty = $("#orders_qty").val();
+    var bookPrice = $("#book_price").val();
+    var amount = orders_qty * bookPrice
 
     IMP.request_pay({
         pg : 'inicis',

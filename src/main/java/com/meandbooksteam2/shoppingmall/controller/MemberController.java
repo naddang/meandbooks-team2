@@ -77,6 +77,7 @@ public class MemberController {
         if (loginResult == 1) {
             session.setAttribute("mem_no", service.getMemNo(param));
             session.setAttribute("isAdmin", service.isAdmin(param.get("mem_uid")));
+            session.setAttribute("mem_uid", param.get("mem_uid"));
 
             return "redirect:/index";
         }else {
@@ -168,5 +169,12 @@ public class MemberController {
         }
 
         return "member/withdraw";
+    }
+
+    /*비회원 주문 조회*/
+    @GetMapping("member/viewNoMemOrder")
+    public String viewNoMemOrder(@RequestParam HashMap<String, String> param, Model model) {
+        model.addAttribute("orders", service.viewNoMemOrder(param));
+        return "member/viewNoMemOrder";
     }
 }

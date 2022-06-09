@@ -10,7 +10,10 @@ public class NoMemOrdersDto {
     private String book_no;
     private String orders_nm;
     private String orders_phoneNo;
-    private String orders_addr;
+    private String orders_addr1;
+    private String orders_addr2;
+    private String orders_addr3;
     private int orders_qty;
     private int orders_status;
+    private BookDto book;
 }

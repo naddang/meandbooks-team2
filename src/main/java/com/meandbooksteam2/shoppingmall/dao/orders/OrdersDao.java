@@ -14,7 +14,9 @@ public interface OrdersDao {
     public int insertNoMemOrder(HashMap<String, String> param);
     public OrdersDto getOneOrder(HashMap<String, String> param);
     public int getTodayOrder();
+    public int getTodayNoMemOrder();
     public List<OrdersDto> getMyOrderList(HashMap<String, String> param);
     public MemberDto getMyInfo(String mem_no);
     public BookDto getBookInfo(HashMap<String, String> param);
+    int subBookStock(HashMap<String, String> param);
 }
