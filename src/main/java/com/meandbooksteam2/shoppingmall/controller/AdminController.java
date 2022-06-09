@@ -10,14 +10,13 @@ import com.meandbooksteam2.shoppingmall.service.admin.ManageOrdersServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -78,15 +77,26 @@ public class AdminController {
 //    }
 
     @PostMapping("admin/book/insertBook")
-    public String insertBook(@RequestParam HashMap<String, String> param, @RequestParam("book_img") MultipartFile file, HttpServletRequest request) throws IOException {
-
-        int result = bookService.insertBook(param, file, request);
-
-        if (result == 1) {
-            return "redirect:/admin/book";
-        }else {
-            return "redirect:/admin/book/addBook";
+    public String insertBook(@RequestParam HashMap<String, String> param, @RequestParam("book_img") @RequestBody List<MultipartFile> files) throws Exception {
+        try{
+            //프로젝트 안의 book-imgs 디렉토리에 저장
+            for(int i=0;i<files.size();i++){
+                files.get(i).transferTo(new File("src/main/resources/static/imgs/book-imgs/"+files.get(i).getOriginalFilename()));
+            }
+            param.put("book_img", files.get(0).getOriginalFilename());
+        }catch (IllegalStateException | IOException e){
+            e.printStackTrace();
         }
+        bookService.insertBook(param);
+        return "redirect:/admin/book";
+
+//        int result = bookService.insertBook(param, multipartHttpServletRequest);
+//
+//        if (result == 1) {
+//            return "redirect:/admin/book";
+//        }else {
+//            return "redirect:/admin/book/addBook";
+//        }
     }
 
     @GetMapping("admin/book/addBook")

@@ -46,6 +46,7 @@ public class MallController {
         model.addAttribute("book", service.viewBook(param));
         model.addAttribute("reviews", service.listReview(param));
         model.addAttribute("cmts", service.listRevCmt(param));
+        System.out.println(service.listRevCmt(param).size());
         return "mall/viewBook";
     }
 
