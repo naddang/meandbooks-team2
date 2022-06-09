@@ -41,17 +41,17 @@
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
           <div class="col p-4 d-flex flex-column position-static">
             <strong class="d-inline-block mb-2 text-primary">베스트 셀러</strong>
-            <h3 class="mb-0" th:text="${best.book_nm}">책제목입니다.</h3>
-            <div class="mb-1 text-muted" th:text="${best.book_author}">저자</div>
-            <p class="card-text mb-auto" th:text="${best.book_desc}">이 곳은 책 내용을 소개하는 공간입니다.이 곳은 책 내용을 소개하는 공간입니다.</p>
-            <a th:href="@{/mall/viewBook(book_no=${best.book_no})}" class="stretched-link">책보러가기</a>
+            <h3 class="mb-0" th:text="${best?.book_nm}">책제목입니다.</h3>
+            <div class="mb-1 text-muted" th:text="${best?.book_author}">저자</div>
+            <p class="card-text mb-auto" th:text="${best?.book_desc}">이 곳은 책 내용을 소개하는 공간입니다.이 곳은 책 내용을 소개하는 공간입니다.</p>
+            <a th:href="@{/mall/viewBook(book_no=${best?.book_no})}" class="stretched-link">책보러가기</a>
           </div>
           <div class="col-auto d-none d-lg-block border border-1">
 <!--            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
-            <th:block th:if="${best.book_img} == null">
+            <th:block th:if="${best?.book_img} == null">
               <img class="bd-placeholder-img" width="200" height="250" th:src="@{/imgs/book-imgs/default-img.png}">
             </th:block>
-            <th:block th:unless="${best.book_img} == null">
+            <th:block th:unless="${best?.book_img} == null">
               <img class="bd-placeholder-img" width="200" height="250" th:src="@{/imgs/book-imgs/} + ${best.book_img}">
             </th:block>
           </div>
@@ -61,17 +61,17 @@
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
           <div class="col p-4 d-flex flex-column position-static">
             <strong class="d-inline-block mb-2 text-success">화제의 신간</strong>
-            <h3 class="mb-0" th:text="${mon_sp.book_nm}">>책제목입니다.</h3>
-            <div class="mb-1 text-muted" th:text="${mon_sp.book_author}">저자</div>
-            <p class="mb-auto" th:text="${mon_sp.book_desc}">이 곳은 책 내용을 소개하는 공간입니다.이 곳은 책 내용을 소개하는 공간입니다.</p>
-            <a th:href="@{/mall/viewBook(book_no=${mon_sp.book_no})}" class="stretched-link">책보러가기</a>
+            <h3 class="mb-0" th:text="${mon_sp?.book_nm}">>책제목입니다.</h3>
+            <div class="mb-1 text-muted" th:text="${mon_sp?.book_author}">저자</div>
+            <p class="mb-auto" th:text="${mon_sp?.book_desc}">이 곳은 책 내용을 소개하는 공간입니다.이 곳은 책 내용을 소개하는 공간입니다.</p>
+            <a th:href="@{/mall/viewBook(book_no=${mon_sp?.book_no})}" class="stretched-link">책보러가기</a>
           </div>
           <div class="col-auto d-none d-lg-block border border-1">
 <!--            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
-            <th:block th:if="${mon_sp.book_img} == null">
+            <th:block th:if="${mon_sp?.book_img} == null">
               <img class="bd-placeholder-img" width="200" height="250" th:src="@{/imgs/book-imgs/default-img.png}">
             </th:block>
-            <th:block th:unless="${mon_sp.book_img} == null">
+            <th:block th:unless="${mon_sp?.book_img} == null">
               <img class="bd-placeholder-img" width="200" height="250" th:src="@{/imgs/book-imgs/} + ${mon_sp.book_img}">
             </th:block>
           </div>
