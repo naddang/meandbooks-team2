@@ -19,9 +19,12 @@
             line-height: 200px;
         }
 
+        .btn{
+            font-size: 30px;
+            color: #2470dc;
+        }
         a{
             text-decoration: none;
-            font-size: 30px;
         }
     </style>
 </th:block>
@@ -35,15 +38,21 @@
 <div layout:fragment="content">
     <div class="btn-area">
         <div class="btn-box">
-            <div class="btn">
-                <a th:href="@{/admin/orders}">주문내역</a>
-            </div>
-            <div class="btn">
-                <a th:href="@{/admin/book}">상품관리</a>
-            </div>
-            <div class="btn">
-                <a th:href="@{/admin/member}">고객관리</a>
-            </div>
+            <a th:href="@{/admin/orders}">
+                <div class="btn">
+                    주문내역
+                </div>
+            </a>
+            <a th:href="@{/admin/book}">
+                <div class="btn">
+                    상품관리
+                </div>
+            </a>
+            <a th:href="@{/admin/member}">
+                <div class="btn">
+                    고객관리
+                </div>
+            </a>
         </div>
     </div>
 </div>

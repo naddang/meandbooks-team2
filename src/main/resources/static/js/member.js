@@ -23,3 +23,92 @@ function findAddr(){
         }
     }).open();
 }
+
+
+function registerCheck(){
+    function fn_submit() {
+        var email = document.getElementById('email').value;
+
+        var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+        if (regEmail.test(text) === true) {
+            alert('입력된 값은 이메일입니다.');
+        }
+    }
+    // 아이디
+    if(register.mem_uid.value.length == 0){
+        alert("아이디를 입력해주세요.");
+        register.mem_uid.focus();
+        return;
+    }
+
+    // 비밀번호
+    if(register.mem_pwd.value.length == 0){
+        alert("비밀번호를 입력해주세요.");
+        register.mem_pwd.focus();
+        return;
+    }
+
+
+    // 이름
+    if(register.mem_nm.value.length == 0){
+        alert("이름을 입력해주세요.");
+        register.mem_nm.focus();
+        return;
+    }
+
+
+    // 전화번호
+    if(register.mem_phoneno.value.length == 0){
+        alert("전화번호를 입력해주세요.");
+        register.mem_phoneno.focus();
+        return;
+    }
+
+    // 주소
+    if(register.mem_addr1.value.length == 0){
+        alert("주소를 입력해주세요.");
+        register.mem_addr1.focus();
+        return;
+    }
+    if(register.mem_addr2.value.length == 0){
+        alert("주소를 입력해주세요.");
+        register.mem_addr2.focus();
+        return;
+    }
+    if(register.mem_addr3.value.length == 0){
+        alert("상세주소를 입력해주세요.");
+        register.mem_addr3.focus();
+        return;
+    }
+
+    // 이메일
+
+    if(register.mem_email.value.length == 0){
+        alert("이메일을 입력해주세요.");
+        register.mem_email.focus();
+        return;
+    }
+    document.register.submit();
+
+}
+function loginCheck(){
+    if(document.login.mem_uid.value.length == 0){
+        alert("아이디를 입력하세요");
+        login.mem_uid.focus();
+        return;
+    }
+
+    if(document.login.mem_pwd.value.length == 0){
+        alert("비밀번호를 입력하세요");
+        login.mem_pwd.focus();
+        return;
+    }
+    document.login.submit();
+
+}
+
+
+
+
+
+

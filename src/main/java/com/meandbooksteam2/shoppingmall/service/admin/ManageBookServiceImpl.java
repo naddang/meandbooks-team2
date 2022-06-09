@@ -2,22 +2,12 @@ package com.meandbooksteam2.shoppingmall.service.admin;
 
 import com.meandbooksteam2.shoppingmall.dao.admin.ManageBookDao;
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
-import com.meandbooksteam2.shoppingmall.dto.NoticeDto;
 import com.meandbooksteam2.shoppingmall.dto.PaginationInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 

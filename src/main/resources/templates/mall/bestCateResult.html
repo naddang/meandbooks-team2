@@ -48,8 +48,11 @@
                 <tr th:each=" book, i : ${cateBest}">
                     <td th:text="${i.index + 1}"></td>
                     <td class="img">
-                        <a th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
+                        <a th:if="${book.book_img} != null" th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
                             <img th:src="@{/imgs/book-imgs/} + ${book?.book_img}" alt="???"/>
+                        </a>
+                        <a th:unless="${book.book_img} != null" th:href="@{/mall/viewBook(book_no=${book?.book_no})}">
+                            <img th:src="@{/imgs/book-imgs/default-img.png}">
                         </a>
                     </td>
                     <td>

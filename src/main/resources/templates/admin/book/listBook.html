@@ -62,9 +62,7 @@
         <tr th:if="${not #lists.isEmpty(list)}" th:each="list : ${list}">
             <td th:text="${list.book_no}">도서 번호</td>
             <td th:if="${list.book_img} != null">
-<!--                <img th:src="@{/imgs/book-imgs/{param1}(param1=${list.book_img})}">-->
-                <img th:src="@{/webapp/book-imgs/{param1}(param1=${list.book_img})}">
-<!--                <img th:src="../../../../webapp/book-imgs/${list.book_img}">-->
+                <img th:src="@{/imgs/book-imgs/} + ${list.book_img}">
             </td>
             <td th:unless="${list.book_img} != null">
                 <img th:src="@{/imgs/book-imgs/default-img.png}">

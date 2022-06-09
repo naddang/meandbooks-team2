@@ -86,6 +86,7 @@
     <select id="getBookInfo" parameterType="hashmap" resultType="BookDto">
         SELECT BOOK_NM
              , BOOK_PRICE
+             , BOOK_STOCK
              , BOOK_AUTHOR
              , BOOK_PUB
              , BOOK_IMG

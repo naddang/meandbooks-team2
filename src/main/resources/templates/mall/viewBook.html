@@ -14,7 +14,12 @@
   <!--상품 정보 영역-->
   <div class="product">
     <div class="img-area">
-      <img th:src="@{/imgs/book-imgs/} + ${book.book_img}" alt="???"/>
+      <th:block th:if="${book.book_img} != null">
+        <img th:src="@{/imgs/book-imgs/} + ${book.book_img}">
+      </th:block>
+      <th:block th:unless="${book.book_img} != null">
+        <img th:src="@{/imgs/book-imgs/default-img.png}">
+      </th:block>
     </div>
     <div class="info-area">
       <span class="book-title">
@@ -27,7 +32,7 @@
       <span th:text="${book.book_desc}"></span><br>
       <br><br><br>
       <span th:class="price" th:text="${book.book_price} + 원"></span><br>
-      수량 <input type="number" name="qty" id="qty" value="1"><br>
+      수량 <input type="number" name="qty" id="qty" value="1" th:max="${book.book_stock}"><br>
       <input type="hidden" th:value="${book.book_no}" id="book_no">
       <div class="mb-3" id="btn-area">
         <a id="insert-cart" onclick="insertCartFromView()" class="btn btn-primary">

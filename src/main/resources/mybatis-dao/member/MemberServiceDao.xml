@@ -26,8 +26,12 @@
     </resultMap>
 
     <!--입력한 아이디와 비밀번호에 해당하는 것을 카운트 해서 1인 경우에만 로그인 되도록 할 것-->
+    <!--탈퇴했거나 밴된 유저는 로그인하지못함-->
     <select id="login" parameterType="hashmap" resultType="_int">
-        select count(*) from member where mem_uid=#{mem_uid} and mem_pwd=#{mem_pwd}
+        select count(*) from member
+                        where mem_uid=#{mem_uid}
+                          and mem_pwd=#{mem_pwd}
+                          and `ACCESSIBLE` != 0
     </select>
 
     <!--회원가입, 관리자는 회원가입 안하니까 그냥 0으로 줘서 일반회원 만들고, 마일리지도 0으로 주고, 액세서블은 1(로그인 가능)-->

@@ -40,6 +40,14 @@
       <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no">
       <input type="hidden" th:value="${#session.getAttribute('mem_no')}" name="mem_no" id="mem_no">
       <input type="hidden" th:with="all=${book?.book_price} * ${qty}" th:value="${all}" name="sum" id="sum">
+      <th:block layout:fragment="script">
+        <script th:if="${book.book_stock} < ${#request.getParameter('cart_qty')}">
+          alert("재고보다 많이 주문할 수 없습니다.");
+          history.go(-1);
+        </script>
+      </th:block>
+        <script></script>
+      </th:block>
       <table class="table">
         <colgroup>
           <col width="30%"/>
@@ -64,7 +72,8 @@
           <td th:text="${book.book_nm}" id="book_nm">가나다</td>
           <td th:text="${#numbers.formatInteger(book.book_price, 0, 'COMMA')}">15,000원</td>
           <td>
-            <input type="number" th:value="${qty}" min="1" max="99" name="orders_qty">
+            <input type="number" th:value="${qty}" min="1" th:max="${book.book_stock}" name="orders_qty" id="orders_qty">
+            <input type="hidden" th:value="${book.book_price}" name="book_price" id="book_price">
           </td>
           <td th:with="all=${book?.book_price} * ${qty}" th:text="|${#numbers.formatInteger(all, 0, 'COMMA')}원|">15,000원</td>
           <td>
