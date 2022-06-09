@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+
+<th:block layout:fragment="css">
+    <style>
+        .main-area {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+    </style>
+</th:block>
+
+<!-- 메인 -->
+<div layout:fragment="content">
+    <main class="main-area">
+        <h3>주문 정보</h3>
+        <div class="table-responsive" th:if="${orders} != null">
+            <table class="table table-light table-striped-columns">
+                <tbody>
+                <tr>
+                    <td rowspan="6">
+                        <img th:src="@{/imgs/book-imgs/{param1}(param1=${orders.book.book_img})}">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">주문번호</th>
+                    <td th:text="${orders.orders_no}">1212121</td>
+                    <th scope="col">책번호</th>
+                    <td th:text="${orders.book.book_no}">12121212</td>
+                </tr>
+                <tr>
+                    <th scope="col">주문수량</th>
+                    <td th:text="${orders.orders_qty}">2</td>
+                    <th scope="col">책이름</th>
+                    <td th:text="${orders.book.book_nm}"></td>
+                </tr>
+                <tr>
+                    <th scope="col">주문상태</th>
+                    <td th:switch="${orders.orders_status}">
+                        <th:block th:case="0">주문취소</th:block>
+                        <th:block th:case="1">배송대기</th:block>
+                        <th:block th:case="2">배송중</th:block>
+                        <th:block th:case="3">배송완료</th:block>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">주문자</th>
+                    <td th:text="${orders.orders_nm}">아무개</td>
+                    <th scope="col">전화번호</th>
+                    <td th:text="${orders.orders_phoneNo}">010-1234-5678</td>
+                </tr>
+                <tr>
+                    <th scope="col">배송주소</th>
+                    <td colspan="3" th:text="|${orders.orders_addr1}, ${orders.orders_addr2}, ${orders.orders_addr3}|">부산광역시 진구 부전동</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:unless="${orders} != null">
+            <span style="align-content: center">해당 주문번호에 대한 정보가 없습니다.</span>
+        </div>
+    </main>
+</div>
+</html>
