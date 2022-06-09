@@ -35,7 +35,7 @@
             <th:block th:if="${session.mem_no == null}">
               <li class="nav-item"><a th:href="@{/member/login}" class="nav-link link-dark px-2">로그인</a></li>
               <li class="nav-item"><a th:href="@{/member/register}" class="nav-link link-dark px-2">회원가입</a></li>
-              <li class="nav-item"><a th:href="@{/member/cart}" class="nav-link link-dark px-2">장바구니</a></li>
+              <li class="nav-item"><a th:href="@{/member/login}" class="nav-link link-dark px-2">장바구니</a></li>
             </th:block>
             <!-- 로그인 후 -->
             <!-- 관리자 -->
@@ -45,7 +45,12 @@
             </th:block>
             <!-- 회원 -->
             <th:block th:if="${session.mem_no != null}">
-              <li class="nav-item"><a th:href="@{/member/main}">@@</a>님 환영합니다.</li>
+              <li class="nav-item" th:if="${session.isAdmin != 1}">
+                <a th:href="@{/member/main}" th:text="${session.mem_uid}">@@</a>님 환영합니다.
+              </li>
+              <li class="nav-item" th:unless="${session.isAdmin != 1}">
+                <a th:href="@{/admin}" th:text="${session.mem_uid}">@@</a>님 환영합니다.
+              </li>
               <li class="nav-item"><a th:href="@{/member/cart}" class="nav-link link-dark px-2">장바구니</a></li>
               <li class="nav-item"><a th:href="@{/member/logout}" class="nav-link link-dark px-2">로그아웃</a></li>
             </th:block>

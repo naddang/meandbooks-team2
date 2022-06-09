@@ -82,7 +82,7 @@
                     <th scope="col">삭제</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody th:if="${not #lists.isEmpty(list)}" >
                 <tr th:each="cart : ${list}">
                     <td th:text="${cart.book.book_nm}"></td>
                     <td th:text="|${#numbers.formatInteger(cart.book.book_price, 0, 'COMMA')}원|"></td>
@@ -107,6 +107,11 @@
                     <td th:text="|${#numbers.formatInteger(list[0].sum * 0.05, 0, 'COMMA')}원|" colspan="2"></td>
                 </tr>
                 </tbody>
+                <tbody th:unless="${not #lists.isEmpty(list)}">
+                    <tr>
+                        <td colspan="6">장바구니에 담긴 책이 없습니다.</td>
+                    </tr>
+                </tbody>
             </table>
 
             <table class="table small-table table-light">
@@ -117,9 +122,16 @@
             <br>
 
             <div class="mb-3" id="btn-area">
-                <input class="btn btn-primary" type="button" value="이전화면" onclick="history.back()">
-                <input class="btn btn-primary" type="button" value="선택구매" onclick="selectOrder()">
-                <input class="btn btn-primary" type="submit" value="전체구매">
+                <span th:if="${not #lists.isEmpty(list)}">
+                    <input class="btn btn-primary" type="button" value="이전화면" onclick="history.back()">
+                    <input class="btn btn-primary" type="button" value="선택구매" onclick="selectOrder()">
+                    <input class="btn btn-primary" type="submit" value="전체구매">
+                </span>
+                <span th:unless="${not #lists.isEmpty(list)}">
+                    <input class="btn btn-primary" type="button" value="이전화면" onclick="history.back()">
+                    <a class="btn btn-primary" th:href="@{/mall/searchBook}">도서 검색</a>
+                    <a class="btn btn-primary" th:href="@{/mall/bestSeller}">베스트셀러</a>
+                </span>
             </div>
         </form>
     </main>
