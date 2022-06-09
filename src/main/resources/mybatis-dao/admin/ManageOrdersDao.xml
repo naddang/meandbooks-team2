@@ -39,6 +39,44 @@
                          ON O.BOOK_NO = B.BOOK_NO
                        JOIN MEMBER M
                          ON O.MEM_NO = M.MEM_NO
+        order by ORDERS_NO desc
+        limit #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+    </select>
+
+    <!--주문 목록 데이터 개수-->
+    <select id="selectOrdersTotalCount" parameterType="OrdersDto" resultType="int">
+        select count(*) from orders
+    </select>
+
+    <!--검색 주문 목록을 가져오는 쿼리-->
+    <select id="listSearchOrders" resultMap="Orders">
+        SELECT o.ORDERS_QTY * b.BOOK_PRICE
+             , O.ORDERS_DATE
+             , date_format(O.ORDERS_DATE,'%m-%d %h:%i') "ORDERS_DATE"
+             , O.ORDERS_NO
+             , M.MEM_UID
+             , B.BOOK_NO
+             , B.BOOK_NM
+             , B.BOOK_IMG
+             , B.BOOK_PRICE
+             , O.ORDERS_QTY
+             , o.orders_status
+        FROM `ORDERS` O JOIN BOOK B
+                         ON O.BOOK_NO = B.BOOK_NO
+                       JOIN MEMBER M
+                         ON O.MEM_NO = M.MEM_NO
+        WHERE MEM_UID LIKE CONCAT('%', #{searchKeyword}, '%')
+                or ORDERS_NO LIKE CONCAT('%', #{searchKeyword}, '%')
+        order by ORDERS_NO desc
+        limit #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+    </select>
+
+    <!--검색 주문 목록 데이터 개수-->
+    <select id="selectOrdersSearchTotalCount" parameterType="OrdersDto" resultType="int">
+        select count(*) from orders o join member m
+        on o.MEM_NO = m.MEM_NO
+        WHERE MEM_UID LIKE CONCAT('%', #{searchKeyword}, '%')
+            or ORDERS_NO LIKE CONCAT('%', #{searchKeyword}, '%')
     </select>
 
     <!--주문상태 변경 쿼리-->

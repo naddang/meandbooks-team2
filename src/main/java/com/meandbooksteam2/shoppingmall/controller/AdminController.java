@@ -3,6 +3,7 @@ package com.meandbooksteam2.shoppingmall.controller;
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.dto.MemberDto;
 import com.meandbooksteam2.shoppingmall.dto.NoticeDto;
+import com.meandbooksteam2.shoppingmall.dto.OrdersDto;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageBookServiceImpl;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageMemberServiceImpl;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageOrdersServiceImpl;
@@ -159,9 +160,19 @@ public class AdminController {
         }
     }
 
+    /*주문 목록*/
     @GetMapping("admin/orders")
-    public String listOrders(@RequestParam HashMap<String, String> param, Model model){
-        model.addAttribute("list", ordersService.listOrders(param));
+    public String listOrders(@ModelAttribute("params") OrdersDto params, Model model){
+        model.addAttribute("list", ordersService.listOrders(params));
+        return "admin/orders/listOrders";
+    }
+
+    /*검색 주문 목록 리스트*/
+    @GetMapping("admin/orders/searchOrders")
+    public String searchOrdersList(@ModelAttribute("params") OrdersDto params, Model model) {
+
+        model.addAttribute("list", ordersService.listSearchOrders(params));
+
         return "admin/orders/listOrders";
     }
 
