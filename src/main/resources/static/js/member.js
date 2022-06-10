@@ -104,7 +104,43 @@ function loginCheck(){
         return;
     }
     document.login.submit();
+}
 
+function updateCheck(){
+    if(update.mem_pwd.value.length == 0){
+        alert("현재 비밀번호를 입력해주세요");
+        update.mem_pwd.focus();
+        return;
+    }
+
+    if(update.new_mem_pwd.value.length == 0){
+        alert("변경할 비밀번호를 입력해주세요");
+        update.new_mem_pwd.focus();
+        return;
+    }
+
+    if(update.mem_addr1.value.length == 0){
+        alert("주소를 입력해주세요");
+        update.mem_addr3.focus();
+        return;
+    }
+    if(update.mem_addr2.value.length == 0){
+        alert("주소를 입력해주세요");
+        update.mem_addr3.focus();
+        return;
+    }
+    if(update.mem_addr3.value.length == 0){
+        alert("상세주소를 입력해주세요");
+        update.mem_addr3.focus();
+        return;
+    }
+
+    if(update.mem_email.value.length == 0){
+        alert("변경할 이메일을 입력해주세요");
+        update.new_mem_pwd.focus();
+        return;
+    }
+    document.update.submit();
 }
 
 
