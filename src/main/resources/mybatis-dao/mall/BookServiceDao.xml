@@ -120,6 +120,7 @@
     <resultMap id="RevCmtDto" type="RevCmtDto">
         <result column="rev_no" property="rev_no"></result>
         <result column="cmt_no" property="cmt_no"></result>
+        <result column="mem_no" property="mem_no"></result>
         <result column="CMT_CONTENT" property="cmt_content"></result>
         <result column="CMT_DATE" property="cmt_date"></result>
         <collection property="member" resultMap="MemberDto"></collection>
@@ -192,6 +193,9 @@
     <select id="getOneCmt" parameterType="string" resultType="RevCmtDto">
         select CMT_NO, CMT_CONTENT, CMT_DATE from rev_cmt where CMT_NO=#{cmt_no}
     </select>
+    <select id="getOneRev" parameterType="string" resultType="ReviewDto">
+        select REV_NO, REV_TITLE, REV_CONTENT, REV_RATING from review where REV_NO=#{rev_no}
+    </select>
 
     <!--리뷰를 수정하는 DML-->
     <update id="updateReview" parameterType="hashmap">
@@ -214,7 +218,7 @@
         update rev_cmt set
                           CMT_CONTENT = #{cmt_content}
                         , CMT_DATE = now()
-                      where CMT_NO=#{rev_no}
+                      where CMT_NO=#{cmt_no}
     </update>
 
     <!--댓글을 삭제하는 DML-->
@@ -231,5 +235,4 @@
            or BOOK_NO LIKE concat(#{searchKeyword}, '%')
     </select>
     
-    <update id=""
 </mapper>

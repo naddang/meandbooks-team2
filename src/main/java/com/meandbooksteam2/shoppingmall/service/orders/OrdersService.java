@@ -84,10 +84,10 @@ public class OrdersService {
     }
 
     // 주문시 마일리지 사용이 있을 경우
-    public int updateMileageDown(HashMap<String, String> param) {return dao.updateMileageDown(param);}
+    public int updateMileageDown(String mem_no) {return dao.updateMileageDown(mem_no);}
 
     // 주문완료시 마일리지 적립
-    public int updateMileageUp(HashMap<String, String> param) {return dao.updateMileageUp(param);}
+    public int updateMileageUp(String mem_no) {return dao.updateMileageUp(mem_no);}
     public BookDto getCartBookInfo(String cart_no){
         return dao.getCartBookInfo(cart_no);
     }

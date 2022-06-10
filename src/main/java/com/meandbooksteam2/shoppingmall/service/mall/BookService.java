@@ -124,4 +124,8 @@ public class BookService {
     public RevCmtDto getOneCmt(String cmt_no) {
         return dao.getOneCmt(cmt_no);
     }
+
+    public ReviewDto getOneRev(String rev_no) {
+        return dao.getOneRev(rev_no);
+    }
 }

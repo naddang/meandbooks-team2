@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `meandbooks` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `meandbooks`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: meandbooks
@@ -26,7 +24,7 @@ DROP TABLE IF EXISTS `no_mem_orders`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `no_mem_orders` (
   `ORDERS_NO` varchar(10) NOT NULL,
-  `BOOK_NO` varchar(8) DEFAULT NULL,
+  `BOOK_NO` varchar(8) NOT NULL,
   `ORDERS_NM` varchar(15) NOT NULL,
   `ORDERS_PHONENO` varchar(11) NOT NULL,
   `ORDERS_ADDR1` varchar(300) NOT NULL,
@@ -37,7 +35,7 @@ CREATE TABLE `no_mem_orders` (
   `ORDERS_STATUS` char(1) DEFAULT '1',
   PRIMARY KEY (`ORDERS_NO`),
   KEY `FK_BOOK_TO_NO_MEM_ORDER_1` (`BOOK_NO`),
-  CONSTRAINT `FK_BOOK_TO_NO_MEM_ORDER_1` FOREIGN KEY (`BOOK_NO`) REFERENCES `book` (`BOOK_NO`)
+  CONSTRAINT `FK_BOOK_TO_NO_MEM_ORDER_1` FOREIGN KEY (`BOOK_NO`) REFERENCES `book` (`BOOK_NO`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-03 12:01:33
+-- Dump completed on 2022-06-10 17:33:51

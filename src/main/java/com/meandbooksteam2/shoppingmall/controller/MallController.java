@@ -2,6 +2,7 @@ package com.meandbooksteam2.shoppingmall.controller;
 
 import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.service.mall.BookService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,22 +134,39 @@ public class MallController {
 
     }
 
-    @GetMapping("mall/updateRevCmt")
-    public String updateRevCmt(@RequestParam String cmt_no, Model model){
-        model.addAttribute("cmt", service.getOneCmt(cmt_no));
-        return "mall/updateRevCmt";
+    @GetMapping("mall/updateReview")
+    public String updateReview(@RequestParam String rev_no, Model model) throws IOException {
+        model.addAttribute("rev", service.getOneRev(rev_no));
+        return "mall/updateReview";
+    }
+    @PostMapping("mall/updateReview_ok")
+    public void updateReview_ok(@RequestParam HashMap<String, String> param, HttpServletResponse response) throws IOException {
+        int re = service.updateReview(param);
+
+        goBack(response, re);
     }
 
-    @GetMapping("mall/updateRevCmt_ok")
-    public void updateRevCmtOk(@RequestParam HashMap<String, String> param, HttpServletResponse response) throws IOException {
+    @GetMapping("mall/updateRevCmt")
+    public void updateRevCmt(@RequestParam HashMap<String, String> param, HttpServletResponse response) throws IOException {
         int re = service.updateRevCmt(param);
 
+        goBack(response, re);
+    }
+
+    @GetMapping("mall/deleteReview")
+    public void deleteReview(@RequestParam HashMap<String, String> param, HttpServletResponse response) throws IOException {
+        int re = service.deleteReview(param);
+
+        goBack(response, re);
+    }
+
+    private void goBack(HttpServletResponse response, int re) throws IOException {
         if (re == 1) {
             response.setContentType("text/html; charset=euc-kr");
             PrintWriter out = response.getWriter();
             out.println("<script>");
-            out.println("alert('성공했습니다.')");
-            out.println("history.back()");
+            out.println("alert('성공했습니다.');");
+            out.println("window.location = document.referrer;");
             out.println("</script>");
 
             out.flush();
@@ -156,11 +174,18 @@ public class MallController {
             response.setContentType("text/html; charset=euc-kr");
             PrintWriter out = response.getWriter();
             out.println("<script>");
-            out.println("alert('실패했습니다.')");
-            out.println("history.back()");
+            out.println("alert('실패했습니다.');");
+            out.println("window.location = document.referrer;");
             out.println("</script>");
 
             out.flush();
         }
+    }
+
+    @GetMapping("mall/deleteRevCmt")
+    public void deleteRevCmt(@RequestParam HashMap<String, String> param, HttpServletResponse response) throws IOException {
+        int re = service.deleteRevCmt(param);
+
+        goBack(response, re);
     }
 }

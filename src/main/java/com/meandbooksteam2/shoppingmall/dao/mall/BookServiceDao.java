@@ -24,6 +24,7 @@ public interface BookServiceDao {
 
     public List<ReviewDto> listReview(HashMap<String, String> param);
     int insertReview(HashMap<String, String> param);
+    ReviewDto getOneRev(String rev_no);
     public int updateReview(HashMap<String, String> param);
     public int deleteReview(HashMap<String, String> param);
 
