@@ -160,6 +160,8 @@ public class MemberController {
     @PostMapping("member/withdraw_ok")
     public String withdrawOk(HttpSession session, @RequestParam String mem_pwd){
         String mem_no = (String)session.getAttribute("mem_no");
+        System.out.println(mem_no);
+        System.out.println(mem_pwd);
         int re = service.withdraw(mem_no, mem_pwd);
 
         if (re == 1) {

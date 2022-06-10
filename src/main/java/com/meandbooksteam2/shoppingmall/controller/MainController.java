@@ -27,6 +27,7 @@ public class MainController {
     @GetMapping("/index")
     public String index(HttpSession session){
         System.out.println(session.getAttribute("mem_uid"));
+        System.out.println(session.getAttribute("mem_no"));
         System.out.println(session.getAttribute("isAdmin"));
         return "redirect: ";
     }
