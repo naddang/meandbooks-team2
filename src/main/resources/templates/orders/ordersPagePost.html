@@ -1,0 +1,135 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head th:replace="fragments/head::headFragment">
+  <style>
+    .main-area {
+      max-width: 1140px;
+      min-height: 600px;
+      margin: 0 auto;
+    }
+
+    .table {
+      text-align: center;
+    }
+
+    .small-table {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    #btn-area {
+      text-align: center;
+    }
+  </style>
+</head>
+<!-- 메인 -->
+<div layout:fragment="content">
+  <link rel="stylesheet" th:href="@{/css/orders.css}">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  <script th:src="@{/js/order.js}"></script>
+  <!-- 메인 -->
+  <main class="main-area">
+    <div id="title">
+      <h1>주문/결제</h1>
+    </div>
+    <form th:action="@{/orders/insertOrder}" method="post" name="orderForm">
+      <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no">
+      <input type="hidden" th:value="${session.mem_no}" name="mem_no" id="mem_no">
+      <script></script>
+      </th:block>
+      <table class="table">
+        <colgroup>
+          <col width="30%"/>
+          <col width="15%"/>
+          <col width="15%"/>
+          <col width="15%"/>
+        </colgroup>
+        <thead class="table-light">
+        <tr>
+          <th scope="col">상품정보</th>
+          <th scope="col">권 당 가격</th>
+          <th scope="col">수량</th>
+          <th scope="col">주문금액</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book, i : ${list}">
+          <th:block layout:fragment="script">
+            <script th:if="${book.book_stock} < ${#request.getParameter('cart_qty')}">
+              alert("재고보다 많이 주문할 수 없습니다.");
+              history.go(-1);
+            </script>
+          </th:block>
+          <td th:text="${book.book_nm}" id="book_nm">가나다</td>
+          <td th:text="${#numbers.formatInteger(book.book_price, 0, 'COMMA')}">15,000원</td>
+          <td>
+            <th:block th:text="${qty[i.index]}"></th:block>
+            <input type="hidden" th:value="${sum}" name="sum" id="sum">
+            <input type="hidden" th:value="${amount}" name="amount" id="amount">
+          </td>
+          <td th:with="all=${book?.book_price} * ${qty[i.index]}" th:text="|${#numbers.formatInteger(all, 0, 'COMMA')}원|">15,000원</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <table class="table small-table">
+        <tbody>
+        <tr>
+          <td>총 주문 상품수</td>
+          <td><th:block th:text="${amount}"></th:block>권</td>
+          <td>총 주문 금액</td>
+          <td><th:block th:text="${sum}"></th:block>원</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <br>
+
+      <h3>주문자/배송지 정보</h3>
+      <div class="table-responsive">
+        <table class="table table-light">
+          <tbody>
+          <tr>
+            <th scope="col">주문자</th>
+            <td colspan="3"><input type="text" th:value="${member?.mem_nm}" name="orders_nm" id="orders_nm"></td>
+          </tr>
+          <tr>
+            <th scope="col">전화번호</th>
+            <td colspan="3"><input type="text" th:value="${member?.mem_phoneNo}" name="orders_phoneno" id="orders_phoneno"></td>
+          </tr>
+          <tr>
+            <th scope="col">이메일</th>
+            <td colspan="3"><input type="text" th:value="${member?.mem_email}" name="orders_email" id="orders_email"></td>
+          </tr>
+          <tr>
+            <th scope="col">
+              배송주소
+              <button class="btn btn-primary" onclick="findAddr()" type="button">주소 찾기</button>
+            </th>
+            <td><input type="text" th:value="${member?.mem_addr1}" name="orders_addr1" id="orders_addr1"></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="text" th:value="${member?.mem_addr2}" name="orders_addr2" id="orders_addr2" size="50"></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="text" th:value="${member?.mem_addr3}" name="orders_addr3" id="orders_addr3" size="50"></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="mb-3" id="btn-area">
+          <input class="btn btn-primary" type="button" value="결제하기" onclick="iAmPortPost()">
+          <input class="btn btn-primary" type="button" th:value="취소하기" onclick="history.back()">
+        </div>
+      </div>
+    </form>
+  </main>
+  <!-- 본문 영역 -->
+</div>
+</html>
+

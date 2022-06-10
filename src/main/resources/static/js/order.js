@@ -38,6 +38,44 @@ function iamport(){
 
     });
 }
+function iAmPortPost(){
+    //가맹점 식별코드
+    IMP.init('imp37252376');
+
+    //폼에서 보내준 값들
+    var userName = $("#orders_nm").val();
+    var userPhoneNum = $("#orders_phoneno").val();
+    var addr1 = $("#orders_addr1").val();
+    var addr2 = $("#orders_addr2").val()+$("#orders_addr3").val();
+    var email = $("#orders_email").val();
+    var bookName = $("#book_nm").text()+ ' 외 '+($("#amount").val() - 1) +'권';
+    var sum = $("#sum").val();
+
+    IMP.request_pay({
+        pg : 'inicis',
+        pay_method : 'card',
+        merchant_uid : 'merchant_' + new Date().getTime(),
+        name : bookName , //결제창에서 보여질 이름
+        amount : sum, //실제 결제되는 가격
+        buyer_email : email,
+        buyer_name : userName,
+        buyer_tel : userPhoneNum,
+        buyer_addr : addr2,
+        buyer_postcode : addr1,
+    }, function(rsp) {
+        console.log(rsp);
+        if ( rsp.success ) {
+            var msg = '결제가 완료되었습니다.';
+            document.orderForm.submit();
+        } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+        }
+
+        alert(msg);
+
+    });
+}
 function findAddr(){
     new daum.Postcode({
         oncomplete: function(data) {
