@@ -94,7 +94,6 @@
           FROM book
          WHERE book_no = #{book_no}
     </select>
-<<<<<<< HEAD
 
     <!--마일리지 사용시 차감-->
     <update id="updateMileageDown" parameterType="hashmap">
@@ -105,7 +104,6 @@
     <update id="updateMileageUp" parameterType="hashmap">
         update member set MEM_MILEAGE = MEM_MILEAGE + #{mem_mileage} where MEM_NO = #{mem_no};
     </update>
-=======
     <select id="getCartBookInfo" parameterType="string" resultType="BookDto">
         select B.BOOK_NM
              , B.BOOK_PRICE
@@ -119,5 +117,4 @@
                          on c.book_no = b.book_no
         WHERE C.CART_NO = #{cart_no}
     </select>
->>>>>>> origin/mapper
 </mapper>
