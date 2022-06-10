@@ -12,5 +12,5 @@ public class QnaADto {
     private int q_no;
     private int mem_no;
     private String a_content;
-    private Timestamp a_date;
+    private String a_date;
 }

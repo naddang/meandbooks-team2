@@ -16,10 +16,11 @@
           <col width="10%">
           <col width="15%">
           <col width="10%">
-          <col width="15%">
           <col width="10%">
+          <col width="10%">
+          <col width="15%">
           <col width="20%">
-          <col width="20%">
+          <col width="10%">
         </colgroup>
         <thead>
         <tr>
@@ -28,6 +29,7 @@
           <th scope="col">주문금액</th>
           <th scope="col">받으시는분</th>
           <th scope="col" colspan="3">배송지</th>
+          <th scope="col" colspan="1">주문상태</th>
         </tr>
         </thead>
         <tbody>
@@ -45,6 +47,12 @@
           <td th:text="${orders.orders_addr1}">text</td>
           <td th:text="${orders.orders_addr2}">text</td>
           <td th:text="${orders.orders_addr3}">text</td>
+          <td th:switch="${orders.orders_status}">
+            <th:block th:case="0">주문취소</th:block>
+            <th:block th:case="1">배송대기</th:block>
+            <th:block th:case="2">배송중</th:block>
+            <th:block th:case="3">배송완료</th:block>
+          </td>
         </tr>
         </tbody>
       </table>

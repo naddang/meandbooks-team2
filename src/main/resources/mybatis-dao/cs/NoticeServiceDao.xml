@@ -36,7 +36,7 @@
         select noti_no
              , noti_title
              , noti_content
-             , noti_date
+             , date_format(NOTI_DATE,'%m-%d %h:%i') "NOTI_DATE"
         from notice
         where noti_no = #{noti_no}
     </select>
@@ -44,7 +44,7 @@
 
     <select id="listNotice" parameterType="NoticeDto" resultType="NoticeDto">
         SELECT
-            NOTI_NO, NOTI_TITLE, NOTI_DATE
+            NOTI_NO, NOTI_TITLE, date_format(NOTI_DATE,'%m-%d %h:%i') "NOTI_DATE"
         FROM
         notice
 <!--        WHERE-->
@@ -103,7 +103,7 @@
     <!--검색 목록-->
     <select id="listSearchNotice" parameterType="NoticeDto" resultType="NoticeDto">
         SELECT
-            NOTI_NO, NOTI_TITLE, NOTI_DATE
+            NOTI_NO, NOTI_TITLE, date_format(NOTI_DATE,'%m-%d %h:%i') "NOTI_DATE"
         FROM
         notice
         where NOTI_TITLE like concat('%', #{searchKeyword}, '%')

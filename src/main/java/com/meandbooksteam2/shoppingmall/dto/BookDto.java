@@ -18,6 +18,6 @@ public class BookDto extends CommonDto{
     private int book_page;
     private int book_price;
     private int book_stock;
-    private Timestamp book_pub_date;
+    private String book_pub_date;
     private OrdersDto ordersDto;
 }

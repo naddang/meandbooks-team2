@@ -88,7 +88,7 @@
     <select id="viewBook" parameterType="hashmap" resultType="BookDto">
         SELECT BOOK_NO, BOOK_NM, BOOK_DESC, BOOK_PRICE
                       , BOOK_STOCK, BOOK_IMG, BOOK_PUB, BOOK_AUTHOR
-                      , BOOK_PUB_DATE, BOOK_ISBN, BOOK_PAGE
+                      , date_format(BOOK_PUB_DATE,'%m-%d %h:%i') "BOOK_PUB_DATE", BOOK_ISBN, BOOK_PAGE
         FROM BOOK
         WHERE BOOK_NO = #{book_no}
     </select>

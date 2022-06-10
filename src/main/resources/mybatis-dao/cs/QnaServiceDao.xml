@@ -21,7 +21,7 @@
         select q_no,
                q_title,
                q_content,
-               q_date,
+               date_format(Q_DATE,'%m-%d %h:%i') "Q_DATE",
                q_cate,
                ACCESS_LEVEL
         FROM
@@ -36,7 +36,7 @@
         select q_no,
                q_title,
                q_content,
-               q_date,
+               date_format(Q_DATE,'%m-%d %h:%i') "Q_DATE",
                q_cate,
                ACCESS_LEVEL
         FROM
@@ -68,7 +68,7 @@
         select q_no,
                q_title,
                q_content,
-               q_date,
+               date_format(Q_DATE,'%m-%d %h:%i') "Q_DATE",
                q_cate,
                ACCESS_LEVEL
         from qna_q
@@ -99,7 +99,7 @@
         select q_no,
                q_title,
                q_content,
-               q_date,
+               date_format(Q_DATE,'%m-%d %h:%i') "Q_DATE",
                q_cate,
                mem_no
         from qna_q
@@ -147,7 +147,7 @@
 
     <!--개별 문의에 대한 관리자의 답변 조회-->
     <select id="viewQnaA" parameterType="hashmap" resultType="QnaADto">
-        select a_content, a_date
+        select a_content, date_format(A_DATE,'%m-%d %h:%i') "A_DATE"
         from qna_a
         where q_no = #{q_no}
     </select>

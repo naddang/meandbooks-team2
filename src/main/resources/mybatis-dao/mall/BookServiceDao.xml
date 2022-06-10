@@ -44,7 +44,7 @@
              , BOOK_IMG
              , BOOK_PUB
              , BOOK_AUTHOR
-             , BOOK_PUB_DATE
+             , date_format(BOOK_PUB_DATE,'%m-%d %h:%i') "BOOK_PUB_DATE"
              , BOOK_ISBN
              , BOOK_PAGE
           from book
@@ -156,7 +156,7 @@
              , rc.mem_no
              , m.mem_uid
              , rc.cmt_content
-             , rc.CMT_DATE
+             , date_format(rc.CMT_DATE,'%m-%d %h:%i') "CMT_DATE"
         from rev_cmt rc join review r
                              on rc.REV_NO = r.REV_NO
                         join book b

@@ -12,6 +12,6 @@ public class NoticeDto extends CommonDto{
     private int noti_no;
     private String noti_title;
     private String noti_content;
-    private Timestamp noti_date;
+    private String noti_date;
 
 }
