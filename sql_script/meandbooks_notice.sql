@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `meandbooks` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `meandbooks`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: meandbooks
@@ -30,7 +28,7 @@ CREATE TABLE `notice` (
   `NOTI_CONTENT` varchar(3000) NOT NULL,
   `NOTI_DATE` datetime NOT NULL,
   PRIMARY KEY (`NOTI_NO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +37,7 @@ CREATE TABLE `notice` (
 
 LOCK TABLES `notice` WRITE;
 /*!40000 ALTER TABLE `notice` DISABLE KEYS */;
+INSERT INTO `notice` VALUES (1,'ㅁㅁ','ㅁㅁ','2022-06-07 16:07:16'),(2,'ㅇㅇ','ㅇㅇ','2022-06-07 16:07:28'),(3,'ㅇㅇ','ㅇㅇ','2022-06-07 16:07:32'),(4,'ㅇㅇ','ㅇㅇ','2022-06-07 16:07:35');
 /*!40000 ALTER TABLE `notice` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-03 12:01:32
+-- Dump completed on 2022-06-10 17:33:52

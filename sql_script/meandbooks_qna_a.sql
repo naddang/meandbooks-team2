@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `meandbooks` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `meandbooks`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: localhost    Database: meandbooks
@@ -26,16 +24,16 @@ DROP TABLE IF EXISTS `qna_a`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `qna_a` (
   `A_NO` mediumint NOT NULL AUTO_INCREMENT,
-  `Q_NO` mediumint DEFAULT NULL,
-  `MEM_NO` mediumint DEFAULT NULL,
+  `Q_NO` mediumint NOT NULL,
+  `MEM_NO` mediumint NOT NULL,
   `A_CONTENT` varchar(3000) NOT NULL,
   `A_DATE` datetime NOT NULL,
   PRIMARY KEY (`A_NO`),
-  KEY `FK_QNA_TO_QNA_A_1` (`Q_NO`),
   KEY `FK_MEMBER_TO_QNA_A_1` (`MEM_NO`),
-  CONSTRAINT `FK_MEMBER_TO_QNA_A_1` FOREIGN KEY (`MEM_NO`) REFERENCES `member` (`MEM_NO`),
-  CONSTRAINT `FK_QNA_TO_QNA_A_1` FOREIGN KEY (`Q_NO`) REFERENCES `qna_q` (`Q_NO`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  KEY `FK_QNA_TO_QNA_A_1` (`Q_NO`),
+  CONSTRAINT `FK_MEMBER_TO_QNA_A_1` FOREIGN KEY (`MEM_NO`) REFERENCES `member` (`MEM_NO`) ON DELETE CASCADE,
+  CONSTRAINT `FK_QNA_TO_QNA_A_1` FOREIGN KEY (`Q_NO`) REFERENCES `qna_q` (`Q_NO`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-03 12:01:32
+-- Dump completed on 2022-06-10 17:33:51

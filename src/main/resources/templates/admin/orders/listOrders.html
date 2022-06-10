@@ -58,13 +58,21 @@
             <th>처리 상태</th>
         </tr>
         <tr th:each="order : ${list}">
-            <td th:href="@{/admin/orders/updateOrders(orders_no=${order.orders_no})}" th:text="${order.orders_no}">1</td>
+            <td th:href="@{/admin/orders/updateOrders(orders_no=${order.orders_no})}" >
+                <a th:href="@{/admin/orders/updateOrders(orders_no=${order.orders_no})}">
+                    <th:block th:text="${order.orders_no}"></th:block>
+                </a>
+            </td>
             <td>
                 <a th:href="@{/admin/orders/updateOrders(orders_no=${order.orders_no})}" th:text="${order.member.mem_uid}">
                     아이디
                 </a>
             </td>
-            <td th:text="${order.book.book_nm}">가나다</td>
+            <td>
+                <a th:href="@{/admin/orders/updateOrders(orders_no=${order.orders_no})}" th:text="${order.book.book_nm}">
+                    아이디
+                </a>
+            </td>
             <td th:text="${order.orders_qty} * ${order.book.book_price}">230,000원</td>
             <td th:text="${order.orders_date}">22.12.12</td>
             <td th:switch="${order.orders_status}">
