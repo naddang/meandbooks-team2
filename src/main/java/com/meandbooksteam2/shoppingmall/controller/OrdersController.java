@@ -1,5 +1,6 @@
 package com.meandbooksteam2.shoppingmall.controller;
 
+import com.meandbooksteam2.shoppingmall.dto.BookDto;
 import com.meandbooksteam2.shoppingmall.service.orders.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /*주문 페이지들의 요청을 처리하는 Controller 클래스입니다*/
 @Controller
@@ -33,7 +36,28 @@ public class OrdersController {
         model.addAttribute("book", service.getBookInfo(param));
         return "orders/ordersPage";
     }
-    
+
+    @PostMapping("orders/ordersPage")
+    public String ordersPagePost(@RequestParam("cart_no") String[] cart_no, @RequestParam("cart_qty") int[] cart_qty, Model model, HttpSession session){
+        String id = (String)session.getAttribute("mem_no"); // 세션에있는 회원번호
+        List<BookDto> list = new ArrayList<>();
+        int sum = 0;
+        int amount = 0;
+        for (int i = 0; i < cart_no.length; i++) { //cart_no의 길이만큼 list에 bookdto객체를 담아줌
+            BookDto book = service.getCartBookInfo(cart_no[i]);
+            list.add(book);
+            amount += cart_qty[i];
+            sum += book.getBook_price();
+        }
+        
+        model.addAttribute("list", list);
+        model.addAttribute("qty", cart_qty);
+        model.addAttribute("member", service.getMyInfo(id));
+        model.addAttribute("amount", amount);
+        model.addAttribute("sum", sum);
+        //모델에 담아서 리턴
+        return "orders/ordersPagePost";
+    }
     //주문할때 사용할 메서드
     @PostMapping("orders/insertOrder")
     public String insertOrder(@RequestParam HashMap<String, String> param, Model model){

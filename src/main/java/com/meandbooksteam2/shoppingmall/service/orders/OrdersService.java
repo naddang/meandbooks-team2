@@ -82,4 +82,7 @@ public class OrdersService {
     public BookDto getBookInfo(HashMap<String, String> param){
         return dao.getBookInfo(param);
     }
+    public BookDto getCartBookInfo(String cart_no){
+        return dao.getCartBookInfo(cart_no);
+    }
 }
