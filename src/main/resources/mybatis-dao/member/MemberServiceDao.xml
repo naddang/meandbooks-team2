@@ -219,6 +219,6 @@
     </select>
 
     <update id="withdraw" parameterType="string">
-        update member set `ACCESSIBLE` = 0 where mem_no = #{mem_no} and MEM_PWD = #{mem_pwd}
+        update member set `ACCESSIBLE` = 0 where mem_no = #{param1} and MEM_PWD = #{param2}
     </update>
 </mapper>
