@@ -139,8 +139,8 @@
         select count(*)
         from orders
         where orders_status = 3
-          and mem_no = #{mem_no}
-          and book_no = #{book_no}
+          and mem_no = #{param1}
+          and book_no = #{param2}
     </select>
 
     <!--해당 책에 대한 리뷰들을 가져오는 쿼리-->
