@@ -90,6 +90,7 @@
              , M.MEM_UID
              , B.BOOK_NO
              , B.BOOK_NM
+             , B.BOOK_PRICE
              , O.ORDERS_QTY
              , O.ORDERS_STATUS
         FROM ORDERS O JOIN BOOK B
