@@ -90,7 +90,11 @@
       <table>
         <tr th:each="cmt : ${cmts}" class="cmt-area" th:if="${cmt.rev_no} == ${rev.rev_no}">
             <td th:text="${cmt.member.mem_uid}" width="50px" style="border-right: #2470dc 1px solid;"></td>
-            <td th:text="${cmt.cmt_content}" width="383px"></td>
+            <td width="383px">
+              <th:block th:if="${cmt.mem_no} == ${session.mem_no}">
+
+              </th:block>
+            </td>
             <td th:text="${cmt.cmt_date}" width="150px"></td>
         </tr>
       </table>

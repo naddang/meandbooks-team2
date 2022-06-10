@@ -119,6 +119,7 @@
     </resultMap>
     <resultMap id="RevCmtDto" type="RevCmtDto">
         <result column="rev_no" property="rev_no"></result>
+        <result column="cmt_no" property="cmt_no"></result>
         <result column="CMT_CONTENT" property="cmt_content"></result>
         <result column="CMT_DATE" property="cmt_date"></result>
         <collection property="member" resultMap="MemberDto"></collection>
@@ -165,7 +166,7 @@
              , rc.mem_no
              , m.mem_uid
              , rc.cmt_content
-             , date_format(rc.CMT_DATE,'%m-%d %h:%i') "CMT_DATE"
+             , date_format(rc.CMT_DATE,'%m-%d %H:%i') "CMT_DATE"
         from rev_cmt rc join review r
                              on rc.REV_NO = r.REV_NO
                         join book b
@@ -173,6 +174,7 @@
                         join member m
                              on rc.mem_no = m.mem_no
         where r.BOOK_NO = #{book_no}
+        order by cmt_no desc limit 5
     </select>
 
     <!--사용자가 입력한 리뷰를 DB에 저장하는 쿼리-->
@@ -186,6 +188,10 @@
         insert into rev_cmt(MEM_NO, REV_NO, CMT_CONTENT, CMT_DATE)
         values (#{mem_no}, #{rev_no}, #{cmt_content}, now())
     </insert>
+
+    <select id="getOneCmt" parameterType="string" resultType="RevCmtDto">
+        select CMT_NO, CMT_CONTENT, CMT_DATE from rev_cmt where CMT_NO=#{cmt_no}
+    </select>
 
     <!--리뷰를 수정하는 DML-->
     <update id="updateReview" parameterType="hashmap">
@@ -208,7 +214,7 @@
         update rev_cmt set
                           CMT_CONTENT = #{cmt_content}
                         , CMT_DATE = now()
-                      where REV_NO=#{rev_no}
+                      where CMT_NO=#{rev_no}
     </update>
 
     <!--댓글을 삭제하는 DML-->
@@ -224,4 +230,6 @@
            or BOOK_AUTHOR LIKE concat('%', #{searchKeyword}, '%')
            or BOOK_NO LIKE concat(#{searchKeyword}, '%')
     </select>
+    
+    <update id=""
 </mapper>

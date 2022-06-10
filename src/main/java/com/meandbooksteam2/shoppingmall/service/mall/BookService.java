@@ -68,6 +68,7 @@ public class BookService {
     }
 
     public List<RevCmtDto> listRevCmt(HashMap<String, String> param){
+        System.out.println("서비스 댓글 사이즈" + dao.listRevCmt(param).size());
         return dao.listRevCmt(param);
     }
 
@@ -118,5 +119,9 @@ public class BookService {
         }else {
             return 0;
         }
+    }
+
+    public RevCmtDto getOneCmt(String cmt_no) {
+        return dao.getOneCmt(cmt_no);
     }
 }

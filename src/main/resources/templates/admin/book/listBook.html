@@ -60,12 +60,20 @@
             <th>재고</th>
         </tr>
         <tr th:if="${not #lists.isEmpty(list)}" th:each="list : ${list}">
-            <td th:text="${list.book_no}">도서 번호</td>
+            <td>
+                <a th:href="@{/admin/book/updateBook(book_no=${list.book_no})}" th:text="${list.book_no}">
+                    <th:block th:text="${list.book_no}"></th:block>
+                </a>
+            </td>
             <td th:if="${list.book_img} != null">
-                <img th:src="@{/imgs/book-imgs/} + ${list.book_img}">
+                <a th:href="@{/admin/book/updateBook(book_no=${list.book_no})}">
+                    <img th:src="@{/imgs/book-imgs/} + ${list.book_img}">
+                </a>
             </td>
             <td th:unless="${list.book_img} != null">
-                <img th:src="@{/imgs/book-imgs/default-img.png}">
+                <a th:href="@{/admin/book/updateBook(book_no=${list.book_no})}">
+                    <img th:src="@{/imgs/book-imgs/default-img.png}">
+                </a>
             </td>
             <td>
                 <a th:href="@{/admin/book/updateBook(book_no=${list.book_no})}" th:text="${list.book_nm}">도서명</a>

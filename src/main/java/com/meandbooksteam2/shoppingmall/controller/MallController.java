@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -59,6 +62,7 @@ public class MallController {
         model.addAttribute("reviews", service.listReview(param));//리뷰 목록
         model.addAttribute("cmts", service.listRevCmt(param));//댓글 목록
         System.out.println("리뷰권한 : " + service.reviewAuth(mem_no, book_no));
+        System.out.println("댓글 사이즈 : " + service.listRevCmt(param).size());
         model.addAttribute("reviewAuth", service.reviewAuth(mem_no, book_no));//리뷰 작성 권한
         
         return "mall/viewBook";
@@ -117,7 +121,7 @@ public class MallController {
         }
     }
 
-    @PostMapping("/mall/insertRevCmt")
+    @PostMapping("mall/insertRevCmt")
     public String insertRevCmt(@RequestParam HashMap<String, String> param) {
         int re = service.insertRevCmt(param);
 
@@ -127,5 +131,36 @@ public class MallController {
             return "error";
         }
 
+    }
+
+    @GetMapping("mall/updateRevCmt")
+    public String updateRevCmt(@RequestParam String cmt_no, Model model){
+        model.addAttribute("cmt", service.getOneCmt(cmt_no));
+        return "mall/updateRevCmt";
+    }
+
+    @GetMapping("mall/updateRevCmt_ok")
+    public void updateRevCmtOk(@RequestParam HashMap<String, String> param, HttpServletResponse response) throws IOException {
+        int re = service.updateRevCmt(param);
+
+        if (re == 1) {
+            response.setContentType("text/html; charset=euc-kr");
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("alert('성공했습니다.')");
+            out.println("history.back()");
+            out.println("</script>");
+
+            out.flush();
+        }else {
+            response.setContentType("text/html; charset=euc-kr");
+            PrintWriter out = response.getWriter();
+            out.println("<script>");
+            out.println("alert('실패했습니다.')");
+            out.println("history.back()");
+            out.println("</script>");
+
+            out.flush();
+        }
     }
 }
