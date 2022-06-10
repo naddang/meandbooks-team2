@@ -21,6 +21,7 @@ public interface OrdersDao {
     BookDto getCartBookInfo(String cart_no);
     int subBookStock(HashMap<String, String> param);
 
-    public  int updateMileageDown(HashMap<String, String> param);
-    public  int updateMileageUp(HashMap<String, String> param);
+    //성공하면 int를 리턴함
+    int updateMileageDown(String mem_no);
+    int updateMileageUp(String mem_no);
 }

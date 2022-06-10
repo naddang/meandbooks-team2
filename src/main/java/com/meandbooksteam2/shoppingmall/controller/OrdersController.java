@@ -73,6 +73,7 @@ public class OrdersController {
         }else {
             re = service.insertOrder(param);
             service.subBookStock(param);
+            service.updateMileageUp(param.get("mem_no"));
         }
 
 
