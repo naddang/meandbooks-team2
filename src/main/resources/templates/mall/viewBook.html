@@ -50,7 +50,7 @@
   <!--리뷰 영역-->
   <div class="review-area">
     <h2>리뷰</h2>
-    <div class="right-btn" th:if="${session.mem_no != null}">
+    <div class="right-btn" th:if="${reviewAuth} == 1">
       <a th:href="@{/mall/writeReview(book_no=${#request.getParameter('book_no')})}" class="btn btn-primary">리뷰 작성하기</a>
     </div>
     <div th:each="rev : ${reviews}">

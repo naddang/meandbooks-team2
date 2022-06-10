@@ -50,11 +50,17 @@ public class MallController {
     }
 
     @GetMapping("mall/viewBook")
-    public String bookInfo(@RequestParam HashMap<String, String> param, Model model) {
-        model.addAttribute("book", service.viewBook(param));
-        model.addAttribute("reviews", service.listReview(param));
-        model.addAttribute("cmts", service.listRevCmt(param));
-        System.out.println(service.listRevCmt(param).size());
+    public String bookInfo(@RequestParam HashMap<String, String> param, Model model, HttpSession session) {
+        //리뷰 작성 권한을 받아오기위한 변수들
+        String mem_no = (String) session.getAttribute("mem_no");
+        String book_no = param.get("book_no");
+
+        model.addAttribute("book", service.viewBook(param));//책 정보
+        model.addAttribute("reviews", service.listReview(param));//리뷰 목록
+        model.addAttribute("cmts", service.listRevCmt(param));//댓글 목록
+        System.out.println("리뷰권한 : " + service.reviewAuth(mem_no, book_no));
+        model.addAttribute("reviewAuth", service.reviewAuth(mem_no, book_no));//리뷰 작성 권한
+        
         return "mall/viewBook";
     }
 
@@ -82,14 +88,27 @@ public class MallController {
     }
 
     @GetMapping("mall/writeReview")
-    public String writeReview(@RequestParam HashMap<String, String> param, Model model) {
+    public String writeReview(@RequestParam HashMap<String, String> param, Model model, HttpSession session) {
+        String mem_no = (String) session.getAttribute("mem_no");
+        String book_no = param.get("book_no");
+
+        if (service.reviewAuth(mem_no, book_no) == 0) {
+            return "redirect:mall/viewBook?book_no=" + book_no;
+        }
         model.addAttribute(service.viewBook(param));
         return "mall/writeReview";
     }
 
     @PostMapping("mall/insertReview")
-    public String insertReview(@RequestParam HashMap<String, String> param) {
+    public String insertReview(@RequestParam HashMap<String, String> param, HttpSession session) {
         int re = service.insertReview(param);
+
+        String mem_no = (String) session.getAttribute("mem_no");
+        String book_no = param.get("book_no");
+
+        if (service.reviewAuth(mem_no, book_no) == 0) {
+            return "redirect:mall/viewBook?book_no=" + book_no;
+        }
 
         if (re == 1) {
             return "redirect:/mall/viewBook?book_no=" + param.get("book_no");

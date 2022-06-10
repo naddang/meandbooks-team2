@@ -34,6 +34,7 @@ public interface BookServiceDao {
     public int selectSearchedCount(BookDto params);
     int insertReview(HashMap<String, String> param);
     int insertRevCmt(HashMap<String, String> param);
+    int reviewAuth(String mem_no, String book_no);
     BookDto getRandomBest();
     BookDto getMonthlySpecial();
 }

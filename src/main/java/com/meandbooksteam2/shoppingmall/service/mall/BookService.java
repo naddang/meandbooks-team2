@@ -110,4 +110,13 @@ public class BookService {
     public BookDto getMonthlySpecial(){
         return dao.getMonthlySpecial();
     }
+    public int reviewAuth(String mem_no, String book_no){
+        int re = dao.reviewAuth(mem_no, book_no);
+
+        if (re > 0) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
 }

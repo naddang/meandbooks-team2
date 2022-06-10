@@ -43,11 +43,13 @@ public class OrdersController {
         List<BookDto> list = new ArrayList<>();
         int sum = 0;
         int amount = 0;
+        System.out.println(cart_no.length);
+        System.out.println(cart_qty.length);
         for (int i = 0; i < cart_no.length; i++) { //cart_no의 길이만큼 list에 bookdto객체를 담아줌
             BookDto book = service.getCartBookInfo(cart_no[i]);
             list.add(book);
             amount += cart_qty[i];
-            sum += book.getBook_price();
+            sum += book.getBook_price() * cart_qty[i];
         }
         
         model.addAttribute("list", list);
