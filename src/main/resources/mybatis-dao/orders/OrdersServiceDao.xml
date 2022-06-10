@@ -94,4 +94,14 @@
           FROM book
          WHERE book_no = #{book_no}
     </select>
+
+    <!--마일리지 사용시 차감-->
+    <update id="updateMileageDown" parameterType="hashmap">
+        update member set MEM_MILEAGE = MEM_MILEAGE - #{mem_mileage} where MEM_NO = #{mem_no};
+    </update>
+
+    <!--주문완료시 마일리지 적립-->
+    <update id="updateMileageUp" parameterType="hashmap">
+        update member set MEM_MILEAGE = MEM_MILEAGE + #{mem_mileage} where MEM_NO = #{mem_no};
+    </update>
 </mapper>

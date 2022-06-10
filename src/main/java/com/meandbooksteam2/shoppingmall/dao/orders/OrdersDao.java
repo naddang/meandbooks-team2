@@ -19,4 +19,7 @@ public interface OrdersDao {
     public MemberDto getMyInfo(String mem_no);
     public BookDto getBookInfo(HashMap<String, String> param);
     int subBookStock(HashMap<String, String> param);
+
+    public  int updateMileageDown(HashMap<String, String> param);
+    public  int updateMileageUp(HashMap<String, String> param);
 }
