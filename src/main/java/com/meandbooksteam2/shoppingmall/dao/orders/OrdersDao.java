@@ -10,13 +10,17 @@ import java.util.List;
 
 @Mapper
 public interface OrdersDao {
-    public int insertOrder(HashMap<String, String> param);
-    public int insertNoMemOrder(HashMap<String, String> param);
-    public OrdersDto getOneOrder(HashMap<String, String> param);
-    public int getTodayOrder();
-    public int getTodayNoMemOrder();
-    public List<OrdersDto> getMyOrderList(HashMap<String, String> param);
-    public MemberDto getMyInfo(String mem_no);
-    public BookDto getBookInfo(HashMap<String, String> param);
+    int insertOrder(HashMap<String, String> param);
+    int insertNoMemOrder(HashMap<String, String> param);
+    OrdersDto getOneOrder(HashMap<String, String> param);
+    int getTodayOrder();
+    int getTodayNoMemOrder();
+    List<OrdersDto> getMyOrderList(HashMap<String, String> param);
+    MemberDto getMyInfo(String mem_no);
+    BookDto getBookInfo(HashMap<String, String> param);
+    BookDto getCartBookInfo(String cart_no);
     int subBookStock(HashMap<String, String> param);
+
+    public  int updateMileageDown(HashMap<String, String> param);
+    public  int updateMileageUp(HashMap<String, String> param);
 }

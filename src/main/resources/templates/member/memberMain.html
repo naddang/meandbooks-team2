@@ -9,7 +9,7 @@
             text-align: center;
         }
 
-        .btn {
+        .menu {
             padding: 20px;
             margin: 10px;
         }
@@ -20,11 +20,11 @@
 <div layout:fragment="content">
     <!-- 본문 영역 -->
     <div class="btn-area">
-        <a th:href="@{/member/updateMember}" class="btn btn-outline-secondary" role="button">정보수정</a>
-        <a th:href="@{/member/cart}" class="btn btn-outline-secondary" role="button">장바구니</a>
+        <a th:href="@{/member/updateMember}" class="btn btn-outline-secondary menu" role="button">정보수정</a>
+        <a th:href="@{/member/cart}" class="btn btn-outline-secondary menu" role="button">장바구니</a>
         <br>
-        <a th:href="@{/member/myOrders}" class="btn btn-outline-secondary" role="button">주문목록</a>
-        <a th:href="@{/member/withdraw}" class="btn btn-outline-secondary" role="button">회원탈퇴</a>
+        <a th:href="@{/member/myOrders}" class="btn btn-outline-secondary menu" role="button">주문목록</a>
+        <a th:href="@{/member/withdraw}" class="btn btn-outline-secondary menu" role="button">회원탈퇴</a>
     </div>
 </div>
 </html>
