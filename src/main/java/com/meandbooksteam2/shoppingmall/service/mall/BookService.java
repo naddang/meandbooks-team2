@@ -87,14 +87,13 @@ public class BookService {
 
     private String getCartNo(){
         String defaultNumberType = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
-        //오늘 장바구니 건수 조회
-        int cart_no = dao.getTodayCart(defaultNumberType);
+        long cart_no = dao.getTodayCart(defaultNumberType);
 
-
-        //위의 변수들을 더해 카트번호를 만듬
-        long L_cart_no = (Long.parseLong(defaultNumberType + "0000") + cart_no + 1);
-
-        return Long.toString(L_cart_no);
+        if (cart_no == 0) {
+            return defaultNumberType + "0001";
+        }else {
+            return String.valueOf((cart_no + 1));
+        }
     }
 
     public int insertReview(HashMap<String, String> param){

@@ -22,7 +22,7 @@ public interface BookServiceDao {
 
     public int insertCart(HashMap<String, String> param);
 
-    public int getTodayCart(String formattingDate);
+    public long getTodayCart(String formattingDate);
 
     public List<ReviewDto> listReview(HashMap<String, String> param);
     public int updateReview(HashMap<String, String> param);
