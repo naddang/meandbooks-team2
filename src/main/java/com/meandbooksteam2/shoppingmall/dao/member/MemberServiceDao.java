@@ -20,7 +20,7 @@ public interface MemberServiceDao {
     int register(HashMap<String,String> param);
 
     //중복아이디 조회
-    int checkId(HashMap<String,String> param);
+    int checkId(String mem_uid);
 
     //내 정보 조회
     MemberDto viewMyInfo(String mem_no);

@@ -62,7 +62,7 @@
     </insert>
 
     <!--아이디 중복 체크 눌러서 테이블에 동일 아이디 있다면 못쓰도록 분기처리-->
-    <select id="checkId" parameterType="hashmap" resultType="_int">
+    <select id="checkId" parameterType="string" resultType="_int">
         select count(*) from member where mem_uid=#{mem_uid}
     </select>
 

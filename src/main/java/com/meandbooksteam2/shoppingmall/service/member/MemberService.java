@@ -39,8 +39,8 @@ public class MemberService {
     }
 
     //아이디 중복체크 메서드
-    public int checkId(HashMap<String, String> param) {
-        int re = dao.checkId(param);
+    public int checkId(String mem_uid) {
+        int re = dao.checkId(mem_uid);
         return re;
     }
 
@@ -134,4 +134,5 @@ public class MemberService {
         int re = dao.withdraw(mem_no, mem_pwd);
         return re;
     }
+
 }

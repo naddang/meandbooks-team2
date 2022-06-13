@@ -88,13 +88,15 @@ public class BookService {
 
     private String getCartNo(){
         String defaultNumberType = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
-        long cart_no = dao.getTodayCart(defaultNumberType);
+        long cart_no = 0;
 
-        if (cart_no == 0) {
-            return defaultNumberType + "0001";
+        if (dao.getTodayCart(defaultNumberType) == 0) {
+            cart_no = Long.parseLong(defaultNumberType + "0000");
         }else {
-            return String.valueOf((cart_no + 1));
+            cart_no = dao.getTodayCart(defaultNumberType);
         }
+
+        return String.valueOf(cart_no + 1);
     }
 
     public int insertReview(HashMap<String, String> param){
