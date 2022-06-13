@@ -22,6 +22,14 @@
         <collection property="member" resultMap="Member"/>
         <collection property="book" resultMap="Book"/>
     </resultMap>
+    <resultMap id="NoMemOrders" type="NoMemOrdersDto">
+        <result column="ORDERS_NM" property="orders_nm"/>
+        <result column="ORDERS_DATE" property="orders_date"/>
+        <result column="ORDERS_NO" property="orders_no"/>
+        <result column="ORDERS_QTY" property="orders_qty"/>
+        <result column="orders_status" property="orders_status"/>
+        <collection property="book" resultMap="Book"/>
+    </resultMap>
     <!--주문 목록을 가져오는 쿼리-->
     <select id="listOrders" resultMap="Orders">
         SELECT o.ORDERS_QTY * b.BOOK_PRICE
@@ -130,4 +138,76 @@
                              ON O.MEM_NO = M.MEM_NO
         WHERE O.ORDERS_NO = #{order_no}
     </select>
+
+    <!--비회원 주문 목록을 가져오는 쿼리-->
+    <select id="listNoMemOrders" resultMap="NoMemOrders">
+        SELECT o.ORDERS_QTY * b.BOOK_PRICE
+             , O.ORDERS_DATE
+             , date_format(O.ORDERS_DATE,'%m-%d %h:%i') "ORDERS_DATE"
+             , O.ORDERS_NO
+             , O.ORDERS_NM
+             , B.BOOK_NO
+             , B.BOOK_NM
+             , B.BOOK_IMG
+             , B.BOOK_PRICE
+             , O.ORDERS_QTY
+             , o.orders_status
+        FROM `no_mem_orders` O JOIN BOOK B
+                             ON O.BOOK_NO = B.BOOK_NO
+        order by ORDERS_NO desc
+        limit #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+    </select>
+
+    <!--비회원 주문 목록 데이터 개수-->
+    <select id="selectNoMemOrdersTotalCount" parameterType="NoMemOrdersDto" resultType="int">
+        select count(*) from no_mem_orders
+    </select>
+
+    <!--비회원 검색 주문 목록을 가져오는 쿼리-->
+    <select id="listSearchNoMemOrders" resultMap="NoMemOrders">
+        SELECT o.ORDERS_QTY * b.BOOK_PRICE
+             , O.ORDERS_DATE
+             , date_format(O.ORDERS_DATE,'%m-%d %h:%i') "ORDERS_DATE"
+             , O.ORDERS_NO
+             , O.ORDERS_NM
+             , B.BOOK_NO
+             , B.BOOK_NM
+             , B.BOOK_IMG
+             , B.BOOK_PRICE
+             , O.ORDERS_QTY
+             , o.orders_status
+        FROM `no_mem_orders` O JOIN BOOK B
+                                    ON O.BOOK_NO = B.BOOK_NO
+        WHERE ORDERS_NO LIKE CONCAT('%', #{searchKeyword}, '%')
+            or ORDERS_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+        order by ORDERS_NO desc
+        limit #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+    </select>
+
+    <!--비회원 검색 주문 목록 데이터 개수-->
+    <select id="selectOrdersSearchNoMemTotalCount" parameterType="NoMemOrdersDto" resultType="int">
+        select count(*) from no_mem_orders
+        WHERE ORDERS_NO LIKE CONCAT('%', #{searchKeyword}, '%')
+           or ORDERS_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+    </select>
+
+    <!--비회원 주문상태 변경 쿼리-->
+    <update id="updateNoMemOrdersStatus" parameterType="hashmap">
+        UPDATE no_mem_orders SET ORDERS_STATUS = #{orders_status} WHERE ORDERS_NO=#{orders_no}
+    </update>
+    <!--비회원 주문상태를 변경할때 창에서 해당 주문의 정보를 띄우는 쿼리-->
+    <select id="getNoMemOneOrder" parameterType="hashmap" resultMap="NoMemOrders">
+        SELECT date_format(ORDERS_DATE,'%m-%d %h:%i') "ORDERS_DATE"
+             , O.ORDERS_NO
+             , o.ORDERS_NM
+             , B.BOOK_NO
+             , B.BOOK_NM
+             , B.BOOK_PRICE
+             , O.ORDERS_QTY
+             , O.ORDERS_STATUS
+        FROM no_mem_orders O JOIN BOOK B
+                           ON O.BOOK_NO = B.BOOK_NO
+        where o.orders_no = #{orders_no}
+    </select>
+
 </mapper>

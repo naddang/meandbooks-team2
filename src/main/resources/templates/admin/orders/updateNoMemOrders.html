@@ -1,0 +1,102 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/adminLayout">
+
+<th:block layout:fragment="css">
+    <style>
+        #btn-area {
+            text-align: center;
+        }
+
+        .table {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        img {
+            width: 80px;
+            height: 50px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+
+    </script>
+</th:block>
+
+<div layout:fragment="content">
+    <br>
+    <form th:action="@{/admin/orders/updateNoMemOrders_ok}">
+        <table class="table table-bordered table-hover caption-top">
+            <caption>주문 상태 변경</caption>
+            <tr>
+                <th>주문 번호</th>
+                <td th:text="${orders.orders_no}">111111</td>
+            </tr>
+            <tr>
+                <th>주문자 이름</th>
+                <td th:text="${orders.orders_nm}">아이디</td>
+            </tr>
+            <tr>
+                <th>주문 상품</th>
+                <td th:text="|${orders.book.book_nm}  ${orders.orders_qty}권|">가나다</td>
+            </tr>
+            <tr>
+                <th>결제 금액</th>
+                <td th:text="${orders.book.book_price} * ${orders.orders_qty} + 원">230,000원</td>
+            </tr>
+            <tr>
+                <th>주문 날짜</th>
+                <td th:text="${orders.orders_date}">22.12.12</td>
+            </tr>
+            <tr>
+                <th>현재 처리 상태</th>
+                <td>
+                    <span th:switch="${orders.orders_status}">
+                        <span th:case="0">주문취소</span>
+                        <span th:case="1">배송대기</span>
+                        <span th:case="2">배송중</span>
+                        <span th:case="3">배송완료</span>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>처리 상태 변경</th>
+                <td>
+                    <select name="orders_status">
+                        <th:block>
+                            <option value="0" th:attr="selected=${1} == ${orders.orders_status} ? true : false")>
+                                주문취소
+                            </option>
+                            <option value="1" th:attr="selected=${1} == ${orders.orders_status} ? true : false")>
+                                배송대기
+                            </option>
+                            <option value="2" th:attr="selected=${2} == ${orders.orders_status} ? true : false">
+                                배송중
+                            </option>
+                            <option value="3" th:attr="selected=${3} == ${orders.orders_status} ? true : false">
+                                배송완료
+                            </option>
+                        </th:block>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    <br>
+    <div id="btn-area">
+        <input type="hidden" name="orders_no" th:value="${orders.orders_no}">
+        <input type="submit" class="btn btn-primary" value="수정완료">
+        <input type="button" class="btn btn-primary" value="이전화면" onclick="history.back()">
+    </div>
+    </form>
+</div>
+
+</html>

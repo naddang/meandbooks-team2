@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NoMemOrdersDto {
+public class NoMemOrdersDto extends CommonDto{
     private String orders_no;
     private String book_no;
     private String orders_nm;
@@ -13,6 +13,7 @@ public class NoMemOrdersDto {
     private String orders_addr1;
     private String orders_addr2;
     private String orders_addr3;
+    private String orders_date;
     private int orders_qty;
     private int orders_status;
     private BookDto book;
