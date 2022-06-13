@@ -60,7 +60,7 @@
           <span th:case="1">답변완료</span>
         </td>
       </tr>
-      <tr th:unless="${not #lists.isEmpty(list)}">
+      <tr th:unless="${not #lists.isEmpty(list)}" style="text-align: center">
         <td colspan="5">문의 내역이 없습니다.</td>
       </tr>
       </tbody>

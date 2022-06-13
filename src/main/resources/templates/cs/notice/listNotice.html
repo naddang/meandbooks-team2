@@ -61,7 +61,7 @@
           </td>
           <td th:text="${list.noti_date}"></td>
         </tr>
-        <tr th:unless="${not #lists.isEmpty(list)}">
+        <tr th:unless="${not #lists.isEmpty(list)}" style="text-align: center">
           <td colspan="5">조회된 결과가 없습니다.</td>
         </tr>
       </tbody>

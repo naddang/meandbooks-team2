@@ -2,11 +2,17 @@
     width: 200px;
     text-align: center;
 }
+td {
+    margin: auto;
+    text-align: center;
+    line-height: 167px;
+}
 img{
     width: 100px;
     height: 150px;
 }
 .shelf-wrapper{
+    max-width: 1140px;
     text-align: center;
     margin: 0 auto;
 }
@@ -44,7 +50,6 @@ img{
 }
 .btn {
     text-align: center;
-    margin: 10px;
 }
 .price{
     text-align: right;
@@ -122,4 +127,8 @@ img{
 
 #shelf {
     margin: 0 auto;
+}
+
+.button {
+    margin: 10px;
 }

@@ -22,23 +22,20 @@
 <!--      <b>공지 제목</b>-->
 <!--    </div>-->
     <div>
-      <b>[<span th:text="${view.noti_no}"></span>]</b>
-      &nbsp;
-      <span th:text="${view.noti_title}"></span>
+      <b><span th:text="${view.noti_title}"></span></b>
     </div>
   </div>
 
   <hr>
 
-  <div>
+  <div style="text-align: right">
     <span><b>[관리자]</b></span>
-    &nbsp;
     <span th:text="${view.noti_date}"></span>
   </div>
-    <hr>
+  <br>
   <div class="mb-3">
 <!--    <div class="form-label">글 내용</div>-->
-    <div th:text="${view.noti_content}" class="border border-secondary p-2 mb-2 border-opacity-25"></div>
+    <div th:text="${view.noti_content}"></div>
   </div>
     <br>
   <div class="mb-3" id="btn-area">

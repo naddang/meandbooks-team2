@@ -21,6 +21,29 @@
         height: 70px;
         !important;
       }
+
+      .product-img {
+        width: 200px !important;
+        height: 270px !important;
+      }
+
+      .info {
+        width: 400px;
+        padding: 20px;
+      }
+
+      .desc-area {
+        line-height: 30px;
+      }
+
+      .mb-3 {
+        margin-top: 10px;
+      }
+
+      .desc-area2 {
+        width: 600px;
+        margin: 0 auto;
+      }
     </style>
   </th:block>
 </head>
@@ -30,31 +53,36 @@
   <script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
   <script th:src="@{/js/star-rating.min.js}"></script>
   <script th:src="@{/js/mall.js}"></script>
+
   <!-- 본문 영역 -->
   <!--상품 정보 영역-->
   <div class="product">
     <div class="img-area">
       <th:block th:if="${book.book_img} != null">
-        <img th:src="@{/imgs/book-imgs/} + ${book.book_img}">
+        <img class="border product-img" th:src="@{/imgs/book-imgs/} + ${book.book_img}">
       </th:block>
+
       <th:block th:unless="${book.book_img} != null">
-        <img th:src="@{/imgs/book-imgs/default-img.png}">
+        <img class="border product-img" th:src="@{/imgs/book-imgs/default-img.png}">
       </th:block>
     </div>
-    <div class="info-area">
+    <div class="info">
       <span class="book-title">
         <th:block th:class="book-title" th:text="${book.book_nm}"></th:block>
       </span>
       <br>
+
       <hr>
-      <span th:text="${book.book_author}"></span><br>
-      <span th:text="${book.book_pub}"></span><br>
-      <span th:text="${book.book_desc}"></span><br>
-      <br><br><br>
-      <span th:class="price" th:text="${book.book_price} + 원"></span><br>
-      수량 <input type="number" name="qty" id="qty" value="1" th:max="${book.book_stock}"><br>
-      <input type="hidden" th:value="${book.book_no}" id="book_no">
-      <div class="mb-3" id="btn-area">
+
+      <div class="desc-area">
+        <b>지은이 </b>&nbsp;&nbsp;<span th:text="${book.book_author}"></span><br>
+        <b>출판사 </b>&nbsp;&nbsp;<span th:text="${book.book_pub}"></span><br>
+        <b>판매가 </b>&nbsp;&nbsp;<span th:class="price" th:text="${book.book_price} + 원"></span><br>
+        <b>수량 </b>&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" name="qty" id="qty" value="1" th:max="${book.book_stock}"><br>
+        <input type="hidden" th:value="${book.book_no}" id="book_no">
+      </div>
+
+      <div class="mb-3 btn-area">
         <a id="insert-cart" onclick="insertCartFromView()" class="btn btn-primary" th:if="${session.mem_no} != null">
           장바구니
         </a>
@@ -62,11 +90,23 @@
           장바구니
         </a>
         <a id="order-btn" onclick="goOrderFromView()" class="btn btn-primary">
-          &nbsp;&nbsp;&nbsp;구매&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;구매&nbsp;&nbsp;&nbsp;
         </a>
       </div>
     </div>
   </div>
+
+  <hr style="width: 600px; margin: 0 auto">
+  <br>
+
+  <div class="desc-area2">
+    <b>책설명</b>
+    <br>
+    <span th:text="${book.book_desc}"></span><br>
+    <br>
+  </div>
+  <hr style="width: 600px; margin: 0 auto">
+  <br>
   <!--리뷰 영역-->
   <div class="review-area">
     <h2>리뷰</h2>
@@ -141,7 +181,7 @@
         <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no" required>
         <input type="hidden" th:value="${session.mem_no}" name="mem_no">
         <input type="hidden" th:value="${rev.rev_no}" name="rev_no">
-        댓글 적기 <input type="text" name="cmt_content" style="width: 500px;">
+        <input type="text" name="cmt_content" placeholder="댓글을 입력하세요." style="width: 500px;">
         <input class="btn btn-primary" type="submit">
       </form>
       <br>

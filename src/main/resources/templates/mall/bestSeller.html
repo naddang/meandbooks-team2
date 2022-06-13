@@ -13,7 +13,7 @@
     <main class="shelf-wrapper main-area">
         <h1>베스트 셀러</h1>
         <table class="table table-hover" id="shelf">
-            <thead>
+            <thead class="table table-light">
                 <tr>
                    <th>순위</th>
                    <th>표지</th>
@@ -41,15 +41,15 @@
                     <div id="btn-area">
                         <input type="hidden" name="qty" id="qty" value="1">
                         <input type="hidden" th:value="${book?.book_no}" id="book_no">
-                        <button th:book_no="${book.book_no}" th:onclick="insertCart([[${book.book_no}]])" class="btn btn-primary"
+                        <button th:book_no="${book.book_no}" th:onclick="insertCart([[${book.book_no}]])" class="btn btn-primary button"
                                 th:if="${session.mem_no} != null">
                             장바구니
                         </button>
-                        <button th:book_no="${book.book_no}" th:href="@{/member/login}" class="btn btn-primary"
+                        <button th:book_no="${book.book_no}" th:href="@{/member/login}" class="btn btn-primary button"
                            th:unless="${session.mem_no} != null">
                             장바구니
                         </button>
-                        <button th:book_no="${book.book_no}" th:onclick="goOrder([[${book.book_no}]])" class="btn btn-primary">
+                        <button th:book_no="${book.book_no}" th:onclick="goOrder([[${book.book_no}]])" class="btn btn-primary button">
                             구매하기
                         </button>
                     </div>
@@ -57,7 +57,6 @@
             </tr>
             <tr th:unless="${not #lists.isEmpty(list)}">
                 <td colspan="7">
-                    <br><br>
                     아직 베스트셀러가 없습니다.
                 </td>
             </tr>
