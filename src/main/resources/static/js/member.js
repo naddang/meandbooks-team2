@@ -143,6 +143,23 @@ function updateCheck(){
     document.update.submit();
 }
 
+function winOpen() {
+    var left = Math.ceil((window.screen.width - 400)/2);
+    var top = Math.ceil((window.screen.height - 200)/2);
+    //새창을 열어서 페이지를 오픈 후, 회원 아이디 정보를 가지고 중복체크
+    if (register.mem_uid.value.trim() =="" || register.mem_uid.value.trim().length < 0) {
+        alert("아이디는 반드시 입력해야합니다.")
+        register.mem_uid.focus();
+    }else {
+        window.open("/member/registerCheckId?mem_uid="+register.mem_uid.value,"", "width="+400+", height="+200+", left="+left+", top="+top );
+    }
+}
+
+function result() {
+    opener.document.register.mem_uid.readOnly=true;
+
+    window.close();
+}
 
 
 

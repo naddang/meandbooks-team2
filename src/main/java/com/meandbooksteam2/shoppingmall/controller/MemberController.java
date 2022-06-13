@@ -179,4 +179,12 @@ public class MemberController {
         model.addAttribute("orders", service.viewNoMemOrder(param));
         return "member/viewNoMemOrder";
     }
+
+    @GetMapping("member/registerCheckId")
+    public String registerCheckId(@RequestParam String mem_uid, Model model){
+        System.out.println(service.checkId(mem_uid));
+        model.addAttribute("check", service.checkId(mem_uid));
+
+        return "member/registerCheckId";
+    }
 }
