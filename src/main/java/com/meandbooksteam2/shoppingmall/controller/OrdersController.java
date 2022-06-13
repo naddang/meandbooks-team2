@@ -64,21 +64,20 @@ public class OrdersController {
     @PostMapping("orders/insertOrder")
     public String insertOrder(@RequestParam HashMap<String, String> param, Model model){
         System.out.println(param.get("mem_no"));
+        System.out.println(param.size());
         System.out.println(param.get("book_no"));
-        int re;
-        while (param.isEmpty()){
-            if (param.get("mem_no") == null || param.get("mem_no").equals("")) {
-                re = service.insertNoMemOrder(param);
-                service.subBookStock(param);
-            }else {
-                re = service.insertOrder(param);
-                service.subBookStock(param);
-                service.updateMileageUp(param.get("mem_no"));
-            }
+
+        if (param.get("mem_no") == null || param.get("mem_no").equals("")) {
+            service.insertNoMemOrder(param);
+            service.subBookStock(param);
+        }else {
+            service.insertOrder(param);
+            service.subBookStock(param);
+            service.updateMileageUp(param.get("mem_no"));
         }
 
 
-            return "redirect:/orders/ordersDone?orders_no="+param.get("orders_no");
+        return "redirect:/orders/ordersDone?orders_no="+param.get("orders_no");
     }
 
     //제대로 들어간 경우 완료페이지에서 주문번호를 매개변수로 데이터에 저장된 값을 받아올수있도록 함

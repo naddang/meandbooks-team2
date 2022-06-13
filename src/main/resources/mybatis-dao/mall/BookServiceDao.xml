@@ -158,6 +158,7 @@
         from review r join member m
         on r.MEM_NO = m.MEM_NO
         where r.BOOK_NO = #{book_no}
+        order by REV_NO desc limit 5
     </select>
 
     <!--바인딩 변수로 받은 리뷰번호와 맞는 댓글을 가져오는 쿼리-->
@@ -175,7 +176,7 @@
                         join member m
                              on rc.mem_no = m.mem_no
         where r.BOOK_NO = #{book_no}
-        order by cmt_no desc limit 5
+        order by cmt_no desc limit 30
     </select>
 
     <!--사용자가 입력한 리뷰를 DB에 저장하는 쿼리-->
