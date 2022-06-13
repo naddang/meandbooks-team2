@@ -6,8 +6,7 @@
   <li>압축을 푼 뒤, 터미널에서 압축을 푼 디렉토리 경로로 이동</li>
   <li>.\gradlew build 입력</li>
   <li>cd build\libs 입력</li>
-  <li>cd build\libs 입력</li>
-  <li>java -jar {jar파일이름} 입력</li>
+  <li>java -jar java -jar meandbooks-team2-0.0.1-SNAPSHOT.jar 입력</li>
   <li><a href='http://localhost:8089/' target='_blank'>http://localhost:8089/로 접속</li>
 </ol>
 
