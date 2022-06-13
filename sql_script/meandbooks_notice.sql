@@ -1,53 +1,77 @@
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
---
--- Host: localhost    Database: meandbooks
--- ------------------------------------------------------
--- Server version	8.0.28
+create table notice
+(
+    NOTI_NO      mediumint auto_increment
+        primary key,
+    NOTI_TITLE   varchar(100)  not null,
+    NOTI_CONTENT varchar(3000) not null,
+    NOTI_DATE    datetime      not null
+)
+    charset = utf8
+    auto_increment = 5;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `notice`
---
-
-DROP TABLE IF EXISTS `notice`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `notice` (
-  `NOTI_NO` mediumint NOT NULL AUTO_INCREMENT,
-  `NOTI_TITLE` varchar(100) NOT NULL,
-  `NOTI_CONTENT` varchar(3000) NOT NULL,
-  `NOTI_DATE` datetime NOT NULL,
-  PRIMARY KEY (`NOTI_NO`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `notice`
---
-
-LOCK TABLES `notice` WRITE;
-/*!40000 ALTER TABLE `notice` DISABLE KEYS */;
-INSERT INTO `notice` VALUES (1,'ㅁㅁ','ㅁㅁ','2022-06-07 16:07:16'),(2,'ㅇㅇ','ㅇㅇ','2022-06-07 16:07:28'),(3,'ㅇㅇ','ㅇㅇ','2022-06-07 16:07:32'),(4,'ㅇㅇ','ㅇㅇ','2022-06-07 16:07:35');
-/*!40000 ALTER TABLE `notice` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2022-06-10 17:33:52
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (5, '테스트1', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:42:34');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (6, '테스트2', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:42:42');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (7, '테스트3', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:42:45');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (8, '테스트4', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:42:48');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (9, '테스트5', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:42:51');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (10, '테스트6', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:42:55');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (11, '테스트7', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:43:00');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (12, '테스트8', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:43:03');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (13, '테스트9', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:43:07');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (14, '테스트10', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:43:11');
+INSERT INTO meandbooks.notice (NOTI_NO, NOTI_TITLE, NOTI_CONTENT, NOTI_DATE) VALUES (15, '테스트11', '테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+테스트입니다
+', '2022-06-13 14:43:15');

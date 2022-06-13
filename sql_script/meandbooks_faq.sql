@@ -1,53 +1,19 @@
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
---
--- Host: localhost    Database: meandbooks
--- ------------------------------------------------------
--- Server version	8.0.28
+create table faq
+(
+    FAQ_NO      mediumint auto_increment
+        primary key,
+    FAQ_CATE    char          not null,
+    FAQ_TITLE   varchar(100)  not null,
+    FAQ_CONTENT varchar(3000) not null
+)
+    charset = utf8
+    auto_increment = 3;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `faq`
---
-
-DROP TABLE IF EXISTS `faq`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `faq` (
-  `FAQ_NO` mediumint NOT NULL AUTO_INCREMENT,
-  `FAQ_CATE` char(1) NOT NULL,
-  `FAQ_TITLE` varchar(100) NOT NULL,
-  `FAQ_CONTENT` varchar(3000) NOT NULL,
-  PRIMARY KEY (`FAQ_NO`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `faq`
---
-
-LOCK TABLES `faq` WRITE;
-/*!40000 ALTER TABLE `faq` DISABLE KEYS */;
-INSERT INTO `faq` VALUES (2,'1','aa','aaaaaaaa');
-/*!40000 ALTER TABLE `faq` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2022-06-10 17:33:51
+INSERT INTO meandbooks.faq (FAQ_NO, FAQ_CATE, FAQ_TITLE, FAQ_CONTENT) VALUES (3, '1', '반품교환문의 테스트입니다', '반품교환문의 테스트입니다반품교환문의 테스트입니다반품교환문의 테스트입니다반품교환문의 테스트입니다반품교환문의 테스트입니다
+반품교환문의 테스트입니다반품교환문의 테스트입니다
+반품교환문의 테스트입니다반품교환문의 테스트입니다');
+INSERT INTO meandbooks.faq (FAQ_NO, FAQ_CATE, FAQ_TITLE, FAQ_CONTENT) VALUES (4, '2', '결제문의 테스트입니다', '결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다결제문의 테스트입니다');
+INSERT INTO meandbooks.faq (FAQ_NO, FAQ_CATE, FAQ_TITLE, FAQ_CONTENT) VALUES (5, '3', '상품문의 테스트입니다', '상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다상품문의 테스트입니다');
+INSERT INTO meandbooks.faq (FAQ_NO, FAQ_CATE, FAQ_TITLE, FAQ_CONTENT) VALUES (6, '4', '배송문의 테스트입니다', '배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다배송문의 테스트입니다');
+INSERT INTO meandbooks.faq (FAQ_NO, FAQ_CATE, FAQ_TITLE, FAQ_CONTENT) VALUES (7, '5', '개인정보문의 테스트입니다', '개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다개인정보문의 테스트입니다');
+INSERT INTO meandbooks.faq (FAQ_NO, FAQ_CATE, FAQ_TITLE, FAQ_CONTENT) VALUES (8, '6', '기타문의 테스트입니다', '기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다기타문의 테스트입니다');

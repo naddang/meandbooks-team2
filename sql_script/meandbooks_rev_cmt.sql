@@ -1,58 +1,18 @@
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
---
--- Host: localhost    Database: meandbooks
--- ------------------------------------------------------
--- Server version	8.0.28
+create table rev_cmt
+(
+    CMT_NO      mediumint auto_increment
+        primary key,
+    REV_NO      mediumint     not null,
+    MEM_NO      mediumint     not null,
+    CMT_CONTENT varchar(1000) not null,
+    CMT_DATE    datetime      not null,
+    constraint FK_MEMBER_TO_REV_CMT_1
+        foreign key (MEM_NO) references member (MEM_NO)
+            on delete cascade,
+    constraint FK_REVIEW_TO_REV_CMT_1
+        foreign key (REV_NO) references review (REV_NO)
+            on delete cascade
+)
+    charset = utf8
+    auto_increment = 27;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `rev_cmt`
---
-
-DROP TABLE IF EXISTS `rev_cmt`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `rev_cmt` (
-  `CMT_NO` mediumint NOT NULL AUTO_INCREMENT,
-  `REV_NO` mediumint NOT NULL,
-  `MEM_NO` mediumint NOT NULL,
-  `CMT_CONTENT` varchar(1000) NOT NULL,
-  `CMT_DATE` datetime NOT NULL,
-  PRIMARY KEY (`CMT_NO`),
-  KEY `FK_MEMBER_TO_REV_CMT_1` (`MEM_NO`),
-  KEY `FK_REVIEW_TO_REV_CMT_1` (`REV_NO`),
-  CONSTRAINT `FK_MEMBER_TO_REV_CMT_1` FOREIGN KEY (`MEM_NO`) REFERENCES `member` (`MEM_NO`) ON DELETE CASCADE,
-  CONSTRAINT `FK_REVIEW_TO_REV_CMT_1` FOREIGN KEY (`REV_NO`) REFERENCES `review` (`REV_NO`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rev_cmt`
---
-
-LOCK TABLES `rev_cmt` WRITE;
-/*!40000 ALTER TABLE `rev_cmt` DISABLE KEYS */;
-INSERT INTO `rev_cmt` VALUES (1,1,1,'t1','2022-06-02 11:46:41'),(2,1,1,'t2','2022-06-02 11:46:41'),(3,1,1,'t3','2022-06-02 11:46:41'),(4,2,1,'t4','2022-06-02 11:46:41'),(5,2,1,'t5','2022-06-02 11:46:41'),(6,2,1,'t6','2022-06-02 11:46:41'),(10,4,1,'ff','2022-06-10 13:51:50'),(11,4,1,'fdd','2022-06-10 13:51:55'),(17,1,1,'dd','2022-06-10 15:02:37'),(18,1,1,'dd','2022-06-10 15:02:40'),(19,1,1,'ff','2022-06-10 15:02:42'),(20,1,1,'dd','2022-06-10 15:05:05'),(21,1,1,'dd','2022-06-10 15:05:07'),(22,1,1,'dd','2022-06-10 15:05:09'),(23,4,1,'fdd','2022-06-10 15:09:46'),(24,1,1,'aa','2022-06-10 15:12:02'),(25,1,1,'aa','2022-06-10 15:12:04');
-/*!40000 ALTER TABLE `rev_cmt` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2022-06-10 17:33:51

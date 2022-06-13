@@ -106,6 +106,7 @@
     </update>
     <select id="getCartBookInfo" parameterType="string" resultType="BookDto">
         select B.BOOK_NM
+             , B.BOOK_NO
              , B.BOOK_PRICE
              , B.BOOK_STOCK
              , B.BOOK_AUTHOR

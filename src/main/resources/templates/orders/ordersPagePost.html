@@ -38,7 +38,6 @@
       <h1>주문/결제</h1>
     </div>
     <form th:action="@{/orders/insertOrder}" method="post" name="orderForm">
-      <input type="hidden" th:value="${#request.getParameter('book_no')}" name="book_no">
       <input type="hidden" th:value="${session.mem_no}" name="mem_no" id="mem_no">
       <script></script>
       </th:block>
@@ -70,7 +69,9 @@
             <td>
               <th:block th:text="${qty[i.index]}"></th:block>
               <input type="hidden" th:value="${sum}" name="sum" id="sum">
+              <input type="hidden" th:value="${book.book_no}" name="book_no" id="book_no">
               <input type="hidden" th:value="${amount}" name="amount" id="amount">
+              <input type="hidden" th:value="${qty[i.index]}" name="orders_qty" id="orders_qty">
             </td>
             <td th:with="all=${book?.book_price} * ${qty[i.index]}" th:text="|${#numbers.formatInteger(all, 0, 'COMMA')}원|">15,000원</td>
           </tr>

@@ -66,22 +66,19 @@ public class OrdersController {
         System.out.println(param.get("mem_no"));
         System.out.println(param.get("book_no"));
         int re;
-
-        if (param.get("mem_no") == null || param.get("mem_no").equals("")) {
-            re = service.insertNoMemOrder(param);
-            service.subBookStock(param);
-        }else {
-            re = service.insertOrder(param);
-            service.subBookStock(param);
-            service.updateMileageUp(param.get("mem_no"));
+        while (param.isEmpty()){
+            if (param.get("mem_no") == null || param.get("mem_no").equals("")) {
+                re = service.insertNoMemOrder(param);
+                service.subBookStock(param);
+            }else {
+                re = service.insertOrder(param);
+                service.subBookStock(param);
+                service.updateMileageUp(param.get("mem_no"));
+            }
         }
 
 
-        if (re == 1) {
             return "redirect:/orders/ordersDone?orders_no="+param.get("orders_no");
-        }else {
-            return "redirect:error";
-        }
     }
 
     //제대로 들어간 경우 완료페이지에서 주문번호를 매개변수로 데이터에 저장된 값을 받아올수있도록 함
