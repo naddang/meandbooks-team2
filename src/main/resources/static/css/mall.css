@@ -5,7 +5,7 @@
 td {
     margin: auto;
     text-align: center;
-    line-height: 167px;
+    vertical-align: middle;
 }
 img{
     width: 100px;
