@@ -109,7 +109,7 @@
 
     <!--장바구니에 담을때, 장바구니 번호를 주기위해 사용하는 쿼리-->
     <select id="getTodayCart" resultType="long" parameterType="string">
-        select max(CART_NO) from cart where CART_NO like concat(#{formattingDate}, '%')
+        select IFNULL(max(CART_NO), 0) from cart where CART_NO like concat(#{formattingDate}, '%')
     </select>
 
     <!--리뷰, 댓글과 관련된 쿼리-->

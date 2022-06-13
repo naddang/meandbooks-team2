@@ -128,9 +128,10 @@
     <!--관리자가 답변 작성 - 만들긴 함-->
     <insert id="insertQnaA" parameterType="hashmap">
         insert into qna_a (q_no
+                         , mem_no
                          , a_content
                          , a_date)
-        values (#{q_no}, #{a_content}, sysdate())
+        values (#{q_no}, #{mem_no}, #{a_content}, sysdate())
     </insert>
 
     <!--답변 상태 수정 - 만들긴 함-->
