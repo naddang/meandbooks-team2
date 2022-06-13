@@ -10,9 +10,6 @@ img{
     text-align: center;
     margin: 0 auto;
 }
-#shelf{
-    margin: 30px auto;
-}
 
 /*viewBook.html에서 사용하는 스타일*/
 .product{
@@ -39,7 +36,15 @@ img{
     font-size: 30px;
 }
 #btn-area{
-    margin-top: 30px;
+    height: 167px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btn {
+    text-align: center;
+    margin: 10px;
 }
 .price{
     text-align: right;
@@ -108,4 +113,9 @@ img{
 }
 .title-area{
     padding-right: 30px;
+}
+
+.main-area {
+    max-width: 1140px;
+    margin: 0 auto;
 }
