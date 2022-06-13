@@ -14,14 +14,15 @@
       text-align: center;
     }
 
-    .small-table {
-      max-width: 960px;
+    #btn-area {
+      text-align: center;
       margin: 0 auto;
     }
 
-    #btn-area {
-      text-align: center;
-    }
+    /*.addr-area {*/
+    /*  display: flex;*/
+    /*  justify-content: right;*/
+    /*}*/
   </style>
 </head>
 <!-- 메인 -->
@@ -43,10 +44,10 @@
       </th:block>
       <table class="table">
         <colgroup>
-          <col width="30%"/>
-          <col width="15%"/>
-          <col width="15%"/>
-          <col width="15%"/>
+          <col width="25%"/>
+          <col width="25%"/>
+          <col width="25%"/>
+          <col width="25%"/>
         </colgroup>
         <thead class="table-light">
         <tr>
@@ -65,7 +66,7 @@
             </script>
           </th:block>
           <td th:text="${book.book_nm}" id="book_nm">가나다</td>
-          <td th:text="${#numbers.formatInteger(book.book_price, 0, 'COMMA')}">15,000원</td>
+          <td th:text="|${#numbers.formatInteger(book.book_price, 0, 'COMMA')}원|">15,000원</td>
           <td>
             <th:block th:text="${qty[i.index]}"></th:block>
             <input type="hidden" th:value="${sum}" name="sum" id="sum">
@@ -73,11 +74,9 @@
           </td>
           <td th:with="all=${book?.book_price} * ${qty[i.index]}" th:text="|${#numbers.formatInteger(all, 0, 'COMMA')}원|">15,000원</td>
         </tr>
-        </tbody>
-      </table>
-
-      <table class="table small-table">
-        <tbody>
+        <tr>
+          <td colspan="4" style="background: #727272"></td>
+        </tr>
         <tr>
           <td>총 주문 상품수</td>
           <td><th:block th:text="${amount}"></th:block>권</td>
@@ -107,17 +106,17 @@
             <td colspan="3"><input type="text" th:value="${member?.mem_email}" name="orders_email" id="orders_email"></td>
           </tr>
           <tr>
-            <th scope="col">
-              배송주소
+            <th scope="col" rowspan="3">배송주소</th>
+            <td class="addr-area">
+              <input type="text" th:value="${member?.mem_addr1}" name="orders_addr1" id="orders_addr1">
               <button class="btn btn-primary" onclick="findAddr()" type="button">주소 찾기</button>
-            </th>
-            <td><input type="text" th:value="${member?.mem_addr1}" name="orders_addr1" id="orders_addr1"></td>
+            </td>
           </tr>
           <tr>
-            <td colspan="2"><input type="text" th:value="${member?.mem_addr2}" name="orders_addr2" id="orders_addr2" size="50"></td>
+            <td><input type="text" th:value="${member?.mem_addr2}" name="orders_addr2" id="orders_addr2" size="50"></td>
           </tr>
           <tr>
-            <td colspan="2"><input type="text" th:value="${member?.mem_addr3}" name="orders_addr3" id="orders_addr3" size="50"></td>
+            <td><input type="text" th:value="${member?.mem_addr3}" name="orders_addr3" id="orders_addr3" size="50"></td>
           </tr>
           </tbody>
         </table>
