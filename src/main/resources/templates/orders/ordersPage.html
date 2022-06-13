@@ -122,11 +122,11 @@
             <td colspan="3"><input type="text" th:value="${member?.mem_email}" name="orders_email" id="orders_email"></td>
           </tr>
           <tr>
-            <th scope="col">
-              배송주소
+            <th scope="col">배송주소</th>
+            <td class="addr-area">
+              <input type="text" th:value="${member?.mem_addr1}" name="orders_addr1" id="orders_addr1">
               <button class="btn btn-primary" onclick="findAddr()" type="button">주소 찾기</button>
-            </th>
-            <td><input type="text" th:value="${member?.mem_addr1}" name="orders_addr1" id="orders_addr1"></td>
+            </td>
           </tr>
           <tr>
             <td colspan="2"><input type="text" th:value="${member?.mem_addr2}" name="orders_addr2" id="orders_addr2" size="50"></td>
