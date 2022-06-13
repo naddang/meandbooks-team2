@@ -62,7 +62,9 @@ public class OrdersService {
         //yyMMdd+형태의 문자열이 담김
         String defaultNumberType = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")) + "0000";
         //오늘 주문 건수 조회
-        int order_no = dao.getTodayOrder();
+
+//        int order_no = dao.getTodayOrder();
+        int order_no = dao.getTodayNoMemOrder();
 
         //위의 변수들을 더해 주문번호를 만듬
         long L_orders_no = (Long.parseLong(defaultNumberType) + order_no + 1);
