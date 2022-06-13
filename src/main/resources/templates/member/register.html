@@ -22,6 +22,14 @@
       .register {
         margin: 0 auto;
       }
+
+      .addr {
+        width: 300px;
+      }
+
+      .addr-area {
+        margin-bottom: 1rem!important;
+      }
     </style>
     
   </head>
@@ -80,10 +88,12 @@
 
             <div class="col-12">
               <label for="mem_addr3" class="form-label">주소</label>
+              <div class="addr input-group mb-3">
+                <input type="text" class="form-control" name="mem_addr1" id="mem_addr1" placeholder="" required>
                 <button type="button" onclick="findAddr()" class="btn btn-primary">주소 찾기</button>
-                <input type="text" class="form-control" name="mem_addr1" id="mem_addr1" placeholder="" required style="width: 150px">
-              <input type="text" class="form-control" name="mem_addr2" id="mem_addr2" placeholder="" required>
-              <input type="text" class="form-control" name="mem_addr3" id="mem_addr3" placeholder="상세 주소를 입력해주세요.">
+              </div>
+                <input type="text" class="form-control addr-area" name="mem_addr2" id="mem_addr2" placeholder="" required>
+                <input type="text" class="form-control addr-area" name="mem_addr3" id="mem_addr3" placeholder="상세 주소를 입력해주세요.">
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
