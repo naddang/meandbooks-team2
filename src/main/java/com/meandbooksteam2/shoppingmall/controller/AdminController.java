@@ -1,9 +1,6 @@
 package com.meandbooksteam2.shoppingmall.controller;
 
-import com.meandbooksteam2.shoppingmall.dto.BookDto;
-import com.meandbooksteam2.shoppingmall.dto.MemberDto;
-import com.meandbooksteam2.shoppingmall.dto.NoticeDto;
-import com.meandbooksteam2.shoppingmall.dto.OrdersDto;
+import com.meandbooksteam2.shoppingmall.dto.*;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageBookServiceImpl;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageMemberServiceImpl;
 import com.meandbooksteam2.shoppingmall.service.admin.ManageOrdersServiceImpl;
@@ -186,6 +183,22 @@ public class AdminController {
         return "admin/orders/listOrders";
     }
 
+    /*비회원 주문 목록*/
+    @GetMapping("admin/orders/noMemOrders")
+    public String listNoMemOrders(@ModelAttribute("params") NoMemOrdersDto params, Model model){
+        model.addAttribute("list", ordersService.listNoMemOrders(params));
+        return "admin/orders/listNoMemOrders";
+    }
+
+    /*비회원 검색 주문 목록 리스트*/
+    @GetMapping("admin/orders/searchNoMemOrders")
+    public String searchOrdersList(@ModelAttribute("params") NoMemOrdersDto params, Model model) {
+
+        model.addAttribute("list", ordersService.listSearchNoMemOrders(params));
+
+        return "admin/orders/listNoMemOrders";
+    }
+
     @GetMapping("admin/orders/updateOrders")
     public String updateOrders(@RequestParam HashMap<String, String> param, Model model){
         model.addAttribute("orders", ordersService.getOneOrder(param));
@@ -198,6 +211,25 @@ public class AdminController {
         model.addAttribute("page", "1");
         if (re == 1) {
             return "redirect:/admin/orders";
+        }else {
+            return "error";
+        }
+    }
+
+    //비회원 주문정보 업데이트
+    @GetMapping("admin/orders/updateNoMemOrders")
+    public String updateNoMemOrders(@RequestParam HashMap<String, String> param, Model model){
+        model.addAttribute("orders", ordersService.getNoMemOneOrder(param));
+        return "admin/orders/updateNoMemOrders";
+    }
+
+    //비회원 주문정보 업데이트
+    @GetMapping("admin/orders/updateNoMemOrders_ok")
+    public String updateNoMemOrdersOk(@RequestParam HashMap<String, String> param, Model model, HttpSession session){
+        int re = ordersService.updateNoMemOrdersStatus(param);
+        model.addAttribute("page", "1");
+        if (re == 1) {
+            return "redirect:/admin/orders/noMemOrders";
         }else {
             return "error";
         }

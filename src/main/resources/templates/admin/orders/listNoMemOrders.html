@@ -1,0 +1,102 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/adminLayout">
+
+<th:block layout:fragment="css">
+    <style>
+        #btn-area {
+            text-align: center;
+        }
+
+        .table {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        img {
+            width: 80px;
+            height: 50px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .input-group {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .pagination {
+            justify-content: center;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+
+    </script>
+</th:block>
+
+<div layout:fragment="content">
+    <br>
+    <form th:action="@{/admin/orders/searchNoMemOrders}" class="input-group mb-3">
+        <input type="search" class="form-control" placeholder="주문번호, 주문자로 검색" aria-describedby="button-addon2" th:name="searchKeyword">
+        <input class="btn btn-outline-secondary" th:type="submit" id="button-addon2" value="검색">
+    </form>
+
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>주문 번호</th>
+            <th>회원아이디</th>
+            <th>주문 상품</th>
+            <th>결제 금액</th>
+            <th>주문 날짜</th>
+            <th>처리 상태</th>
+        </tr>
+        <tr th:each="order : ${list}">
+            <td th:href="@{/admin/orders/updateNoMemOrders(orders_no=${order.orders_no})}" >
+                <a th:href="@{/admin/orders/updateNoMemOrders(orders_no=${order.orders_no})}">
+                    <th:block th:text="${order.orders_no}"></th:block>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/admin/orders/updateNoMemOrders(orders_no=${order.orders_no})}" th:text="${order.orders_nm}">
+                    아이디
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/admin/orders/updateNoMemOrders(orders_no=${order.orders_no})}" th:text="${order.book.book_nm}">
+                    책 이름
+                </a>
+            </td>
+            <td th:text="${order.orders_qty} * ${order.book.book_price}">230,000원</td>
+            <td th:text="${order.orders_date}">22.12.12</td>
+            <td th:switch="${order.orders_status}">
+                <th:block th:case="0" th:text="주문취소">주문취소</th:block>
+                <th:block th:case="1" th:text="대기">대기</th:block>
+                <th:block th:case="2" th:text="배송중">배송중</th:block>
+                <th:block th:case="3" th:text="배송완료">배송완료</th:block>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <th:block layout:fragment="paging">
+        <nav th:replace="fragments/common :: pagination" class="pagination"></nav>
+    </th:block>
+</div>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function movePage(uri, queryString) {
+            location.href = uri + queryString;
+        }
+
+        /*]]>*/
+    </script>
+</th:block>
+</html>
