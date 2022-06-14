@@ -84,6 +84,6 @@ public class OrdersController {
     @GetMapping("orders/ordersDone")
     public String orderDone(@RequestParam HashMap<String, String> param, Model model){
         model.addAttribute("orders", service.getOneOrder(param));
-        return "/orders/ordersDone";
+        return "orders/ordersDone";
     }
 }
