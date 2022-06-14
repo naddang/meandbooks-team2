@@ -35,6 +35,7 @@
              , date_format(O.ORDERS_DATE,'%y-%m-%d %h:%i') "ORDERS_DATE"
              , O.ORDERS_QTY
           FROM ORDERS O JOIN BOOK B
+          on o.book_no = b.book_no
          WHERE ORDERS_NO = #{orders_no}
     </select>
 
