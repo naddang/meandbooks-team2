@@ -88,6 +88,12 @@ function registerCheck(){
         register.mem_email.focus();
         return;
     }
+
+    if(!register.mem_uid.hasAttribute('readonly')){
+        alert("아이디 중복체크를 해주세요.");
+        register.mem_email.focus();
+        return;
+    }
     document.register.submit();
 
 }
